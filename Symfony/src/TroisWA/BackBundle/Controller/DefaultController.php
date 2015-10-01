@@ -1,0 +1,16 @@
+<?php
+
+namespace TroisWA\BackBundle\Controller;
+
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+
+class DefaultController extends Controller
+{
+    public function indexAction($name)
+    {
+        return $this->render('TroisWABackBundle:Default:index.html.twig', array('name' => $name));
+    }
+
+
+
+}

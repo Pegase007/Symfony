@@ -1,0 +1,27 @@
+{
+    "name": "wap20/poo",
+    "description": "Fichier composer permettant de charger nos classes",
+    "authors": [
+        {
+            "name": "bob",
+            "email": "bob@eponge.fr"
+        }
+    ],
+    "autoload":
+    {
+
+
+      "psr-0":
+      {
+
+        "application\\animaux\\":"src/"
+
+      },
+      "psr-4":
+      {
+        "lib\\toto\\":"lib/"
+      }
+
+    },
+    "require": {}
+}

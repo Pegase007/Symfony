@@ -1,0 +1,7 @@
+trois_wa_back:
+    resource: "@TroisWABackBundle/Resources/config/routing.yml"
+    prefix:   /
+
+app:
+    resource: "@AppBundle/Controller/"
+    type:     annotation
