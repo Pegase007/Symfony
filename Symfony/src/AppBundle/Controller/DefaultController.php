@@ -9,7 +9,6 @@ use Symfony\Component\HttpFoundation\Request;
 class DefaultController extends Controller
 {
     /**
-     * J'attrape une route
      * @Route("/", name="homepage")
      */
     public function indexAction(Request $request)
@@ -19,5 +18,4 @@ class DefaultController extends Controller
             'base_dir' => realpath($this->container->getParameter('kernel.root_dir').'/..'),
         ));
     }
-
 }

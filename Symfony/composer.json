@@ -1,10 +1,11 @@
 {
-    "name": "symfony/framework-standard-edition",
-    "license": "MIT",
+    "name": "thais/my_project",
+    "license": "proprietary",
     "type": "project",
-    "description": "The \"Symfony Standard Edition\" distribution",
     "autoload": {
-        "psr-4": { "": "src/" }
+        "psr-4": {
+            "": "src/"
+        }
     },
     "require": {
         "php": ">=5.3.9",
@@ -48,9 +49,6 @@
         "symfony-assets-install": "relative",
         "incenteev-parameters": {
             "file": "app/config/parameters.yml"
-        },
-        "branch-alias": {
-            "dev-master": "2.7-dev"
         }
     }
 }

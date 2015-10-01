@@ -1,9 +1,0 @@
-trois_wa_back_homepage: #Un nom unique
-    path:     /hello/{name} #Chemin vers le controlleur
-    defaults: { _controller: TroisWABackBundle:Default:index } #Namespace / Controlleur/Methode
-
-
-trois_wa_back_contact:
-    path:     /contact
-    defaults: { _controller: TroisWABackBundle:Main:contact }
-
