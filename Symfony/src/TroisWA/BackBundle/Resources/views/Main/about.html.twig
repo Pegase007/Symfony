@@ -1,0 +1,158 @@
+<!doctype html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+<body>
+
+<h1> A PROPOS </h1>
+<a href="{{path('trois_wa_back_contact') }}">contact</a>
+
+
+{% set name ="ludo"  %}
+{% set test="3wa" %}
+{{ name }}
+{{ dump(name) }}
+{{ name }} {{ test }}
+{#======================CONCATENER=============================#}
+{{ name~" "~test }}
+
+{#======================BOUCLES=============================#}
+{#If#}
+
+{% if name=="ludo" %}
+    <p> Hello!</p>
+{% endif %}
+
+{#For#}
+
+{% for i in 0..10 %}
+
+    {{ i }}
+
+{% endfor %}
+
+{#Foreach#}
+{{ dump(products) }}
+{#Afficher le titre et la description de tous les article#}
+{% for key,value in products %}
+
+    {#{{ dump(value) }}#}
+    {#<br>  {{ value['title'] }} &#123;&#35;Ecriture PHP&#35;&#125;#}
+    {#<br>  {{ value.title }} &#123;&#35;Ecriture de twig&#35;&#125;#}
+    {#<br>  {{ value.date_created|date }} &#123;&#35;Ecriture de twig&#35;&#125;#}
+
+    <br> {%  if loop.first %}
+    {#Afficher uniquement pour le premier article la phrase suivante en plus :
+     "Ceci est le premier article" (ne pas utiliser id pour faire son test)#}
+
+    {{ value.title }} Ceci est mon premier produit
+
+{% else %}
+    {#Afficher pour l article ayant l id 4 un titre par défaut #}
+    {% if    value.id==4 %}
+
+        {{ value.title|default ('titre par defaut') }}: {{ value.description }}
+
+    {% else %}
+
+
+        <br> {{ value.title }}:{{ value.description }}
+
+
+    {% endif %}
+
+    {#Afficher le nombre d article en utilisant un filter#}
+    {% if loop.last %}
+
+        <br> {{ loop.index }} produits
+
+    {% endif %}
+
+
+{% endif %}
+{% endfor %}
+
+<br>
+
+{#Parcourez de nouveau les articles mais dans l ordre inverse#}
+
+{% for key,value in products|reverse %}
+
+    {{ value.title }}
+
+{% endfor %}
+<br>
+
+{% for key,value in products %}
+
+    {#Parcourez de nouveau les articles mais affichez uniquement l article 2 et 3#}
+    {% if value.id==3 or value.id==4 %}
+
+        {{ value.title }}: {{ value.description }}
+
+    {% endif %}
+
+{% endfor %}
+
+
+{% set total=0 %}
+{% set i=0 %}
+{% for key,value in products %}
+
+    {#Parcourez le tableau afin de faire le total des prix#}
+    {% set i=i+1 %}
+    {% set total= total + value.prix %}
+
+
+{% endfor %}
+<br>    Total des prix:{{ total }}
+<br>   Moyenne de prix: {{ total/i }}
+
+{% for key,value in products %}
+
+    {#Utiliser un filter afin d afficher en majuscule le titre des produits#}
+    <br>       {{ value.title|upper }}
+
+{% endfor %}
+
+{#Trouver la fonction twig permettant de compter de 0 à 10 avec un pas de 2 ;)#}
+{% for i in range(0,10,2) %}
+    {{ i }}
+{% endfor %}
+
+{#Afficher dans la vue votre prénom et votre nom en faisant une concaténation#}
+<br>{{ prenom ~" "~nom }}
+
+{#Afficher grâce à la catégorie test dans la documentation de twig,#}
+{#les produits impairs (ordre des produits dans le tableau)#}
+{% for key,value in products %}
+
+    {% if loop.index0 is even %}
+
+        {{ value.title }}
+    {% endif %}
+
+{% endfor %}
+
+{#Corriger le code ci-dessous sans toucher au controller afin d eviter une erreur en utilisant la catégorie test#}
+{% if mischievous is defined %}
+
+    {{ mischievous }}
+
+{% endif %}
+
+{#Parcourez de nouveau les produits mais afficher uniquement les produits ayant un titre#}
+<br>
+{% for key,value in products if value.title is not empty%}
+    <br>
+
+        {{ value.title }}:{{ value.description }}
+
+{% endfor %}
+
+</body>
+</html>
+
+
