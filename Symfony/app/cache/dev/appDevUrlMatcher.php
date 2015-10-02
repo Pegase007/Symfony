@@ -134,7 +134,25 @@ class appDevUrlMatcher extends Symfony\Bundle\FrameworkBundle\Routing\Redirectab
 
         // trois_wa_back_contact
         if ($pathinfo === '/contact') {
-            return array (  '_controller' => 'TroisWABackBundle:Main:contact',  '_route' => 'trois_wa_back_contact',);
+            return array (  '_controller' => 'TroisWA\\BackBundle\\Controller\\MainController::contactAction',  '_route' => 'trois_wa_back_contact',);
+        }
+
+        // trois_wa_back_about
+        if ($pathinfo === '/about') {
+            return array (  '_controller' => 'TroisWA\\BackBundle\\Controller\\MainController::aboutAction',  '_route' => 'trois_wa_back_about',);
+        }
+
+        if (0 === strpos($pathinfo, '/product')) {
+            // trois_wa_back_product
+            if (preg_match('#^/product/(?P<id>[^/]++)$#s', $pathinfo, $matches)) {
+                return $this->mergeDefaults(array_replace($matches, array('_route' => 'trois_wa_back_product')), array (  '_controller' => 'TroisWA\\BackBundle\\Controller\\ProductController::productAction',));
+            }
+
+            // trois_wa_back_index
+            if ($pathinfo === '/product/index') {
+                return array (  '_controller' => 'TroisWA\\BackBundle\\Controller\\ProductController::indexAction',  '_route' => 'trois_wa_back_index',);
+            }
+
         }
 
         // homepage
