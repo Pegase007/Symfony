@@ -1,4 +1,4 @@
-trois_wa_back_homepage: #Un nom unique
+trois_wa_back_homepage: #Un nom unique/identifiant
     path:     /hello/{name} #Chemin vers le controlleur
     defaults: { _controller: TroisWABackBundle:Default:index } #Namespace / Controlleur/Methode
 
@@ -7,3 +7,15 @@ trois_wa_back_contact:
     path:     /contact
     defaults: { _controller: TroisWABackBundle:Main:contact }
 
+trois_wa_back_about:
+    path:     /about
+    defaults: { _controller: TroisWABackBundle:Main:about }
+
+trois_wa_back_product:
+    path:     /product/{id}
+    defaults: { _controller: TroisWABackBundle:Product:product }
+ 
+
+trois_wa_back_index:
+    path:     /product/index
+    defaults: { _controller: TroisWABackBundle:Product:index }

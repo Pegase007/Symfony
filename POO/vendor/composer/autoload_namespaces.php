@@ -7,4 +7,5 @@ $baseDir = dirname($vendorDir);
 
 return array(
     'application\\animaux\\' => array($baseDir . '/src'),
+    'Psr\\Log\\' => array($vendorDir . '/psr/log'),
 );

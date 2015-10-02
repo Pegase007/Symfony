@@ -2,12 +2,60 @@
 
 namespace application\animaux;
 
-class Animal
+abstract class Animal
 {
 
-    private $name;
-    private $weight;
-    private $size;
+    protected $name;
+    protected $weight;
+    public $size;
+
+    /**
+     * @return mixed
+     */
+    public function getName()
+    {
+        return $this->name;
+    }
+
+    /**
+     * @param mixed $name
+     */
+    public function setName($name)
+    {
+        $this->name = $name;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getWeight()
+    {
+        return $this->weight;
+    }
+
+    /**
+     * @param mixed $weight
+     */
+    public function setWeight($weight)
+    {
+        $this->weight = $weight;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getSize()
+    {
+        return $this->size;
+    }
+
+    /**
+     * @param mixed $size
+     */
+    public function setSize($size)
+    {
+        $this->size = $size;
+    }
 
 
 
@@ -20,10 +68,7 @@ class Animal
     }
 
 
-    public function crier()
-    {
-
-    }
+    abstract public function crier();
 
 
 }
