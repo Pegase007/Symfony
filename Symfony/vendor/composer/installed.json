@@ -1511,67 +1511,6 @@
         ]
     },
     {
-        "name": "symfony/monolog-bundle",
-        "version": "v2.7.1",
-        "version_normalized": "2.7.1.0",
-        "source": {
-            "type": "git",
-            "url": "https://github.com/symfony/monolog-bundle.git",
-            "reference": "9320b6863404c70ebe111e9040dab96f251de7ac"
-        },
-        "dist": {
-            "type": "zip",
-            "url": "https://api.github.com/repos/symfony/monolog-bundle/zipball/9320b6863404c70ebe111e9040dab96f251de7ac",
-            "reference": "9320b6863404c70ebe111e9040dab96f251de7ac",
-            "shasum": ""
-        },
-        "require": {
-            "monolog/monolog": "~1.8",
-            "php": ">=5.3.2",
-            "symfony/config": "~2.3",
-            "symfony/dependency-injection": "~2.3",
-            "symfony/http-kernel": "~2.3",
-            "symfony/monolog-bridge": "~2.3"
-        },
-        "require-dev": {
-            "symfony/console": "~2.3",
-            "symfony/yaml": "~2.3"
-        },
-        "time": "2015-01-04 20:21:17",
-        "type": "symfony-bundle",
-        "extra": {
-            "branch-alias": {
-                "dev-master": "2.7.x-dev"
-            }
-        },
-        "installation-source": "dist",
-        "autoload": {
-            "psr-4": {
-                "Symfony\\Bundle\\MonologBundle\\": ""
-            }
-        },
-        "notification-url": "https://packagist.org/downloads/",
-        "license": [
-            "MIT"
-        ],
-        "authors": [
-            {
-                "name": "Symfony Community",
-                "homepage": "http://symfony.com/contributors"
-            },
-            {
-                "name": "Fabien Potencier",
-                "email": "fabien@symfony.com"
-            }
-        ],
-        "description": "Symfony MonologBundle",
-        "homepage": "http://symfony.com",
-        "keywords": [
-            "log",
-            "logging"
-        ]
-    },
-    {
         "name": "swiftmailer/swiftmailer",
         "version": "v5.4.1",
         "version_normalized": "5.4.1.0",
@@ -1734,5 +1673,66 @@
             }
         ],
         "description": "This bundle generates code for you"
+    },
+    {
+        "name": "symfony/monolog-bundle",
+        "version": "v2.8.0",
+        "version_normalized": "2.8.0.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/symfony/monolog-bundle.git",
+            "reference": "78883d8c1cfa523ac3a28a482b7793036b243f7d"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/symfony/monolog-bundle/zipball/78883d8c1cfa523ac3a28a482b7793036b243f7d",
+            "reference": "78883d8c1cfa523ac3a28a482b7793036b243f7d",
+            "shasum": ""
+        },
+        "require": {
+            "monolog/monolog": "~1.8",
+            "php": ">=5.3.2",
+            "symfony/config": "~2.3|3.*",
+            "symfony/dependency-injection": "~2.3|3.*",
+            "symfony/http-kernel": "~2.3|3.*",
+            "symfony/monolog-bridge": "~2.3|3.*"
+        },
+        "require-dev": {
+            "symfony/console": "~2.3|3.*",
+            "symfony/yaml": "~2.3"
+        },
+        "time": "2015-09-29 17:13:11",
+        "type": "symfony-bundle",
+        "extra": {
+            "branch-alias": {
+                "dev-master": "2.8.x-dev"
+            }
+        },
+        "installation-source": "dist",
+        "autoload": {
+            "psr-4": {
+                "Symfony\\Bundle\\MonologBundle\\": ""
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "MIT"
+        ],
+        "authors": [
+            {
+                "name": "Symfony Community",
+                "homepage": "http://symfony.com/contributors"
+            },
+            {
+                "name": "Fabien Potencier",
+                "email": "fabien@symfony.com"
+            }
+        ],
+        "description": "Symfony MonologBundle",
+        "homepage": "http://symfony.com",
+        "keywords": [
+            "log",
+            "logging"
+        ]
     }
 ]
