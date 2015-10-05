@@ -9,6 +9,16 @@ use Symfony\Component\HttpFoundation\Response;
 
 class MainController extends Controller
 {
+
+
+    public function adminAction()
+    {
+
+
+        return $this->render("TroisWABackBundle:Main:admin.html.twig");
+    }
+
+
     public function contactAction()
     {
 
@@ -59,6 +69,17 @@ class MainController extends Controller
                                                                         "prenom"=>$prenom,
                                                                         "nom"=>$nom]);
     }
+
+
+    public function clientAction($prenom,$nom){
+
+
+        return $this->render("TroisWABackBundle:Main:client.html.twig",["prenom"=>$prenom, "nom"=>$nom]);
+
+
+    }
+
+
 
 
 }
