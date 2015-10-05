@@ -1,7 +1,3 @@
-trois_wa_back_homepage: #Un nom unique/identifiant
-    path:     /hello/{name} #Chemin vers le controlleur
-    defaults: { _controller: TroisWABackBundle:Default:index } #Namespace / Controlleur/Methode
-
 
 trois_wa_back_contact:
     path:     /contact
@@ -11,11 +7,31 @@ trois_wa_back_about:
     path:     /about
     defaults: { _controller: TroisWABackBundle:Main:about }
 
+trois_wa_back_admin:
+    path:     /
+    defaults: { _controller: TroisWABackBundle:Main:admin }
+
+trois_wa_back_product_index:
+    path:     /product
+    defaults: { _controller: TroisWABackBundle:Product:index }
+
 trois_wa_back_product:
     path:     /product/{id}
     defaults: { _controller: TroisWABackBundle:Product:product }
- 
 
-trois_wa_back_index:
-    path:     /product/index
-    defaults: { _controller: TroisWABackBundle:Product:index }
+trois_wa_back_client:
+    path:     /client/{prenom}/{nom}
+    defaults: { _controller: TroisWABackBundle:Main:client }
+
+
+trois_wa_back_categories:
+    path:     /category
+    defaults: { _controller: TroisWABackBundle:Category:index }
+
+trois_wa_back_category:
+    path:     /category/{id}
+    defaults: { _controller: TroisWABackBundle:Category:cat }
+    requirements:
+
+              id: \d+
+#             id: "[0-9]+"

@@ -1,2 +1,16 @@
-Hello !
-<a href="{{ path('trois_wa_back_about')}}">about</a>
+{% extends "TroisWABackBundle::layout.html.twig" %}
+
+
+{% block title %}Contact{% endblock %}
+
+
+{% block breadcrumb %} Contact{% endblock %}
+
+
+{% block content %}
+    {{ parent() }}
+    <p>Nouveau contenu</p>
+
+{% endblock %}
+
+
