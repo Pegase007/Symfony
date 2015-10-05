@@ -1,14 +1,14 @@
-<!doctype html>
-<html lang="fr">
-<head>
-    <meta charset="UTF-8">
-    <title>Document</title>
-</head>
-<body>
+{% extends "TroisWABackBundle::layout.html.twig" %}
 
+{% block title %}About{% endblock %}
+
+{% block breadcrumb %}About{% endblock %}
+{% block sidebar %} {% endblock %}
+{% block content %}
 <h1> A PROPOS </h1>
 <a href="{{path('trois_wa_back_contact') }}">contact</a>
-
+<a href="{{ path("trois_wa_back_product", {id:12}) }}">Product</a>
+<a href="{{ path("trois_wa_back_client",{'prenom':'Ludo', 'nom':'V'}) }}">Client</a>
 
 {% set name ="ludo"  %}
 {% set test="3wa" %}
@@ -151,8 +151,4 @@
         {{ value.title }}:{{ value.description }}
 
 {% endfor %}
-
-</body>
-</html>
-
-
+{% endblock %}

@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Categories</title>
+</head>
+<body>
+
+<h1> Category {{ cat.id }}: {{ cat.title }}</h1>
+<a href="{{ path("trois_wa_back_categories") }}">Retour vers toutes les categories</a>
+
+<br>
+<br>
+
+
+
+<br>
+<h3> Description:</h3>
+{{ cat.description | nl2br | raw }}
+<br>
+<br>
+{{ cat.description |striptags | length }} caracteres | Date: {{ cat.date_created|date }}
+
+
+
+
+
+
+</body>
+</html>

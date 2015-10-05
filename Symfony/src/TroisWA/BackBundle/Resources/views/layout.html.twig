@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}{% endblock %} | admin</title>
+</head>
+<body>
+
+{% block breadcrumb %}{% endblock %} | admin
+
+{% block content %} {% endblock %}
+
+
+{% block sidebar %}
+
+    <div>
+        <ul>
+            <li><a href=""> Cat 1</a></li>
+            <li><a href=""> Cat 2</a></li>
+
+        </ul>
+    </div>
+
+{% endblock %}
+
+</body>
+</html>

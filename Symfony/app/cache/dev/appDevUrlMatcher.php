@@ -127,11 +127,6 @@ class appDevUrlMatcher extends Symfony\Bundle\FrameworkBundle\Routing\Redirectab
 
         }
 
-        // trois_wa_back_homepage
-        if (0 === strpos($pathinfo, '/hello') && preg_match('#^/hello/(?P<name>[^/]++)$#s', $pathinfo, $matches)) {
-            return $this->mergeDefaults(array_replace($matches, array('_route' => 'trois_wa_back_homepage')), array (  '_controller' => 'TroisWA\\BackBundle\\Controller\\DefaultController::indexAction',));
-        }
-
         // trois_wa_back_contact
         if ($pathinfo === '/contact') {
             return array (  '_controller' => 'TroisWA\\BackBundle\\Controller\\MainController::contactAction',  '_route' => 'trois_wa_back_contact',);
@@ -142,26 +137,47 @@ class appDevUrlMatcher extends Symfony\Bundle\FrameworkBundle\Routing\Redirectab
             return array (  '_controller' => 'TroisWA\\BackBundle\\Controller\\MainController::aboutAction',  '_route' => 'trois_wa_back_about',);
         }
 
+        // trois_wa_back_admin
+        if (rtrim($pathinfo, '/') === '') {
+            if (substr($pathinfo, -1) !== '/') {
+                return $this->redirect($pathinfo.'/', 'trois_wa_back_admin');
+            }
+
+            return array (  '_controller' => 'TroisWA\\BackBundle\\Controller\\MainController::adminAction',  '_route' => 'trois_wa_back_admin',);
+        }
+
         if (0 === strpos($pathinfo, '/product')) {
+            // trois_wa_back_product_index
+            if ($pathinfo === '/product') {
+                return array (  '_controller' => 'TroisWA\\BackBundle\\Controller\\ProductController::indexAction',  '_route' => 'trois_wa_back_product_index',);
+            }
+
             // trois_wa_back_product
             if (preg_match('#^/product/(?P<id>[^/]++)$#s', $pathinfo, $matches)) {
                 return $this->mergeDefaults(array_replace($matches, array('_route' => 'trois_wa_back_product')), array (  '_controller' => 'TroisWA\\BackBundle\\Controller\\ProductController::productAction',));
             }
 
-            // trois_wa_back_index
-            if ($pathinfo === '/product/index') {
-                return array (  '_controller' => 'TroisWA\\BackBundle\\Controller\\ProductController::indexAction',  '_route' => 'trois_wa_back_index',);
-            }
-
         }
 
-        // homepage
-        if (rtrim($pathinfo, '/') === '') {
-            if (substr($pathinfo, -1) !== '/') {
-                return $this->redirect($pathinfo.'/', 'homepage');
+        if (0 === strpos($pathinfo, '/c')) {
+            // trois_wa_back_client
+            if (0 === strpos($pathinfo, '/client') && preg_match('#^/client/(?P<prenom>[^/]++)/(?P<nom>[^/]++)$#s', $pathinfo, $matches)) {
+                return $this->mergeDefaults(array_replace($matches, array('_route' => 'trois_wa_back_client')), array (  '_controller' => 'TroisWA\\BackBundle\\Controller\\MainController::clientAction',));
             }
 
-            return array (  '_controller' => 'AppBundle\\Controller\\DefaultController::indexAction',  '_route' => 'homepage',);
+            if (0 === strpos($pathinfo, '/category')) {
+                // trois_wa_back_categories
+                if ($pathinfo === '/category') {
+                    return array (  '_controller' => 'TroisWA\\BackBundle\\Controller\\CategoryController::indexAction',  '_route' => 'trois_wa_back_categories',);
+                }
+
+                // trois_wa_back_category
+                if (preg_match('#^/category/(?P<id>\\d+)$#s', $pathinfo, $matches)) {
+                    return $this->mergeDefaults(array_replace($matches, array('_route' => 'trois_wa_back_category')), array (  '_controller' => 'TroisWA\\BackBundle\\Controller\\CategoryController::catAction',));
+                }
+
+            }
+
         }
 
         throw 0 < count($allow) ? new MethodNotAllowedException(array_unique($allow)) : new ResourceNotFoundException();
