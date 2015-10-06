@@ -1551,6 +1551,20 @@
         "description": "This bundle generates code for you"
     },
     {
+<<<<<<< HEAD
+        "name": "symfony/monolog-bundle",
+        "version": "v2.8.0",
+        "version_normalized": "2.8.0.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/symfony/monolog-bundle.git",
+            "reference": "78883d8c1cfa523ac3a28a482b7793036b243f7d"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/symfony/monolog-bundle/zipball/78883d8c1cfa523ac3a28a482b7793036b243f7d",
+            "reference": "78883d8c1cfa523ac3a28a482b7793036b243f7d",
+=======
         "name": "symfony/symfony",
         "version": "v2.7.5",
         "version_normalized": "2.7.5.0",
@@ -1687,6 +1701,7 @@
             "type": "zip",
             "url": "https://api.github.com/repos/symfony/monolog-bundle/zipball/7117b9a145722e3c5768db4585f6ad0643ed5c4a",
             "reference": "7117b9a145722e3c5768db4585f6ad0643ed5c4a",
+>>>>>>> 50b09f085ce8dca708c05274c1a9cb5c2397e907
             "shasum": ""
         },
         "require": {
@@ -1701,7 +1716,11 @@
             "symfony/console": "~2.3|3.*",
             "symfony/yaml": "~2.3"
         },
+<<<<<<< HEAD
+        "time": "2015-09-29 17:13:11",
+=======
         "time": "2015-10-02 11:51:59",
+>>>>>>> 50b09f085ce8dca708c05274c1a9cb5c2397e907
         "type": "symfony-bundle",
         "extra": {
             "branch-alias": {
