@@ -1,15 +1,62 @@
-<!doctype html>
-<html lang="fr">
-<head>
-    <meta charset="UTF-8">
-    <title>Document</title>
-</head>
-<body>
+{% extends "TroisWABackBundle::layoutBo.html.twig" %}
 
-<h1> Product {{ id }} </h1>
-
-<a href="{{path('trois_wa_back_about') }}">about</a>
+{% block content %}
+<h1> Products for category {{ id }} </h1>
 
 
-</body>
-</html>
+<div class="col-md-3">
+    <div class="box box-warning">
+        <div class="box-header with-border">
+            <h3 class="box-title">Minion 1</h3>
+            <div class="box-tools pull-right">
+                <button class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+            </div><!-- /.box-tools -->
+        </div><!-- /.box-header -->
+        <div class="box-body" style="display: block;">
+            <img src="http://vignette1.wikia.nocookie.net/parody/images/3/33/Stuart_gulitar_minions_4.jpg/revision/latest?cb=20150507162458" class="img-responsive" alt="Responsive image">
+        </div><!-- /.box-body -->
+    </div><!-- /.box -->
+</div>
+<div class="col-md-3">
+    <div class="box box-warning">
+        <div class="box-header with-border">
+            <h3 class="box-title">Minion 2</h3>
+            <div class="box-tools pull-right">
+                <button class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+            </div><!-- /.box-tools -->
+        </div><!-- /.box-header -->
+        <div class="box-body" style="display: block;">
+            <img src="http://cdn2.bigcommerce.com/server5400/5exu0/products/803/images/16671/wind_n_sun_skypals_minion_stuart_8_43258_70644_3__03637.1392072463.1280.1280.jpg?c=2" class="img-responsive" alt="Responsive image">
+
+        </div><!-- /.box-body -->
+    </div><!-- /.box -->
+</div>
+<div class="col-md-3">
+    <div class="box box-warning">
+        <div class="box-header with-border">
+            <h3 class="box-title">Minion 3</h3>
+            <div class="box-tools pull-right">
+                <button class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+            </div><!-- /.box-tools -->
+        </div><!-- /.box-header -->
+        <div class="box-body" style="display: block;">
+            <img src="http://opowae.info/wp-content/uploads/2015/07/stuart_the_minion_wallpaper.jpg" class="img-responsive" alt="Responsive image">
+
+        </div><!-- /.box-body -->
+    </div><!-- /.box -->
+</div>
+<div class="col-md-3">
+    <div class="box box-warning">
+        <div class="box-header with-border">
+            <h3 class="box-title">Minion 4</h3>
+            <div class="box-tools pull-right">
+                <button class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+            </div><!-- /.box-tools -->
+        </div><!-- /.box-header -->
+        <div class="box-body" style="display: block;">
+            <img src="http://images.internetgiftstore.com/images/products/1411567757-45221400.jpg" class="img-responsive" alt="Responsive image">
+
+        </div><!-- /.box-body -->
+    </div><!-- /.box -->
+</div>
+{% endblock %}
