@@ -1,4 +1,6 @@
-{% extends "TroisWABackBundle::layoutBo.html.twig" %}
+{% extends "TroisWABackBundle::layoutBo2.html.twig" %}
+
+{% block page %} Contact {% endblock %}
 
 {% block content %}
     {#
@@ -13,66 +15,62 @@ Permet d'afficher directement le formulaire
     Permet de creer la balise form ouvrante/fermante. Si l'interieur est vide, il va génerer
     l'intégralité des inputs. Y inclus le TOKEN
     #}
-<div class="tab-content col-md-offset-1 col-sm-10">
-    <div class="tab-pane active" id="tab1">
-    {{ form_start(formContact) }}
+    <div class="tab-content col-md-offset-1 col-sm-10">
+        <div class="tab-pane active" id="tab1">
+            {{ form_start(formContact) }}
 
-    {#ceci permet d'afficher le label,widget(input) et errors#}
-    {#{{ form_row(formContact.email) }}#}
-
-
-   {#&#123;&#35;<label>&#35;&#125; {{ form_label(formContact.email,null,{ label_attr:{ class:"form-label"}}) }}#}
-   {#&#123;&#35;<input>&#35;&#125;{{ form_errors(formContact.email) }}#}
-    {#&#123;&#35;<ul/li>&#35;&#125; {{ form_widget(formContact.email,{ attr:{ class:"form-control", placeholder:"bob" }, id:"bob" }) }}#}
+            {#ceci permet d'afficher le label,widget(input) et errors#}
+            {#{{ form_row(formContact.email) }}#}
 
 
+            {#&#123;&#35;<label>&#35;&#125; {{ form_label(formContact.email,null,{ label_attr:{ class:"form-label"}}) }}#}
+            {#&#123;&#35;<input>&#35;&#125;{{ form_errors(formContact.email) }}#}
+            {#&#123;&#35;<ul/li>&#35;&#125; {{ form_widget(formContact.email,{ attr:{ class:"form-control", placeholder:"bob" }, id:"bob" }) }}#}
 
-        <div class="row ">
-            <div class="col-sm-6 ">
-                {{ form_label(formContact.firstname,"First Name",{ label_attr:{ class:"form-label"}}) }}
-                {{ form_widget(formContact.firstname,{ attr:{ class:"form-control", placeholder:" First Name" } }) }}
 
+
+            <div class="row ">
+                <div class="col-sm-6 ">
+                    {{ form_label(formContact.firstname,"First Name",{ label_attr:{ class:"form-label"}}) }}
+                    {{ form_widget(formContact.firstname,{ attr:{ class:"form-control", placeholder:" First Name" } }) }}
+
+                </div>
+                <div class="col-sm-6">
+                    {{ form_label(formContact.lastname,"Last Name",{ label_attr:{ class:"form-label"}}) }}
+                    {{ form_widget(formContact.lastname,{ attr:{ class:"form-control", placeholder:" Last Name" } }) }}
+                </div>
             </div>
-            <div class="col-sm-6">
-                {{ form_label(formContact.lastname,"Last Name",{ label_attr:{ class:"form-label"}}) }}
-                {{ form_widget(formContact.lastname,{ attr:{ class:"form-control", placeholder:" Last Name" } }) }}
+            <div class="row">
+                <div class="col-sm-4">
+                    {{ form_label(formContact.username,"Username",{ label_attr:{ class:"form-label"}}) }}
+                    {{ form_widget(formContact.username,{ attr:{ class:"form-control", placeholder:" Username" } }) }}
+                </div>
+                <div class="col-sm-8">
+                    {{ form_label(formContact.email,"Email",{ label_attr:{ class:"form-label"}}) }}
+                    {{ form_widget(formContact.email,{ attr:{ class:"form-control", placeholder:" Email" } }) }}
+                </div>
             </div>
-        </div>
-        <div class="row">
-            <div class="col-sm-4">
-                {{ form_label(formContact.username,"Username",{ label_attr:{ class:"form-label"}}) }}
-                {{ form_widget(formContact.username,{ attr:{ class:"form-control", placeholder:" Username" } }) }}
-            </div>
-            <div class="col-sm-8">
-                {{ form_label(formContact.email,"Email",{ label_attr:{ class:"form-label"}}) }}
-                {{ form_widget(formContact.email,{ attr:{ class:"form-control", placeholder:" Email" } }) }}
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-sm-12">
-                <div class="label-wrapper">
-                {{ form_label(formContact.content,"Content",{ label_attr:{ class:"form-label"}}) }}
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="label-wrapper">
+                        {{ form_label(formContact.content,"Content",{ label_attr:{ class:"form-label"}}) }}
                     </div>
-                {{ form_widget(formContact.content,{ attr:{ class:"form-control", placeholder:" Content" } }) }}
-            </div>
+                    {{ form_widget(formContact.content,{ attr:{ class:"form-control", placeholder:" Content" } }) }}
+                </div>
 
-        </div>
-        <br>
-        <div class="row">
-        <button class="btn vd_btn col-md-6 col-md-offset-3 ">Submit
+            </div>
+            <br>
+            <div class="row">
+                <button class="btn vd_btn next col-md-6 col-md-offset-3  ">Submit
             <span class="menu-icon">
                 <i class="fa fa-fw fa-chevron-circle-right"></i></span
                     ></button>
+            </div>
+
+
         </div>
 
-
-</div>
-
-
-
-
-
-    {{ form_end(formContact) }}
+        {{ form_end(formContact) }}
     </div>
 
 
