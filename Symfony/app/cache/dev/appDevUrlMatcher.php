@@ -132,6 +132,11 @@ class appDevUrlMatcher extends Symfony\Bundle\FrameworkBundle\Routing\Redirectab
             return array (  '_controller' => 'TroisWA\\BackBundle\\Controller\\MainController::contactAction',  '_route' => 'trois_wa_back_contact',);
         }
 
+        // trois_wa_back_feedback
+        if ($pathinfo === '/feedback') {
+            return array (  '_controller' => 'TroisWA\\BackBundle\\Controller\\MainController::feedbackAction',  '_route' => 'trois_wa_back_feedback',);
+        }
+
         // trois_wa_back_about
         if ($pathinfo === '/about') {
             return array (  '_controller' => 'TroisWA\\BackBundle\\Controller\\MainController::aboutAction',  '_route' => 'trois_wa_back_about',);
