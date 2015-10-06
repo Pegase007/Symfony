@@ -3,6 +3,10 @@ trois_wa_back_contact:
     path:     /contact
     defaults: { _controller: TroisWABackBundle:Main:contact }
 
+trois_wa_back_feedback:
+    path:     /feedback
+    defaults: { _controller: TroisWABackBundle:Main:feedback }
+
 trois_wa_back_about:
     path:     /about
     defaults: { _controller: TroisWABackBundle:Main:about }
