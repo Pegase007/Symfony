@@ -1,4 +1,4 @@
-{% extends "TroisWABackBundle::layoutBo.html.twig" %}
+{% extends "TroisWABackBundle::layoutBo2.html.twig" %}
 
 {% block page %} Categories {% endblock %}
 
@@ -19,58 +19,63 @@
         {#{{ category.title }}#}
 
 {#{% endfor %}#}
-
-<div class="row">
-    <div class="col-xs-12">
-        <div class="box">
-            <div class="box-header">
-                <h3 class="box-title">Responsive Hover Table</h3>
-                <div class="box-tools">
-                    <div class="input-group" style="width: 150px;">
-                        <input type="text" name="table_search" class="form-control input-sm pull-right" placeholder="Search">
-                        <div class="input-group-btn">
-                            <button class="btn btn-sm btn-default"><i class="fa fa-search"></i></button>
-                        </div>
-                    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel widget">
+                <div class="panel-heading vd_bg-grey">
+                    <h3 class="panel-title"> <span class="menu-icon"> <i class="fa fa-dot-circle-o"></i> </span> Table Basic with Hover </h3>
                 </div>
-            </div><!-- /.box-header -->
-            <div class="box-body table-responsive no-padding">
-                <table class="table table-hover">
-                    <tbody><tr>
-                        <th>ID</th>
-                        <th>Name</th>
-                        <th>Date</th>
-                        <th>Status</th>
-                        <th>Description</th>
-                        <th>Actions</th>
-                    </tr>
+                <div class="panel-body table-responsive">
+                    <table class="table table-hover">
+                        <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Name</th>
+                            <th>Date</th>
+                            <th>Status</th>
+                            <th>Description</th>
+                            <th>Actions</th>
+                        </tr>
+                        </thead>
+                        <tbody>
     {% for category in categories %}
-                    <tr>
-                        <td>{{ category.id }}</td>
-                        <td>{{ category.title }}</td>
-                        <td>{{ category.date_created|date("d/m/Y") }}</td>
-                        <td><span class="label label-{% if category.active ==true %}success">Actif{% else %}warning">Not Actif{% endif %}</span></td>
-                        <td>{{ category.description |raw }}</td>
-                        <td>
-                            <a href="{{ path("trois_wa_back_product",{'id':category.id} ) }}" class="btn btn-app-xs ">
-                                <i class="fa fa-play"></i> See
-                            </a>
-                            <a href="" class="btn btn-app-xs ">
-                                <i class="fa fa-edit"></i> Edit
-                            </a>
-                            <a href="" class="btn btn-app-xs ">
-                                <i class="fa fa-trash-o"></i> Delete
-                            </a>
-
-
-
-                        </td>
-                    </tr>
+        <tr>
+            <td>{{ category.id }}</td>
+            <td>{{ category.title }}</td>
+            <td>{{ category.date_created|date("d/m/Y") }}</td>
+            <td><span class="label label-{% if category.active ==true %}success">Actif{% else %}warning">Not Actif{% endif %}</span></td>
+            <td>{{ category.description |raw }}</td>
+                            <td class="menu-action">
+                                <a href="{{  path("trois_wa_back_product",{'id':category.id} ) }}" data-original-title="view" data-toggle="tooltip" data-placement="top" class="btn menu-icon vd_bd-green vd_green">
+                                    <i class="fa fa-eye"></i>
+                                </a>
+                                <a href="" data-original-title="edit" data-toggle="tooltip" data-placement="top" class="btn menu-icon vd_bd-yellow vd_yellow">
+                                    <i class="fa fa-pencil"></i>
+                                </a>
+                                <a href="" data-original-title="delete" data-toggle="tooltip" data-placement="top" class="btn menu-icon vd_bd-red vd_red">
+                                    <i class="fa fa-times"></i>
+                                </a>
+                            </td>
+                        </tr>
     {% endfor %}
-                    </tbody></table>
-            </div><!-- /.box-body -->
-        </div><!-- /.box -->
+                        </tbody>
+                    </table>
+                    <ul class="pagination">
+                        <li><a href="#">«</a></li>
+                        <li class="active"><a href="#">1</a></li>
+                        <li><a href="#">2</a></li>
+                        <li><a href="#">3</a></li>
+                        <li><a href="#">4</a></li>
+                        <li><a href="#">5</a></li>
+                        <li><a href="#">»</a></li>
+                    </ul>
+                </div>
+            </div>
+            <!-- Panel Widget -->
+        </div>
+        <!-- col-md-12 -->
     </div>
-</div>
+
+
 
 {% endblock %}
