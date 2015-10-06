@@ -1,0 +1,18 @@
+{% extends "TroisWABackBundle::layoutBo.html.twig" %}
+
+{% block content %}
+
+    {% for message in app.session.flashbag.get("success_contact") %}
+
+        <div class="alert alert-success alert-dismissable">
+            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+            <h4>	<i class="icon fa fa-check"></i> Yay!</h4>
+            {{ message }}
+        </div>
+
+
+    {% endfor %}
+
+    {{ form(formContact) }}
+
+{% endblock %}

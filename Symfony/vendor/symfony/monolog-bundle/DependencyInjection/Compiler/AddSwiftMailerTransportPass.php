@@ -34,24 +34,6 @@ class AddSwiftMailerTransportPass implements CompilerPassInterface
             $definition = $container->getDefinition($id);
             $mailerId = (string) $definition->getArgument(0);
 
-<<<<<<< HEAD
-            if (
-                $container->hasAlias($mailerId . '.transport.real') ||
-                $container->hasDefinition($mailerId . '.transport.real')
-            ) {
-                $definition->addMethodCall(
-                    'setTransport',
-                    array(new Reference($mailerId . '.transport.real'))
-                );
-            } elseif (
-                $container->hasAlias($mailerId . '.transport') ||
-                $container->hasDefinition($mailerId . '.transport')
-            ) {
-                $definition->addMethodCall(
-                    'setTransport',
-                    array(new Reference($mailerId . '.transport'))
-                );
-=======
             // Try to fetch the transport for a non-default mailer first, then go with the default swiftmailer
             $possibleServices = array(
                 $mailerId.'.transport.real',
@@ -69,7 +51,6 @@ class AddSwiftMailerTransportPass implements CompilerPassInterface
 
                     break;
                 }
->>>>>>> 50b09f085ce8dca708c05274c1a9cb5c2397e907
             }
         }
     }
