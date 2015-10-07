@@ -1,11 +1,8 @@
 {% extends "TroisWABackBundle::layoutBo2.html.twig" %}
 
+{#{%  form_theme formContact "TroisWABackBundle:Form:fields.html.twig" %}#}
+
 {% block content %}
-
-
-
-
-
 
 
     {% for message in app.session.flashbag.get("success_contact") %}
@@ -35,12 +32,14 @@
 
             <div class="row col-sm-12">
 
-
+                <div class=" col-sm-12">
                     {{ form_label(formContact.page,"Page Url",{ label_attr:{ class:"form-label"}}) }}
+                {#<div class="form-group {% if form_errors(formContact.page) %} has-warning {% endif %}">#}
                     {{ form_widget(formContact.page,{ attr:{ class:"form-control noresize", placeholder:" Page Url" } }) }}
                     {{ form_errors(formContact.page) }}
 
-            </div>
+                {#</div>#}
+                </div>
             <div class="row  col-sm-12">
                 <div class="col-sm-6 ">
                     {{ form_label(formContact.date,"Date",{ label_attr:{ class:"form-label"}}) }}
@@ -65,12 +64,12 @@
                 </div>
             </div>
             <div class="row col-sm-12">
-                <div class="col-sm-4">
+                <div class="col-sm-5">
                     {{ form_label(formContact.firstname,"First Name",{ label_attr:{ class:"form-label"}}) }}
                     {{ form_widget(formContact.firstname,{ attr:{ class:"form-control", placeholder:" First Name" } }) }}
                     {{ form_errors(formContact.firstname) }}
                 </div>
-                <div class="col-sm-8">
+                <div class="col-sm-7">
                     {{ form_label(formContact.email,"Email",{ label_attr:{ class:"form-label"}}) }}
                     {{ form_widget(formContact.email,{ attr:{ class:"form-control", placeholder:" Email" } }) }}
                     {{ form_errors(formContact.email) }}

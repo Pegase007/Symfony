@@ -2,6 +2,25 @@
 
 {% block page %} Contact {% endblock %}
 
+{# Effectuer la modif des errors#}
+
+{% form_theme formContact _self  %}
+
+
+{%- block form_errors -%}
+    {%- if errors|length > 0 -%}
+
+            {%- for error in errors -%}
+                <div class="alert alert-danger alert-dismissable alert-condensed">
+                    <i class="fa fa-exclamation-triangle append-icon"></i>
+                    <strong>{{ error.message }}</strong>
+
+                </div>
+            {%- endfor -%}
+    {%- endif -%}
+{%- endblock form_errors -%}
+
+
 {% block content %}
     {#
 
@@ -43,26 +62,35 @@ Permet d'afficher directement le formulaire
 
             <div class="row ">
                 <div class="col-sm-6 ">
+
                     {{ form_label(formContact.firstname,"First Name",{ label_attr:{ class:"form-label"}}) }}
+                    <div class="form-group {% if form_errors(formContact.firstname) %} has-error {% endif %}">
                     {{ form_widget(formContact.firstname,{ attr:{ class:"form-control", placeholder:" First Name" } }) }}
                     {{ form_errors(formContact.firstname) }}
+                    </div>
                 </div>
                 <div class="col-sm-6">
                     {{ form_label(formContact.lastname,"Last Name",{ label_attr:{ class:"form-label"}}) }}
+                    <div class="form-group {% if form_errors(formContact.firstname) %} has-error {% endif %}">
                     {{ form_widget(formContact.lastname,{ attr:{ class:"form-control", placeholder:" Last Name" } }) }}
                     {{ form_errors(formContact.lastname) }}
+                        </div>
                 </div>
             </div>
             <div class="row">
-                <div class="col-sm-4">
+                <div class="col-sm-5">
                     {{ form_label(formContact.username,"Username",{ label_attr:{ class:"form-label"}}) }}
+                    <div class="form-group {% if form_errors(formContact.firstname) %} has-error {% endif %}">
                     {{ form_widget(formContact.username,{ attr:{ class:"form-control", placeholder:" Username" } }) }}
                     {{ form_errors(formContact.username) }}
+                        </div>
                 </div>
-                <div class="col-sm-8">
+                <div class="col-sm-7">
                     {{ form_label(formContact.email,"Email",{ label_attr:{ class:"form-label"}}) }}
+                    <div class="form-group {% if form_errors(formContact.firstname) %} has-error {% endif %}">
                     {{ form_widget(formContact.email,{ attr:{ class:"form-control", placeholder:" Email" } }) }}
                     {{ form_errors(formContact.email) }}
+                        </div>
                 </div>
             </div>
             <div class="row">
@@ -70,8 +98,10 @@ Permet d'afficher directement le formulaire
                     <div class="label-wrapper">
                         {{ form_label(formContact.content,"Content",{ label_attr:{ class:"form-label"}}) }}
                     </div>
+                    <div class="form-group {% if form_errors(formContact.firstname) %} has-error {% endif %}">
                     {{ form_widget(formContact.content,{ attr:{ class:"form-control noresize", placeholder:" Content" } }) }}
                     {{ form_errors(formContact.content) }}
+                        </div>
                 </div>
 
             </div>
