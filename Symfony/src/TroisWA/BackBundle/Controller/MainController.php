@@ -8,6 +8,8 @@ use Doctrine\ORM\Mapping\Entity;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Validator\Mapping\ClassMetadata;
+use Symfony\Component\Validator\Constraints as Assert;
 
 class MainController extends Controller
 {
@@ -26,48 +28,126 @@ class MainController extends Controller
 
 //    return new Response(' ok ');
         $formContact=$this->createFormBuilder()
-                        ->add("firstname","text")
-                        ->add("lastname","text")
-                        ->add("username","text")
-                        ->add("email","email")
-                        ->add("content","textarea")
-//                        ->add("send","submit")
-                        ->getForm();
+            //(nom du champ,type de champ)
+            ->add("firstname","text",
+                [
+                    "constraints"=>[
+                        new Assert\NotBlank(),
+                        new Assert\Length(array(
+                            'min'        => 2,
+                        ))
+                    ],
+//                    "required"=>false //désactive le html5 pour un champ ciblé
+                ])
+            ->add("lastname","text",[
+                "constraints"=>[
+                    new Assert\NotBlank()
+                ],
+//                    "required"=>false //désactive le html5 pour un champ ciblé
+            ])
+            ->add("username","text",[
+                "constraints"=>[
+                    new Assert\NotBlank()
+                ],
+//                    "required"=>false //désactive le html5 pour un champ ciblé
+            ])
+            ->add("email","email",[
+                "constraints"=>[
+                    new Assert\NotBlank(),
+                    new Assert\Email(array(
+                        'message' => 'The email "{{ value }}" is not a valid email.',
+                        'checkMX' => true,
+                    ))
+                ],
+//                    "required"=>false //désactive le html5 pour un champ ciblé
+            ])
+            ->add("content","textarea",[
+                "constraints"=>[
+                    new Assert\NotBlank(),
+                    new Assert\Length(array(
+                        'min'   => 10,
+                        'max'   =>100,
+                    ))
 
-        if("POST"==$request->getMethod())
+                ],
+//                    "required"=>false //désactive le html5 pour un champ ciblé
+            ])
+
+//          ->add("send","submit")
+            ->getForm();
+//    PREMIERE VERSION
+//        if("POST"==$request->getMethod())
+//        {
+////            exit(dump($request->request->all()));
+//            $formContact->bind($request);
+//            if($formContact->isValid())
+//            {
+//                $data=$formContact->getData();
+////                exit(dump($data));
+//                $message = \Swift_Message::newInstance()
+//                    ->setSubject('Hello Email')
+//                    ->setFrom('ipad.tdb@gmail.com')
+//                    ->setTo('ipad.tdb@gmail.com')
+//                    ->setBody(
+//                        $this->renderView(
+//                        // app/Resources/views/Emails/registration.html.twig
+//                            'TroisWABackBundle:Emails:contact.html.twig',
+//                            array('data'=>$data)
+//                        ),
+//                        'text/html'
+//                    );
+//
+//                $this->get('mailer')->send($message);
+//                $this->get("session")->getFlashBag()
+//                    ->add("success_contact","Le mail à bien été envoyé");
+//
+////                Get to Post permet de transformer les formulaire qui arrive en post -> get()
+//                return $this->redirectToRoute("trois_wa_back_contact");
+//
+//
+//            }
+//
+//        }
+//            DEUXIEME VERSION
+
+//        A partir d'ici le formulaire est hydraté
+        $formContact->handleRequest($request);
+        if($formContact->isValid())
         {
-//            exit(dump($request->request->all()));
-            $formContact->bind($request);
-            if($formContact->isValid())
-            {
-                $data=$formContact->getData();
-//                exit(dump($data));
-                $message = \Swift_Message::newInstance()
-                    ->setSubject('Hello Email')
-                    ->setFrom('ipad.tdb@gmail.com')
-                    ->setTo('ipad.tdb@gmail.com')
-                    ->setBody(
-                        $this->renderView(
-                        // app/Resources/views/Emails/registration.html.twig
-                            'TroisWABackBundle:Emails:contact.html.twig',
-                            array('data'=>$data)
-                        ),
-                        'text/html'
-                    );
 
-                $this->get('mailer')->send($message);
-                $this->get("session")->getFlashBag()
-                    ->add("success_contact","Le mail à bien été envoyé");
+            $data=$formContact->getData();
+            $message = \Swift_Message::newInstance()
+                ->setSubject('Hello Email')
+                ->setFrom('ipad.tdb@gmail.com')
+                ->setTo('ipad.tdb@gmail.com')
+                ->setBody(
+                    $this->renderView(
+                    // app/Resources/views/Emails/registration.html.twig
+                        'TroisWABackBundle:Emails:contact.html.twig',
+                        array('data'=>$data)
+                    ),
+                    'text/html'
+                );
+
+            $this->get('mailer')->send($message);
+            $this->get("session")->getFlashBag()
+                ->add("success_contact","Le mail à bien été envoyé");
 
 //                Get to Post permet de transformer les formulaire qui arrive en post -> get()
-                return $this->redirectToRoute("trois_wa_back_contact");
-
-
-            }
+            return $this->redirectToRoute("trois_wa_back_contact");
 
         }
-        return $this->render("TroisWABackBundle:Main:contact.html.twig",array("formContact"=> $formContact->createView()));
+
+        return $this->render("TroisWABackBundle:Main:contact.html.twig",array("formContact"=> $formContact->createView(),"prenom"=>"Ludo"));
     }
+
+
+
+
+
+
+
+
 
 
     public function feedbackAction(Request $request)
@@ -76,22 +156,61 @@ class MainController extends Controller
 
 //    return new Response(' ok ');
         $formContact=$this->createFormBuilder()
-            ->add("page","url")
+            ->add("page","url",[
+                "constraints"=>[
+                    new Assert\NotBlank(),
+                    new Assert\Url()
+
+                ],
+//                    "required"=>false //désactive le html5 pour un champ ciblé
+            ])
+
+
             ->add('bugstatus','choice', array(
                 'choices'  => array('empty' => 'Empty page', 'bob' => 'Bob'),
                 'required' => true,
+                'constraints'=>[
+                    new Assert\Choice(array(
+                        'Empty page',
+                        'bob' => 'Bob'
+                    ))
+
+                ]
             ))
 
-            ->add("firstname","text")
-            ->add("email","email")
-            ->add("date", 'date', array(
-                'input'  => 'datetime',
-                'widget' => 'choice',
-                'years' => range(date('Y') -1, date('Y'))))
+            ->add("firstname","text",[
+                "constraints"=>[
+                    new Assert\NotBlank(),
+
+                ],
+//                    "required"=>false //désactive le html5 pour un champ ciblé
+            ])
+            ->add("email","email",[
+                "constraints"=>[
+                    new Assert\NotBlank(),
+                     new Assert\Email(array(
+                         'message' => 'The email "{{ value }}" is not a valid email.',
+                         'checkMX' => true,
+        ))
+    ],
+//                    "required"=>false //désactive le html5 pour un champ ciblé
+            ])
+            ->add("date", 'date', [
+            'input'  => 'datetime',
+            'widget' => 'choice',
+            'years' => range(date('Y') -1, date('Y')),
+            "constraints"=>[
+                new Assert\NotBlank(),
+                new Assert\Date()
+
+            ]
+
+        ]
+    )
 
 
-            ->add("send","submit")
-            ->getForm();
+//            ->add("send","submit")
+        ->getForm();
 
 
         if("POST"==$request->getMethod())
@@ -174,8 +293,8 @@ class MainController extends Controller
         $nom="DE BRITO";
 
         return $this->render("TroisWABackBundle:Main:about.html.twig",["products"=> $products,
-                                                                        "prenom"=>$prenom,
-                                                                        "nom"=>$nom]);
+            "prenom"=>$prenom,
+            "nom"=>$nom]);
     }
 
 
