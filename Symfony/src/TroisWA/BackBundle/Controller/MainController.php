@@ -171,8 +171,8 @@ class MainController extends Controller
                 'required' => true,
                 'constraints'=>[
                     new Assert\Choice(array(
-                        'Empty page',
-                        'bob' => 'Bob'
+                        'empty',
+                        'bob'
                     ))
 
                 ]

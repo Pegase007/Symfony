@@ -293,6 +293,8 @@
     <parameter key="twig.exception_listener.controller">twig.controller.exception:showAction</parameter>
     <parameter key="twig.form.resources" type="collection">
       <parameter>form_div_layout.html.twig</parameter>
+      <parameter>bootstrap_3_layout.html.twig</parameter>
+      <parameter>TroisWABackBundle:Form:fields.html.twig</parameter>
     </parameter>
     <parameter key="monolog.logger.class">Symfony\Bridge\Monolog\Logger</parameter>
     <parameter key="monolog.gelf.publisher.class">Gelf\MessagePublisher</parameter>
@@ -1711,7 +1713,7 @@
       <argument type="collection">
         <argument type="service">
           <service class="Symfony\Component\Security\Core\Authentication\Provider\AnonymousAuthenticationProvider" public="false">
-            <argument>5614c6c4c913d1.71157275</argument>
+            <argument>561529565befd3.19785526</argument>
           </service>
         </argument>
       </argument>
@@ -1834,7 +1836,7 @@
         <argument type="service">
           <service class="Symfony\Component\Security\Http\Firewall\AnonymousAuthenticationListener" public="false">
             <argument type="service" id="security.token_storage"/>
-            <argument>5614c6c4c913d1.71157275</argument>
+            <argument>561529565befd3.19785526</argument>
             <argument type="service" id="monolog.logger.security" on-invalid="null"/>
             <argument type="service" id="security.authentication.manager"/>
           </service>
@@ -1878,6 +1880,8 @@
         <argument key="exception_controller">twig.controller.exception:showAction</argument>
         <argument key="form_themes" type="collection">
           <argument>form_div_layout.html.twig</argument>
+          <argument>bootstrap_3_layout.html.twig</argument>
+          <argument>TroisWABackBundle:Form:fields.html.twig</argument>
         </argument>
         <argument key="autoescape">filename</argument>
         <argument key="cache">/home/wap20/sites/Symfony/app/cache/dev/twig</argument>
@@ -2016,6 +2020,8 @@
                   <service class="Symfony\Bridge\Twig\Form\TwigRendererEngine" public="false">
                     <argument type="collection">
                       <argument>form_div_layout.html.twig</argument>
+                      <argument>bootstrap_3_layout.html.twig</argument>
+                      <argument>TroisWABackBundle:Form:fields.html.twig</argument>
                     </argument>
                   </service>
                 </argument>
