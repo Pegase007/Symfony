@@ -31,7 +31,25 @@ class ProductController extends Controller
 
     }
 
+    public function customAction()
+    {
 
+
+//    return new Response(' ok ');
+
+        return $this->render("TroisWABackBundle:Product:product-custom.html.twig");
+
+    }
+
+    public function addAction()
+    {
+
+
+//    return new Response(' ok ');
+
+        return $this->render("TroisWABackBundle:Product:add.html.twig");
+
+    }
 
 
 }
