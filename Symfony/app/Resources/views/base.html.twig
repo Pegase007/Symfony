@@ -1,13 +1,131 @@
 <!DOCTYPE html>
+<!--[if IE 8]>			<html class="ie ie8"> <![endif]-->
+<!--[if IE 9]>			<html class="ie ie9"> <![endif]-->
+<!--[if gt IE 9]><!-->	<html><!--<![endif]-->
+
+<!-- Specific Page Data -->
+
+<!-- End of Data -->
 <html>
     <head>
         <meta charset="UTF-8" />
-        <title>{% block title %}Welcome!{% endblock %}</title>
-        {% block stylesheets %}{% endblock %}
+
+        <title>{% block title %}Dashboad {% endblock %}</title>
+        <meta name="keywords" content=" " />
+        <meta name="description" content="">
+        <meta name="author" content="">
+
+        <!-- Set the viewport width to device width for mobile -->
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        {% block stylesheets %}
+
+
+            <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet" type="text/css">
+            <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+            <link href="{{ asset("css/font-entypo.css") }}" rel="stylesheet" type="text/css">
+
+            <!-- Fonts CSS -->
+            <link href="{{ asset("css/fonts.css") }}"  rel="stylesheet" type="text/css">
+
+            <!-- Plugin CSS -->
+            <link href="{{ asset("plugins/jquery-ui/jquery-ui.custom.min.css") }}" rel="stylesheet" type="text/css">
+            <link href="{{ asset("plugins/prettyPhoto-plugin/css/prettyPhoto.css") }}" rel="stylesheet" type="text/css">
+            <link href="{{ asset("plugins/isotope/css/isotope.css") }}" rel="stylesheet" type="text/css">
+            <link href="{{ asset("plugins/pnotify/css/jquery.pnotify.css") }}" media="screen" rel="stylesheet" type="text/css">
+            <link href="{{ asset("plugins/google-code-prettify/prettify.css") }}" rel="stylesheet" type="text/css">
+
+
+            <link href="{{ asset("plugins/mCustomScrollbar/jquery.mCustomScrollbar.css") }}" rel="stylesheet" type="text/css">
+            <link href="{{ asset("plugins/tagsInput/jquery.tagsinput.css") }}" rel="stylesheet" type="text/css">
+            <link href="{{ asset("plugins/bootstrap-switch/bootstrap-switch.css") }}" rel="stylesheet" type="text/css">
+            <link href="{{ asset("plugins/daterangepicker/daterangepicker-bs3.css") }}" rel="stylesheet" type="text/css">
+            <link href="{{ asset("plugins/bootstrap-timepicker/bootstrap-timepicker.min.css") }}" rel="stylesheet" type="text/css">
+            <link href="{{ asset("plugins/colorpicker/css/colorpicker.css") }}" rel="stylesheet" type="text/css">
+
+            <!-- Specific CSS -->
+            <link href="{{ asset("plugins/introjs/css/introjs.min.css") }}" rel="stylesheet" type="text/css">
+
+            <!-- Theme CSS -->
+            <link href="{{ asset("css/theme.min.css") }}" rel="stylesheet" type="text/css">
+            <!--[if IE]> <link href="{{ asset("css/ie.css") }}" rel="stylesheet" > <![endif]-->
+            <link href="{{ asset("css/chrome.css") }}" rel="stylesheet" type="text/chrome"> <!-- chrome only css -->
+
+
+
+                                                                                            <!-- Responsive CSS -->
+            <link href="{{ asset("css/theme-responsive.min.css") }}" rel="stylesheet" type="text/css">
+
+
+            <!-- Custom CSS -->
+            <link href="{{ asset("custom/custom.css") }}" rel="stylesheet" type="text/css">
+
+
+
+        {% endblock %}
+
         <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
+
+
+        <!-- Head SCRIPTS -->
+        <script type="text/javascript" src="{{ asset("js/modernizr.js") }}"></script>
+        <script type="text/javascript" src="{{ asset("js/mobile-detect.min.js") }}"></script>
+        <script type="text/javascript" src="{{ asset("js/mobile-detect-modernizr.js") }}"></script>
+
+        <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+        <!--[if lt IE 9]>
+        <script type="text/javascript" src="{{ asset("js/html5shiv.js") }}"></script>
+        <script type="text/javascript" src="{{ asset("js/respond.min.js") }}"></script>
+        <![endif]-->
+
+
     </head>
-    <body>
-        {% block body %}{% endblock %}
-        {% block javascripts %}{% endblock %}
+
+
+
+    <body id="dashboard" class="full-layout  nav-right-hide nav-right-start-hide  nav-top-fixed      responsive    clearfix" data-active="dashboard "  data-smooth-scrolling="1">
+
+
+    {% block body %}
+
+
+    {% endblock %}
+
+
+
+
+
+        {% block javascripts %}
+
+            <!-- Javascript =============================================== -->
+            <!-- Placed at the end of the document so the pages load faster -->
+            <script type="text/javascript" src="{{ asset("js/jquery.js") }}"></script>
+            <!--[if lt IE 9]>
+            <script type="text/javascript" src="{{ asset("js/excanvas.js") }}"></script>
+<![endif]-->
+            <script type="text/javascript" src="{{ asset("js/bootstrap.min.js") }}"></script>
+            <script type="text/javascript" src='{{ asset("plugins/jquery-ui/jquery-ui.custom.min.js") }}'></script>
+            <script type="text/javascript" src="{{ asset("plugins/jquery-ui-touch-punch/jquery.ui.touch-punch.min.js") }}"></script>
+
+            <script type="text/javascript" src="{{ asset("js/caroufredsel.js") }}"></script>
+            <script type="text/javascript" src="{{ asset("js/plugins.js") }}"></script>
+
+            <script type="text/javascript" src="{{ asset("plugins/breakpoints/breakpoints.js") }}"></script>
+            <script type="text/javascript" src="{{ asset("plugins/datatables/jquery.dataTables.min.js") }}"></script>
+            <script type="text/javascript" src="{{ asset("plugins/prettyPhoto-plugin/js/jquery.prettyPhoto.js") }}"></script>
+
+            <script type="text/javascript" src="{{ asset("plugins/mCustomScrollbar/jquery.mCustomScrollbar.concat.min.js") }}"></script>
+            <script type="text/javascript" src="{{ asset("plugins/tagsInput/jquery.tagsinput.min.js") }}"></script>
+            <script type="text/javascript" src="{{ asset("plugins/bootstrap-switch/bootstrap-switch.min.js") }}"></script>
+            <script type="text/javascript" src="{{ asset("plugins/blockUI/jquery.blockUI.js") }}"></script>
+            <script type="text/javascript" src="{{ asset("plugins/pnotify/js/jquery.pnotify.min.js") }}"></script>
+
+            <script type="text/javascript" src="{{ asset("js/theme.js") }}"></script>
+            <script type="text/javascript" src="{{ asset("custom/custom.js") }}"></script>
+
+
+
+
+        {% endblock %}
     </body>
 </html>
