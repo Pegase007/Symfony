@@ -151,17 +151,24 @@ class appDevUrlMatcher extends Symfony\Bundle\FrameworkBundle\Routing\Redirectab
             return array (  '_controller' => 'TroisWA\\BackBundle\\Controller\\MainController::adminAction',  '_route' => 'trois_wa_back_admin',);
         }
 
-        if (0 === strpos($pathinfo, '/product')) {
-            // trois_wa_back_product_index
-            if ($pathinfo === '/product') {
-                return array (  '_controller' => 'TroisWA\\BackBundle\\Controller\\ProductController::indexAction',  '_route' => 'trois_wa_back_product_index',);
-            }
+        // trois_wa_back_product_index
+        if ($pathinfo === '/product') {
+            return array (  '_controller' => 'TroisWA\\BackBundle\\Controller\\ProductController::indexAction',  '_route' => 'trois_wa_back_product_index',);
+        }
 
-            // trois_wa_back_product
-            if (preg_match('#^/product/(?P<id>[^/]++)$#s', $pathinfo, $matches)) {
-                return $this->mergeDefaults(array_replace($matches, array('_route' => 'trois_wa_back_product')), array (  '_controller' => 'TroisWA\\BackBundle\\Controller\\ProductController::productAction',));
-            }
+        // trois_wa_back_product_custom
+        if ($pathinfo === '/custom') {
+            return array (  '_controller' => 'TroisWA\\BackBundle\\Controller\\ProductController::customAction',  '_route' => 'trois_wa_back_product_custom',);
+        }
 
+        // trois_wa_back_product_add
+        if ($pathinfo === '/add') {
+            return array (  '_controller' => 'TroisWA\\BackBundle\\Controller\\ProductController::addAction',  '_route' => 'trois_wa_back_product_add',);
+        }
+
+        // trois_wa_back_product
+        if (0 === strpos($pathinfo, '/product') && preg_match('#^/product/(?P<id>[^/]++)$#s', $pathinfo, $matches)) {
+            return $this->mergeDefaults(array_replace($matches, array('_route' => 'trois_wa_back_product')), array (  '_controller' => 'TroisWA\\BackBundle\\Controller\\ProductController::productAction',));
         }
 
         if (0 === strpos($pathinfo, '/c')) {
