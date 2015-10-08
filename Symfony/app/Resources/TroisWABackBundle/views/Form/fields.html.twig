@@ -3,7 +3,7 @@
     {%- if errors|length > 0 -%}
 
         {%- for error in errors -%}
-            <div class="alert alert-warning alert-dismissable alert-condensed">
+            <div class="alert alert-danger alert-dismissable alert-condensed">
                 <i class="fa fa-exclamation-triangle append-icon"></i>
                 <strong>{{ error.message }}</strong>
 
