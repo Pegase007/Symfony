@@ -1,0 +1,8 @@
+troiswa_bug_homepage:
+    path: /
+    defaults: { _controller: TroiswaBugBundle:Default:index }
+
+
+troiswa_bug_page:
+    path:   /page
+    defaults: { _controller: TroiswaBugBundle:Default:custom }

@@ -1,0 +1,4 @@
+services:
+#    troiswa_bug.example:
+#        class: Troiswa\BugBundle\Example
+#        arguments: [@service_id, "plain_value", %parameter%]

@@ -1,0 +1,4 @@
+troiswa_bug:
+    resource: "@TroiswaBugBundle/Resources/config/routing.yml"
+    prefix:   /
+
