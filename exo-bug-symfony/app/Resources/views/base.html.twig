@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <title>{% block title %}Welcome!{% endblock %}</title>
+        {% block stylesheets %}
+            <!-- Main Style -->
+            <link rel="stylesheet" href="{{ asset('css/style.css') }}">
+            
+            <!-- Skins -->
+            <link rel="stylesheet" href="{{ asset('css/skins.css') }}">
+            
+            <!-- Responsive Style -->
+            <link rel="stylesheet" href="{{ asset('css/responsive.css') }}">
+            <link rel="stylesheet" href="{{ asset('css/base.css') }}">
+        {% endblock %}
+        <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
+    </head>
+    <body>
+        {% block body %}{% endblock %}
+        {% block javascripts %}
+            <script src="{{ asset('js/jquery.min.js') }}"></script>
+            <script src="{{ asset('js/html5.js') }}"></script>
+            <script src="{{ asset('js/jquery.nicescroll.min.js') }}"></script>
+            <script src="{{ asset('js/modernizr.js') }}"></script>
+            <script src="{{ asset('js/jquery.isotope.min.js') }}"></script>
+            <script src="{{ asset('js/tabs.js') }}"></script>
+            <script src="{{ asset('js/jquery.prettyPhoto.js') }}"></script>
+            <script src="{{ asset('js/jquery.bxslider.min.js') }}"></script>
+            <script src="{{ asset('js/jquery.tweet.js') }}"></script>
+            <script src="{{ asset('js/jflickrfeed.min.js') }}"></script>
+            <script src="{{ asset('js/jquery.jribbble-1.0.1.ugly.js') }}"></script>
+            <script src="{{ asset('js/custom.js') }}"></script>
+        {% endblock %}
+    </body>
+</html>
