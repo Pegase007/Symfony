@@ -27,10 +27,10 @@ class Product
     /**
      * @var string
      *
-     * * @Assert\Length(
-     *      min = 2,
-     *      minMessage = "Your first name must be at least {{ limit }} characters long",
-     * )
+     * @Assert\Length(
+     *    min = 2,
+     *    minMessage = "Your first name must be at least {{ limit }} characters long",
+     *)
      * @Assert\NotBlank() (message="Must not be empty")
      * @ORM\Column(name="title", type="string", length=100)
      */
@@ -99,8 +99,6 @@ class Product
 
     /**
      * @var boolean
-     *
-
      *
      * @ORM\Column(name="activate", type="boolean")
      */

@@ -131,7 +131,7 @@ class MainController extends Controller
 
             $this->get('mailer')->send($message);
             $this->get("session")->getFlashBag()
-                ->add("success_contact","Le mail à bien été envoyé");
+                ->add("success","Le mail à bien été envoyé");
 
 //                Get to Post permet de transformer les formulaire qui arrive en post -> get()
             return $this->redirectToRoute("trois_wa_back_contact");
@@ -236,7 +236,7 @@ class MainController extends Controller
 
                 $this->get('mailer')->send($message);
                 $this->get("session")->getFlashBag()
-                    ->add("success_contact","Le mail à bien été envoyé");
+                    ->add("success","Le mail à bien été envoyé");
 
 //                Get to Post permet de transformer les formulaire qui arrive en post -> get()
                 return $this->redirectToRoute("trois_wa_back_feedback");

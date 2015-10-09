@@ -6,6 +6,7 @@ namespace TroisWA\BackBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Response;
+use TroisWA\BackBundle\Form\ProductType;
 
 class CategoryController extends Controller
 {
@@ -35,6 +36,7 @@ class CategoryController extends Controller
                 "active" => false
             ],
         ];
+
 
         return $this->render("TroisWABackBundle:Category:index.html.twig",["categories"=>$categories]);
 
@@ -79,10 +81,15 @@ class CategoryController extends Controller
             throw $this->createNotFoundException("La categorie n'existe pas");
         }
 
+    }
+
+    public function addAction(){
 
 
 
 
 
     }
+
+
 }

@@ -1,49 +1,12 @@
-
-trois_wa_back_contact:
-    path:     /contact
-    defaults: { _controller: TroisWABackBundle:Main:contact }
-
-trois_wa_back_feedback:
-    path:     /feedback
-    defaults: { _controller: TroisWABackBundle:Main:feedback }
-
-trois_wa_back_about:
-    path:     /about
-    defaults: { _controller: TroisWABackBundle:Main:about }
-
-trois_wa_back_admin:
-    path:     /
-    defaults: { _controller: TroisWABackBundle:Main:admin }
-
-trois_wa_back_product_index:
-    path:     /product
-    defaults: { _controller: TroisWABackBundle:Product:index }
-
-trois_wa_back_product_custom:
-    path:     /custom
-    defaults: { _controller: TroisWABackBundle:Product:custom }
-
-trois_wa_back_product_add:
-    path:     /add
-    defaults: { _controller: TroisWABackBundle:Product:add }
-
-trois_wa_back_product:
-    path:     /product/{id}
-    defaults: { _controller: TroisWABackBundle:Product:product }
-
-trois_wa_back_client:
-    path:     /client/{prenom}/{nom}
-    defaults: { _controller: TroisWABackBundle:Main:client }
+trois_wa_back_ressources_product:
+    resource: "@TroisWABackBundle/Resources/config/Routing/product.yml"
+    prefix: /product
 
 
-trois_wa_back_categories:
-    path:     /category
-    defaults: { _controller: TroisWABackBundle:Category:index }
+trois_wa_back_ressources_main:
+    resource: "@TroisWABackBundle/Resources/config/Routing/main.yml"
 
-trois_wa_back_category:
-    path:     /category/{id}
-    defaults: { _controller: TroisWABackBundle:Category:cat }
-    requirements:
 
-              id: \d+
-#             id: "[0-9]+"
+trois_wa_back_ressources_category:
+    resource: "@TroisWABackBundle/Resources/config/Routing/category.yml"
+    prefix: /category

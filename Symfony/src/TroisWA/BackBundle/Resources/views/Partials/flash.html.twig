@@ -1,0 +1,11 @@
+
+    {% for message in app.session.flashbag.get("success") %}
+
+    <div class="alert alert-success alert-dismissable">
+        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+        <h5>	<i class="icon fa fa-check"></i> BRAVO </h5>
+        {{ message }}
+    </div>
+
+    {% endfor %}
+

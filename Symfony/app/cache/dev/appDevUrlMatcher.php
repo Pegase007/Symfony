@@ -127,6 +127,43 @@ class appDevUrlMatcher extends Symfony\Bundle\FrameworkBundle\Routing\Redirectab
 
         }
 
+        if (0 === strpos($pathinfo, '/product')) {
+            // trois_wa_back_product_index
+            if (rtrim($pathinfo, '/') === '/product') {
+                if (substr($pathinfo, -1) !== '/') {
+                    return $this->redirect($pathinfo.'/', 'trois_wa_back_product_index');
+                }
+
+                return array (  '_controller' => 'TroisWA\\BackBundle\\Controller\\ProductController::indexAction',  '_route' => 'trois_wa_back_product_index',);
+            }
+
+            // trois_wa_back_product
+            if (preg_match('#^/product/(?P<id>\\d+)$#s', $pathinfo, $matches)) {
+                return $this->mergeDefaults(array_replace($matches, array('_route' => 'trois_wa_back_product')), array (  '_controller' => 'TroisWA\\BackBundle\\Controller\\ProductController::productAction',));
+            }
+
+            // trois_wa_back_product_custom
+            if ($pathinfo === '/product/custom') {
+                return array (  '_controller' => 'TroisWA\\BackBundle\\Controller\\ProductController::customAction',  '_route' => 'trois_wa_back_product_custom',);
+            }
+
+            // trois_wa_back_product_add
+            if ($pathinfo === '/product/add') {
+                return array (  '_controller' => 'TroisWA\\BackBundle\\Controller\\ProductController::addAction',  '_route' => 'trois_wa_back_product_add',);
+            }
+
+            // trois_wa_back_product_delete
+            if (0 === strpos($pathinfo, '/product/delete') && preg_match('#^/product/delete/(?P<id>\\d+)$#s', $pathinfo, $matches)) {
+                return $this->mergeDefaults(array_replace($matches, array('_route' => 'trois_wa_back_product_delete')), array (  '_controller' => 'TroisWA\\BackBundle\\Controller\\ProductController::deleteAction',));
+            }
+
+            // trois_wa_back_product_edit
+            if (0 === strpos($pathinfo, '/product/edit') && preg_match('#^/product/edit/(?P<id>\\d+)$#s', $pathinfo, $matches)) {
+                return $this->mergeDefaults(array_replace($matches, array('_route' => 'trois_wa_back_product_edit')), array (  '_controller' => 'TroisWA\\BackBundle\\Controller\\ProductController::editAction',));
+            }
+
+        }
+
         // trois_wa_back_contact
         if ($pathinfo === '/contact') {
             return array (  '_controller' => 'TroisWA\\BackBundle\\Controller\\MainController::contactAction',  '_route' => 'trois_wa_back_contact',);
@@ -151,26 +188,6 @@ class appDevUrlMatcher extends Symfony\Bundle\FrameworkBundle\Routing\Redirectab
             return array (  '_controller' => 'TroisWA\\BackBundle\\Controller\\MainController::adminAction',  '_route' => 'trois_wa_back_admin',);
         }
 
-        // trois_wa_back_product_index
-        if ($pathinfo === '/product') {
-            return array (  '_controller' => 'TroisWA\\BackBundle\\Controller\\ProductController::indexAction',  '_route' => 'trois_wa_back_product_index',);
-        }
-
-        // trois_wa_back_product_custom
-        if ($pathinfo === '/custom') {
-            return array (  '_controller' => 'TroisWA\\BackBundle\\Controller\\ProductController::customAction',  '_route' => 'trois_wa_back_product_custom',);
-        }
-
-        // trois_wa_back_product_add
-        if ($pathinfo === '/add') {
-            return array (  '_controller' => 'TroisWA\\BackBundle\\Controller\\ProductController::addAction',  '_route' => 'trois_wa_back_product_add',);
-        }
-
-        // trois_wa_back_product
-        if (0 === strpos($pathinfo, '/product') && preg_match('#^/product/(?P<id>[^/]++)$#s', $pathinfo, $matches)) {
-            return $this->mergeDefaults(array_replace($matches, array('_route' => 'trois_wa_back_product')), array (  '_controller' => 'TroisWA\\BackBundle\\Controller\\ProductController::productAction',));
-        }
-
         if (0 === strpos($pathinfo, '/c')) {
             // trois_wa_back_client
             if (0 === strpos($pathinfo, '/client') && preg_match('#^/client/(?P<prenom>[^/]++)/(?P<nom>[^/]++)$#s', $pathinfo, $matches)) {
@@ -179,7 +196,11 @@ class appDevUrlMatcher extends Symfony\Bundle\FrameworkBundle\Routing\Redirectab
 
             if (0 === strpos($pathinfo, '/category')) {
                 // trois_wa_back_categories
-                if ($pathinfo === '/category') {
+                if (rtrim($pathinfo, '/') === '/category') {
+                    if (substr($pathinfo, -1) !== '/') {
+                        return $this->redirect($pathinfo.'/', 'trois_wa_back_categories');
+                    }
+
                     return array (  '_controller' => 'TroisWA\\BackBundle\\Controller\\CategoryController::indexAction',  '_route' => 'trois_wa_back_categories',);
                 }
 
