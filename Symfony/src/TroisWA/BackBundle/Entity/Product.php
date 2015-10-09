@@ -84,6 +84,29 @@ class Product
 
     private $quantity;
 
+    /**
+     * @var text
+     *
+     * @Assert\Regex(
+     *     pattern="/^(REF-)[0-9]{1,}$/",
+     *     message="The value {{ value }} is not a valid reference."
+     * )
+     *
+     * @Assert\NotBlank() (message="Must not be empty")
+     * @ORM\Column(name="reference", type="text")
+     */
+    private $reference;
+
+    /**
+     * @var boolean
+     *
+
+     *
+     * @ORM\Column(name="activate", type="boolean")
+     */
+    private $activate;
+
+
     public function __construct()
     {
 
@@ -223,5 +246,53 @@ class Product
     public function getQuantity()
     {
         return $this->quantity;
+    }
+
+    /**
+     * Set reference
+     *
+     * @param string $reference
+     *
+     * @return Product
+     */
+    public function setReference($reference)
+    {
+        $this->reference = $reference;
+
+        return $this;
+    }
+
+    /**
+     * Get reference
+     *
+     * @return string
+     */
+    public function getReference()
+    {
+        return $this->reference;
+    }
+
+    /**
+     * Set activate
+     *
+     * @param boolean $activate
+     *
+     * @return Product
+     */
+    public function setActivate($activate)
+    {
+        $this->activate = $activate;
+
+        return $this;
+    }
+
+    /**
+     * Get activate
+     *
+     * @return boolean
+     */
+    public function getActivate()
+    {
+        return $this->activate;
     }
 }

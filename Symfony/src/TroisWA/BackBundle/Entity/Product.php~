@@ -41,11 +41,11 @@ class Product
      *
      * * @Assert\Length(
      *      max = 500,
-     *      maxMessage = "Your first name cannot be longer than {{ limit }} characters"
+     *      maxMessage = "Your first name cannot be longer than {{ limit }} characters",
+     *
      * )
      *
-     * @Assert\NotBlank() (message="Must not be empty")
-     * @ORM\Column(name="description", type="text")
+     * @ORM\Column(name="description", type="text",nullable=true)
      */
     private $description;
 
@@ -53,7 +53,7 @@ class Product
      * @var float
      *
      * @Assert\Regex(
-     *     pattern="/^[0-9]{1,}(,)?[0-9]{1,2}$/",
+     *     pattern="/^[0-9]{1,}(.)?[0-9]{1,2}$/",
      *     message="The value {{ value }} is not a valid price."
      * )
      *
@@ -79,21 +79,196 @@ class Product
      *
      * @Assert\NotBlank() (message="Must not be empty")
      *
-     * @ORM\Column(name="quantity", type="integer")
+     * @ORM\Column(name="quantity", type="integer",options={"default"=1})
      */
 
     private $quantity;
 
+    /**
+     * @var text
+     *
+     * @Assert\Regex(
+     *     pattern="/^(REF-)[0-9]{1,}$/",
+     *     message="The value {{ value }} is not a valid reference."
+     * )
+     *
+     * @Assert\NotBlank() (message="Must not be empty")
+     * @ORM\Column(name="reference", type="text")
+     */
+    private $reference;
 
+    /**
+     * @var boolean
+     *
+
+     *
+     * @ORM\Column(name="activate", type="boolean")
+     */
+    private $activate;
 
 
     public function __construct()
     {
 
         $this->dateCreated= new \DateTime("now");
+        $this->quantity= 1;
 
     }
 
 
 
+
+    /**
+     * Get id
+     *
+     * @return integer
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Set title
+     *
+     * @param string $title
+     *
+     * @return Product
+     */
+    public function setTitle($title)
+    {
+        $this->title = $title;
+
+        return $this;
+    }
+
+    /**
+     * Get title
+     *
+     * @return string
+     */
+    public function getTitle()
+    {
+        return $this->title;
+    }
+
+    /**
+     * Set description
+     *
+     * @param string $description
+     *
+     * @return Product
+     */
+    public function setDescription($description)
+    {
+        $this->description = $description;
+
+        return $this;
+    }
+
+    /**
+     * Get description
+     *
+     * @return string
+     */
+    public function getDescription()
+    {
+        return $this->description;
+    }
+
+    /**
+     * Set price
+     *
+     * @param float $price
+     *
+     * @return Product
+     */
+    public function setPrice($price)
+    {
+        $this->price = $price;
+
+        return $this;
+    }
+
+    /**
+     * Get price
+     *
+     * @return float
+     */
+    public function getPrice()
+    {
+        return $this->price;
+    }
+
+    /**
+     * Set dateCreated
+     *
+     * @param \DateTime $dateCreated
+     *
+     * @return Product
+     */
+    public function setDateCreated($dateCreated)
+    {
+        $this->dateCreated = $dateCreated;
+
+        return $this;
+    }
+
+    /**
+     * Get dateCreated
+     *
+     * @return \DateTime
+     */
+    public function getDateCreated()
+    {
+        return $this->dateCreated;
+    }
+
+    /**
+     * Set quantity
+     *
+     * @param integer $quantity
+     *
+     * @return Product
+     */
+    public function setQuantity($quantity)
+    {
+        $this->quantity = $quantity;
+
+        return $this;
+    }
+
+    /**
+     * Get quantity
+     *
+     * @return integer
+     */
+    public function getQuantity()
+    {
+        return $this->quantity;
+    }
+
+    /**
+     * Set reference
+     *
+     * @param string $reference
+     *
+     * @return Product
+     */
+    public function setReference($reference)
+    {
+        $this->reference = $reference;
+
+        return $this;
+    }
+
+    /**
+     * Get reference
+     *
+     * @return string
+     */
+    public function getReference()
+    {
+        return $this->reference;
+    }
 }

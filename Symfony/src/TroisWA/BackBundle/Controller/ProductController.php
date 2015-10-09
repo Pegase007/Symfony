@@ -54,8 +54,10 @@ class ProductController extends Controller
         $formProduct = $this->createFormBuilder($product)
                                 ->add("title","text")
                                 ->add("description","textarea")
+                                ->add("reference","text")
+                                ->add("activate","checkbox")
                                 ->add("price","number")
-                                ->add("submit","submit")
+//                                ->add("submit","submit")
                                 ->getForm();
 
 
