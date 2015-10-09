@@ -8,6 +8,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use TroisWA\BackBundle\Entity\Product;
+use TroisWA\BackBundle\Form\ProductType;
 
 class ProductController extends Controller
 {
@@ -15,21 +16,46 @@ class ProductController extends Controller
     public function productAction($id)
     {
 
+        $em = $this->getDoctrine()->getManager();
+        $products=$em->getRepository("TroisWABackBundle:Product")
+            ->find($id);
+
+//        FORMULAIRE SUPPRESSION
+//        $formProductDelete=$this->createFormDelete($id);
 
 //    return new Response(' ok ');
 
-        return $this->render("TroisWABackBundle:Product:product.html.twig",["id"=>$id]);
+//        return $this->render("TroisWABackBundle:Product:product.html.twig",["product"=>$products,"formDelete"=>$formProductDelete->createView()]);
+        return $this->render("TroisWABackBundle:Product:product.html.twig",["product"=>$products]);
 
     }
 
+//        FORMULAIRE SUPPRESSION
 
-    public function indexAction()
+//    private function createFormDelete($id)
+//    {
+//
+//            return $this->createFormBuilder($id)
+////                        Modifier l'action
+//                        ->setAction($this->generateUrl('trois_wa_back_product_delete', array('id' => $id)))
+//                        ->getForm();
+//
+//    }
+
+
+    public function indexAction(Request $request)
     {
 
 
+        $em = $this->getDoctrine()->getManager();
+        $products=$em->getRepository("TroisWABackBundle:Product")
+                     ->findAll();
+
+
+//die(dump($products));
 //    return new Response(' ok ');
 
-        return $this->render("TroisWABackBundle:Product:index.html.twig");
+        return $this->render("TroisWABackBundle:Product:index.html.twig",["products"=>$products]);
 
     }
 
@@ -73,7 +99,7 @@ class ProductController extends Controller
 
 
             $this->get("session")->getFlashBag()
-                ->add("success_contact","Le message à bien été envoyé");
+                ->add("success","Le message à bien été envoyé");
 
 //                Get to Post permet de transformer les formulaire qui arrive en post -> get()
             return $this->redirectToRoute("trois_wa_back_product_add");
@@ -88,5 +114,93 @@ class ProductController extends Controller
 
     }
 
+    public function editAction($id, Request $request)
+    {
 
+        $em = $this->getDoctrine()->getEntityManager();
+        $product = $em->getRepository('TroisWABackBundle:Product')->find($id);
+
+        if (!$product) {
+            throw $this->createNotFoundException('Unable to find product to edit.');
+        }
+
+//        $editForm = $this->createFormBuilder($product)
+//            ->add("title","text")
+//            ->add("description","textarea")
+//            ->add("reference","text")
+//            ->add("activate","checkbox")
+//            ->add("price","number")
+//                                ->add("submit","submit")
+//            ->getForm();
+
+//        FAIT APPEL AU FORMULAIRE PRODUCT TYPE
+        $editForm= $this->createForm(new ProductType(),$product)
+
+                 ->add("submit","submit");
+
+        $editForm->handleRequest($request);
+
+        if($editForm->isValid())
+        {
+
+            $em=$this->getDoctrine()->getManager();
+            $em->persist($product);
+            $em->flush();
+
+
+            $this->get("session")->getFlashBag()
+                ->add("success","Le produit à bien été mis à jour");
+
+//                Get to Post permet de transformer les formulaire qui arrive en post -> get()
+            return $this->redirectToRoute("trois_wa_back_product_index");
+
+        }
+
+
+
+        return $this->render('TroisWABackBundle:Product:edit.html.twig', ["editForm"=> $editForm->createView()]);
+    }
+
+    public function deleteAction($id, Request $request){
+
+//        FORMULAIRE SUPPRESSION
+
+//        $form = $this->createFormDelete($id);
+//        $form->handleRequest($request);
+//
+//        if ($form->isValid()) {
+//            $em = $this->getDoctrine()->getManager();
+//            $product = $em->getRepository('TroisWABackBundle:Product')->find($id);
+//
+//            if (!$product) {
+//                throw $this->createNotFoundException('Unable to find Product to delete.');
+//            }
+//
+//            // Code de la suppression
+//            $em->remove($product);
+//            $em->flush();
+//            // Fin code de la suppression
+//
+//            // Créer un message flash
+//        }
+//
+//
+//        return $this->redirect($this->generateUrl("trois_wa_back_product_index"));
+
+
+        $em = $this->getDoctrine()->getManager();
+        $product = $em->getRepository('TroisWABackBundle:Product')->find($id);
+        if (!$product) {
+                throw $this->createNotFoundException('Unable to find Product to delete.');
+            }
+//         Code de la suppression
+            $em->remove($product);
+            $em->flush();
+            // Fin code de la suppression
+
+            return $this->redirect($this->generateUrl("trois_wa_back_product_index"));
+
+
+
+    }
 }

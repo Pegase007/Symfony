@@ -39,13 +39,19 @@
                             <div class="vd_panel-header">
                                 <h1>{% block page %} {% endblock %}</h1>
 
+
                                 <!-- vd_panel-menu -->
                             </div>
+
                             <!-- vd_panel-header -->
                         </div>
                         <!-- vd_title-section -->
 
                         <div class="vd_content-section clearfix">
+
+                           {% include 'TroisWABackBundle:Partials:flash.html.twig' only %}
+
+
 
                             {% block content %}
 

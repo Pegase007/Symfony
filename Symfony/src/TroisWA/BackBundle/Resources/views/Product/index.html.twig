@@ -26,67 +26,139 @@
 
 {% block content %}
 
-    <div class="panel-body">
-        <div class="clearfix">
-        </div>
-        <br>
-        <div id="product-table_wrapper" class="dataTables_wrapper form-inline no-footer">
-            <div class="row mgbt-xs-0">
-                <div class="col-md-8 col-sm-12">
-                    <div class="dataTables_length" id="product-table_length">
-                        <label>Display &nbsp;
-                            <select name="product-table_length" aria-controls="product-table" class="form-control input-sm">
-                                <option value="10">10</option>
-                                <option value="25">25</option>
-                                <option value="50">50</option>
-                                <option value="100">100</option>
-                            </select>
-                        </label>
-                    </div>
+    {% for message in app.session.flashbag.get("success_contact") %}
 
-                    <div class="dataTables_info" id="product-table_info" role="status" aria-live="polite">
-                        Showing 0 to 0 of 0 entries
-                    </div>
-                    <div class="btn-group mgl-15 mgtp-5">
-                        <button data-toggle="dropdown" class="btn vd_btn vd_bg-grey btn-xs dropdown-toggle mgl-10" type="button"> Tools<i class="fa fa-caret-down prepend-icon"></i> </button>
-                        <ul role="menu" class="dropdown-menu">
-                            <li><a href="#">Export to XLS</a></li>
-                            <li><a href="#">Import from XLS</a></li>
-                            <li><a href="#">Print</a></li>
-                        </ul>
-                    </div>
+        <div class="alert alert-success alert-dismissable">
+            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+            <h4>	<i class="icon fa fa-check"></i> Yay!</h4>
+            {{ message }}
+        </div>
+
+
+    {% endfor %}
+
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel widget">
+                <div class="panel-heading vd_bg-grey">
+                    <h3 class="panel-title"> <span class="menu-icon"> <i class="fa fa-dot-circle-o"></i> </span> Table Basic with Hover </h3>
                 </div>
-                <div class="col-md-4 col-sm-12">
-                    <div class="dataTables_paginate paging_bootstrap" id="product-table_paginate">
-                        <ul class="pagination">
-                            <li class="prev disabled">
-                                <a href="#"> ← Previous</a>
-                            </li>
-                            <li class="next disabled">
-                                <a href="#">Next → </a>
-                            </li>
-                        </ul>
-                    </div>
+                <div class="panel-body table-responsive">
+                    <table class="table table-hover">
+                        <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Photo</th>
+                            <th>Name</th>
+                            <th>Category</th>
+                            <th>Price</th>
+                            <th>Qte</th>
+                            <th>Actions</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for product in products %}
+                            <tr>
+                                <td>{{ product.id }}</td>
+                                <td></td>
+                                <td>{{ product.title }}</td>
+                                <td></td>
+                                <td>{{ product.price }}</td>
+                                <td>{{ product.quantity }}</td>
+                                <td class="menu-action">
+                                    <a href="{{  path("trois_wa_back_product",{'id':product.id} ) }}" data-original-title="view" data-toggle="tooltip" data-placement="top" class="btn menu-icon vd_bd-green vd_green">
+                                        <i class="fa fa-eye"></i>
+                                    </a>
+                                    <a href="{{  path("trois_wa_back_product_edit",{'id':product.id} ) }}" data-original-title="edit" data-toggle="tooltip" data-placement="top" class="btn menu-icon vd_bd-yellow vd_yellow">
+                                        <i class="fa fa-pencil"></i>
+                                    </a>
+
+                                    <button href="{{  path("trois_wa_back_product_delete",{'id':product.id} ) }}" data-original-title="delete" data-toggle="tooltip" data-placement="top" class="btn menu-icon vd_bd-red vd_red">
+                                        <i class="fa fa-times"></i>
+                                    </button>
+
+                                </td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                    <ul class="pagination">
+                        <li><a href="#">«</a></li>
+                        <li class="active"><a href="#">1</a></li>
+                        <li><a href="#">2</a></li>
+                        <li><a href="#">3</a></li>
+                        <li><a href="#">4</a></li>
+                        <li><a href="#">5</a></li>
+                        <li><a href="#">»</a></li>
+                    </ul>
                 </div>
             </div>
-            <div id="product-table_processing" class="dataTables_processing" style="display: none;">
-                Processing...
-            </div>
-            <div class="table-scrollable"><table id="product-table" class="table table-striped table-hover table-responsive dataTable no-footer" aria-describedby="product-table_info" role="grid">
-                    <thead class="vd_bg-dark-blue">
-                    <tr class="heading" role="row"><th class="sorting_disabled" rowspan="1" colspan="1" aria-label="" style="width: 20px;"><div class="vd_checkbox">
-                                <input type="checkbox" id="checkbox-0">
-                                <label for="checkbox-0"></label>
-                            </div>
-                        </th><th class="sorting_asc" tabindex="0" aria-controls="product-table" rowspan="1" colspan="1" aria-sort="ascending" aria-label="ID: activate to sort column ascending" style="width: 50px;">ID</th><th class="sorting_disabled" rowspan="1" colspan="1" aria-label="Photo" style="width: 80px;">Photo</th><th class="sorting" tabindex="0" aria-controls="product-table" rowspan="1" colspan="1" aria-label="Name: activate to sort column ascending">Name</th><th class="sorting" tabindex="0" aria-controls="product-table" rowspan="1" colspan="1" aria-label="Category: activate to sort column ascending" style="width: 150px;">Category</th><th class="sorting" tabindex="0" aria-controls="product-table" rowspan="1" colspan="1" aria-label="Price: activate to sort column ascending" style="width: 100px;">Price</th><th class="sorting" tabindex="0" aria-controls="product-table" rowspan="1" colspan="1" aria-label="Qty: activate to sort column ascending" style="width: 50px;">Qty</th><th class="sorting" tabindex="0" aria-controls="product-table" rowspan="1" colspan="1" aria-label="Status: activate to sort column ascending" style="width: 70px;">Status</th><th class="sorting_disabled" rowspan="1" colspan="1" aria-label="" style="width: 100px;"></th></tr>
-                    <tr class="filter" role="row"><th rowspan="1" colspan="1"><div class="vd_checkbox">
-                                <input type="checkbox" id="checkbox-1">
-                                <label for="checkbox-1"></label>
-                            </div>
-                        </th><th rowspan="1" colspan="1">ID</th><th rowspan="1" colspan="1">Photo</th><th rowspan="1" colspan="1">Name</th><th rowspan="1" colspan="1">Category</th><th rowspan="1" colspan="1">Price</th><th rowspan="1" colspan="1">Qty</th><th rowspan="1" colspan="1">Status</th><th rowspan="1" colspan="1"></th></tr>
-                    </thead>
-                    <tbody><tr class="odd"><td valign="top" colspan="9" class="dataTables_empty">Loading...</td></tr></tbody></table></div><div class="row"><div class="col-md-8 col-sm-12"><div class="bulk-action"></div></div><div class="col-md-4 col-sm-12"><div class="dataTables_paginate paging_bootstrap"><ul class="pagination"><li class="prev disabled"><a href="#">← Previous</a></li><li class="next disabled"><a href="#">Next → </a></li></ul></div></div></div><div class="dataTables_processing" style="display: none;">Processing...</div></div>
+            <!-- Panel Widget -->
+        </div>
+        <!-- col-md-12 -->
     </div>
 
+
+
 {% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/owl.carousel.min.js"></script>
+    <script src="js/jquery.prettyPhoto.js"></script>
+    <script src="js/colpick.js"></script>
+    <script src="js/jquery.elastislide.js"></script>
+    <script src="js/jquery.mlens-1.3.min.js"></script>
+    <script src="js/main.js"></script>
+
+    <script>
+        $(function() {
+
+            var carouselContainer = $('#product-carousel'),
+                    productImg =  $('#product-image');
+
+            carouselContainer.elastislide({
+                orientation : 'vertical',
+                minItems : 4
+
+            });
+
+            productImg.mlens({
+                imgSrc: $("#product-image").attr("data-big"),
+                lensShape: "square",
+                lensSize: 150,
+                borderSize: 4,
+                borderColor: "#999",
+                borderRadius: 0
+            });
+
+
+            var oldImg = productImg.attr('src');
+            carouselContainer.find('li').on('mouseover', function() {
+
+                var newImg = $(this).find('a').attr('href');
+
+                productImg.attr({'src': newImg, 'data-big': newImg}).trigger('imagechanged');
+
+            });
+
+            // triggered with custom event
+            productImg.on('imagechanged', function() {
+                productImg.mlens("update", 0 ,{
+                    imgSrc: productImg.attr("data-big"),
+                    lensShape: "square",
+                    lensSize: 150,
+                    borderSize: 4,
+                    borderColor: "#999"
+                });
+            });
+
+        });
+    </script>
+
+{% endblock %}
+
+
 

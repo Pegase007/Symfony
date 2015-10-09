@@ -271,4 +271,28 @@ class Product
     {
         return $this->reference;
     }
+
+    /**
+     * Set activate
+     *
+     * @param boolean $activate
+     *
+     * @return Product
+     */
+    public function setActivate($activate)
+    {
+        $this->activate = $activate;
+
+        return $this;
+    }
+
+    /**
+     * Get activate
+     *
+     * @return boolean
+     */
+    public function getActivate()
+    {
+        return $this->activate;
+    }
 }
