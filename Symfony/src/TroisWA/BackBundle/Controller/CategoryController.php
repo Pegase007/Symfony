@@ -5,7 +5,10 @@ namespace TroisWA\BackBundle\Controller;
 
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use TroisWA\BackBundle\Entity\Category;
+use TroisWA\BackBundle\Form\CategoryType;
 use TroisWA\BackBundle\Form\ProductType;
 
 class CategoryController extends Controller
@@ -83,13 +86,38 @@ class CategoryController extends Controller
 
     }
 
-    public function addAction(){
+    public function addAction(Request $request)
+    {
 
 
+        $category = new Category();
 
+
+        $formCategory = $this->createForm(new CategoryType(), $category)
+
+            ->add("submit", "submit");
+
+
+        $formCategory->handleRequest($request);
+
+        if ($formCategory->isValid()) {
+
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($category);
+            $em->flush();
+
+
+            $this->get("session")->getFlashBag()
+                ->add("success", "Le message à bien été envoyé");
+
+//                Get to Post permet de transformer les formulaire qui arrive en post -> get()
+            return $this->redirectToRoute("trois_wa_back_category_add");
+
+
+        }
+        return $this->render("TroisWABackBundle:Category:add.html.twig", ["formCategory" => $formCategory->createView()]);
 
 
     }
 
-
-}
+    }
