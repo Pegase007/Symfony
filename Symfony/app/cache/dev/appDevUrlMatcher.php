@@ -209,6 +209,21 @@ class appDevUrlMatcher extends Symfony\Bundle\FrameworkBundle\Routing\Redirectab
                     return $this->mergeDefaults(array_replace($matches, array('_route' => 'trois_wa_back_category')), array (  '_controller' => 'TroisWA\\BackBundle\\Controller\\CategoryController::catAction',));
                 }
 
+                // trois_wa_back_category_add
+                if ($pathinfo === '/category/add') {
+                    return array (  '_controller' => 'TroisWA\\BackBundle\\Controller\\CategoryController::addAction',  '_route' => 'trois_wa_back_category_add',);
+                }
+
+                // trois_wa_back_category_edit
+                if ($pathinfo === '/category/edit') {
+                    return array (  '_controller' => 'TroisWA\\BackBundle\\Controller\\CategoryController::editAction',  '_route' => 'trois_wa_back_category_edit',);
+                }
+
+                // trois_wa_back_category_delete
+                if ($pathinfo === '/category/delete') {
+                    return array (  '_controller' => 'TroisWA\\BackBundle\\Controller\\CategoryController::deleteAction',  '_route' => 'trois_wa_back_category_delete',);
+                }
+
             }
 
         }

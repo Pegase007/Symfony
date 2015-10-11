@@ -3,6 +3,7 @@
 namespace TroisWA\BackBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Category
@@ -26,7 +27,7 @@ class Category
      *
      * @Assert\Length(
      *    min = 2,
-     *    minMessage = "Your first name must be at least {{ limit }} characters long",
+     *    minMessage = "Your title must be at least {{ limit }} characters long",
      *)
      * @Assert\NotBlank() (message="Must not be empty")
      * @ORM\Column(name="title", type="string", length=100)
@@ -36,18 +37,19 @@ class Category
     /**
      * @var string
      *
-     * @Assert\Regex(
-     *     pattern="/^[0-9]{1,}(.)?[0-9]{1,2}$/",
-     *     message="The value {{ value }} is not a valid price."
-     * )
+     * @Assert\Regex("/^(?!.*category).*$/")
+     *
      * @ORM\Column(name="description", type="text")
+     *
      */
     private $description;
 
     /**
      * @var integer
      *
-     * @Assert\Regex(^(?!.*category).*$)
+     * @Assert\GreaterThan(
+     *     value = 0
+     * )
      * @ORM\Column(name="position", type="smallint")
      */
     private $position;
@@ -55,9 +57,6 @@ class Category
     /**
      * @var boolean
      *
-     * @Assert\GreaterThan(
-     *     value = 0
-     * )
      * @ORM\Column(name="activate", type="boolean")
      */
     private $activate;
