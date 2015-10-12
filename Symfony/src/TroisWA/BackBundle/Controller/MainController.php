@@ -306,6 +306,22 @@ class MainController extends Controller
 
     }
 
+    public function requestAction()
+    {
+
+        $em=$this->getDoctrine()
+            ->getManager();
+
+        $productAll=$em->getRepository("TroisWABackBundle:Product")
+            //->findAll()
+                //On doit appeler la methode avec la requete en question
+            ->findPerso(1);
+
+        dump($productAll);
+        die();
+        return $this->render("TroisWABackBundle:Main:admin_request.html.twig");
+
+    }
 
 
 

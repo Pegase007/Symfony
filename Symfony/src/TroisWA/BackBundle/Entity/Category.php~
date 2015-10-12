@@ -51,7 +51,6 @@ class Category
      * @Assert\GreaterThan(
      *     value = 0
      * )
-     * @Assert\NotBlank() (message="Must not be empty")
      * @ORM\Column(name="position", type="smallint")
      */
     private $position;
@@ -175,38 +174,22 @@ class Category
      * @Assert\Callback
      */
 
-    public function isValide(ExecutionContextInterface $context)
+    public function validate(ExecutionContextInterface $context)
     {
 
+        // somehow you have an array of "fake names"
+        $fakeNames = array(/* ... */);
 
-//        if (!ucfirst($this->getTitle())) {
-        if (!preg_match('/^[A-Z]/', $this->getTitle())) {
+        // check if the name is actually a fake name
+        if (ctype_upper($this->getTitle())) {
 
-            $context->buildViolation('The title must start with a capital letter')
-                ->atPath('title')
+            $context->buildViolation('This name sounds totally fake!')
+                ->atPath('firstName')
                 ->addViolation();
 
 
         }
     }
 
-        /**
-         * @Assert\True (message="La position est 1 alors le titre dois etre egal à Accueil")
-         */
-
-        public function isContentValide()
-        {
-
-            if ($this->getPosition()===1 && $this->getTitle()!="Accueil"){
-
-                return false;
-
-            } else{
-
-                return true;
-
-
-            }
-        }
-
 }
+

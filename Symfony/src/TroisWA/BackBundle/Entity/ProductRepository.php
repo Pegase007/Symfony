@@ -10,4 +10,63 @@ namespace TroisWA\BackBundle\Entity;
  */
 class ProductRepository extends \Doctrine\ORM\EntityRepository
 {
+
+//    Appel de tous les produits
+
+
+  public function findAllPerso()
+  {
+
+      //1ERE METHODE
+//        $query=$this->getEntityManager()
+//                    ->createQuery(
+//
+//        "SELECT prod
+//         FROM TroisWABackBundle:Product prod"
+//    );
+//      return $query->getResult();
+
+//}
+
+//2EME METHODE
+
+      $query = $this->createQueryBuilder("prod")
+          ->getQuery();
+      return $query->getResult();
+  }
+
+
+
+
+    public function findPerso($id)
+    {
+
+        //_em = raccourci de getEntityManager();
+
+        //1ERE METHODE
+
+//        $query=$this->_em->createQuery(
+//
+//            "SELECT prod
+//            From TroisWABackBundle:Product prod
+//            WHERE prod.id=:idProd ")
+////             :idProd est la variable
+//            ->setParameter("idProd",$id);
+////            ecriture alternative
+////            ->setParameters(["idProd"=>$id])
+//
+//
+//        die(dump($query->getSingleResult()));
+//            return $query->getSingleResult();
+
+//2EME METHODE
+
+        $query = $this->createQueryBuilder("prod")
+            ->where ('prod.id = :idProd')
+            ->setParameters(["idProd"=>$id])
+            ->getQuery();
+
+        return $query->getSingleResult();
+    }
+
 }

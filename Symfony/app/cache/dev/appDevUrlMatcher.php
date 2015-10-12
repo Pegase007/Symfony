@@ -188,6 +188,11 @@ class appDevUrlMatcher extends Symfony\Bundle\FrameworkBundle\Routing\Redirectab
             return array (  '_controller' => 'TroisWA\\BackBundle\\Controller\\MainController::adminAction',  '_route' => 'trois_wa_back_admin',);
         }
 
+        // trois_wa_back_admin_request
+        if ($pathinfo === '/request') {
+            return array (  '_controller' => 'TroisWA\\BackBundle\\Controller\\MainController::requestAction',  '_route' => 'trois_wa_back_admin_request',);
+        }
+
         if (0 === strpos($pathinfo, '/c')) {
             // trois_wa_back_client
             if (0 === strpos($pathinfo, '/client') && preg_match('#^/client/(?P<prenom>[^/]++)/(?P<nom>[^/]++)$#s', $pathinfo, $matches)) {

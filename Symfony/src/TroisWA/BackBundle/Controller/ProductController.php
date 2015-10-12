@@ -5,6 +5,7 @@ namespace TroisWA\BackBundle\Controller;
 
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use TroisWA\BackBundle\Entity\Product;
@@ -83,6 +84,9 @@ class ProductController extends Controller
                                 ->add("reference","text")
                                 ->add("activate","checkbox")
                                 ->add("price","number")
+                                ->add('dateCreated',"date",[
+                                    "widget"=>"single_text"
+                                ])
 //                                ->add("submit","submit")
                                 ->getForm();
 
@@ -190,6 +194,7 @@ class ProductController extends Controller
 
         $em = $this->getDoctrine()->getManager();
         $product = $em->getRepository('TroisWABackBundle:Product')->find($id);
+
         if (!$product) {
                 throw $this->createNotFoundException('Unable to find Product to delete.');
             }
@@ -198,6 +203,12 @@ class ProductController extends Controller
             $em->flush();
             // Fin code de la suppression
 
+        if($request->isXmlHttpRequest())
+        {
+
+            return new JsonResponse();
+
+        }
             return $this->redirect($this->generateUrl("trois_wa_back_product_index"));
 
 

@@ -5,47 +5,52 @@
 {% block content %}
 
     {{ form_start(formCategory,{'attr':{novalidate:"novalidate"}}) }} {#Desactive le html5 pour tout le formulaire #}
+    {{ form_errors(formCategory) }} {#Desactive le html5 pour tout le formulaire #}
 
     <div class="panel widget">
         <div class="panel-heading vd_bg-grey">
             <h3 class="panel-title"> <span class="menu-icon"> <i class="fa fa-bar-chart-o"></i> </span> New Category </h3>
         </div>
         <div class="panel-body">
-            <form class="form-horizontal" action="#" role="form">
+
                 <div class="form-group col-md-12">
                     {{ form_label(formCategory.title,"Title",{ label_attr:{ class:"col-sm-2 control-label"}}) }}
                     <div class="col-sm-7 controls">
                         {{ form_widget(formCategory.title,{ attr:{ class:"width-70", placeholder:"Title"} }) }}
                     </div>
+                    {{ form_errors(formCategory.title) }}
+
                 </div>
+
                 <div class="form-group col-md-12">
                     {{ form_label(formCategory.description,"Description",{ label_attr:{ class:"col-sm-2 control-label"}}) }}
                     <div class="col-sm-7 controls">
                         {{ form_widget(formCategory.description,{ attr:{ class:"width-70", placeholder:"Description" } }) }}
                     </div>
+                    {{ form_errors(formCategory.description) }}
+
                 </div>
+
                 <div class="form-group col-md-12">
                     {{ form_label(formCategory.position,"Position",{ label_attr:{ class:"col-sm-2 control-label"}}) }}
                     <div class="col-sm-7 controls">
                         {{ form_widget(formCategory.position,{ attr:{ class:"width-70", placeholder:"Position" } }) }}
                     </div>
+                    {{ form_errors(formCategory.position) }}
                 </div>
 
-                <div class="form-group">
-                    <label class="col-sm-2 control-label">Switch Button Size</label>
-                    <div class="col-sm-10 controls">
 
-                        <div class="bootstrap-switch bootstrap-switch-blue bootstrap-switch-on bootstrap-switch-small bootstrap-switch-animate">
-                            <div class="bootstrap-switch-container">
-                                {{ form_label(formCategory.activate,"Activate",{ label_attr:{ class:"bootstrap-switch-label"}}) }}
-                                <span class="bootstrap-switch-handle-off bootstrap-switch-default">OFF</span>
-                                <input class="mgr-10" type="checkbox" data-rel="switch" data-size="small" data-wrapper-class="blue" checked="">
-                            </div>
-                        </div>
+
+                <div class="form-group col-md-12">
+                    {{ form_label(formCategory.activate,"Enable",{ label_attr:{ class:"col-sm-2 control-label"}}) }}
+                    <div class="col-sm-7 controls">
+                        {{ form_widget(formCategory.activate,{ attr:{ class:"width-70", placeholder:"Position" } }) }}
                     </div>
+
                 </div>
 
-            </form>
+
+
 
         </div>
     </div>
