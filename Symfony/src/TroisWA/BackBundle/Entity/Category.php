@@ -4,6 +4,7 @@ namespace TroisWA\BackBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Validator\Context\ExecutionContextInterface;
 
 /**
  * Category
@@ -50,6 +51,7 @@ class Category
      * @Assert\GreaterThan(
      *     value = 0
      * )
+     * @Assert\NotBlank() (message="Must not be empty")
      * @ORM\Column(name="position", type="smallint")
      */
     private $position;
@@ -170,27 +172,41 @@ class Category
     }
 
     /**
-     * Set yes
-     *
-     * @param string $yes
-     *
-     * @return Category
+     * @Assert\Callback
      */
-    public function setYes($yes)
-    {
-        $this->yes = $yes;
 
-        return $this;
+    public function isValide(ExecutionContextInterface $context)
+    {
+
+
+//        if (!ucfirst($this->getTitle())) {
+        if (!preg_match('/^[A-Z]/', $this->getTitle())) {
+
+            $context->buildViolation('The title must start with a capital letter')
+                ->atPath('title')
+                ->addViolation();
+
+
+        }
     }
 
-    /**
-     * Get yes
-     *
-     * @return string
-     */
-    public function getYes()
-    {
-        return $this->yes;
-    }
+        /**
+         * @Assert\True (message="La position est 1 alors le titre dois etre egal à Accueil")
+         */
+
+        public function isContentValide()
+        {
+
+            if ($this->getPosition()===1 && $this->getTitle()!="Accueil"){
+
+                return false;
+
+            } else{
+
+                return true;
+
+
+            }
+        }
+
 }
-

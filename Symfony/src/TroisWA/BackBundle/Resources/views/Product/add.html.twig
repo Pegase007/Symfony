@@ -4,29 +4,7 @@
 {% block stylesheets %}
 
     {{ parent() }}
-    <!-- for specific page in style css -->
-    <style>
 
-        .form-wizard .nav > li > a{padding: 10px; margin-right:0; text-align: left; color:#888888;}
-        .tab-right{margin-left:-30px; margin-top:-1px; }
-        .tab-right .panel {margin-right:-30px;}
-        .tab-right .vd_panel-menu {right: 28px; top: -15px;}
-        .tab-right h3{border-bottom:1px solid #EEEEEE;}
-        table .vd_radio label:after{top:0;}
-
-
-    </style>
-
-    <!-- for specific page responsive in style css -->
-    <style>
-
-        @media (max-width: 767px) {
-            .tab-right{margin-left:0; margin-top:0;}
-            .tab-right .panel{margin-right: 0;}
-
-        }
-
-    </style>
 
 {% endblock %}
 
@@ -44,7 +22,6 @@
     {% endfor %}
 
     {#{{ form(formProduct) }}#}
-    {{ form_start(formProduct,{'attr':{novalidate:"novalidate"}}) }} {#Desactive le html5 pour tout le formulaire #}
 
 
     <div class="panel widget  light-widget">
@@ -52,7 +29,11 @@
         <div  class="panel-body">
             <div class="tab-content no-bd mgbt-xs-20">
                 <div id="tabinfo" class="tab-pane active">
-                    <form class="form-horizontal">
+                      {{ form_start(formProduct,{'attr':{novalidate:"novalidate",class:"form-horizontal"}}) }} {#Desactive le html5 pour tout le formulaire #}
+                      {{ form_errors(formProduct) }}
+
+
+                    {#<form class="form-horizontal">#}
                         <div class="vd_panel-menu">
                             <div> <button class="btn vd_btn vd_bg-blue btn-sm" type="submit">
                                     <i class="fa fa-save append-icon"></i>
@@ -126,21 +107,47 @@
                                     {{ form_widget(formProduct.reference,{ attr:{ class:"updateCurrentText", placeholder:" REF-XXXXXX" } }) }}
 
                                 </div>
+                                 <div class="form-group">
+                                    <span title="" data-toggle="tooltip" class="label-tooltip" data-original-title="">{{ form_label(formProduct.activate,"Enable",{ label_attr:{ class:"control-label col-lg-3 required"}}) }}  </span>
+                                    <div class="col-lg-3">
+                                        {{ form_widget(formProduct.activate,{ attr:{ class:"updateCurrentText", placeholder:"Position" } }) }}
+                                    </div>
+
+                                 </div>
+                            </div>
                             </div>
                             {{ form_errors(formProduct.reference) }}
 
                             <!-- form-group -->
 
-                            <div class="form-group">
-                                <span title="" data-toggle="tooltip" class="label-tooltip" data-original-title="Product reference number (REF-XXXXXX, etc.)"> {{ form_label(formProduct.activate,"Enable",{ label_attr:{ class:"control-label col-lg-3 required"}}) }} </span>
-                                <div class="col-lg-3">
-                                    {{ form_widget(formProduct.activate,{ attr:{ class:"updateCurrentText" } }) }}
-                                    {# <input id="enable_1" name="enable_1"  type="checkbox" data-rel="switch" data-wrapper-class="inverse" data-size="small" data-on-text="<i class='fa fa-check'></i>" data-off-text="<i class='fa fa-times'></i>"  checked> #}
-                                 </div>
-                             </div>
 
-                         </div>
-                         <!-- form-group -->
+
+                        <div class="col-md-12"><br></div>
+                        {#<div class="col-sm-3 controls">#}
+                            {#<div class="input-group">#}
+                                {#<span title="" data-toggle="tooltip" class="label-tooltip" data-original-title=""> {{ form_label(formProduct.dateCreated,"Date Created",{ label_attr:{ class:"control-label col-lg-3 required"}}) }} </span>#}
+
+                                {#{{ form_widget(formProduct.dateCreated,{ attr:{ class:"hasDatepicker"},id:"datepicker-icon" }) }}#}
+
+                                {#<span class="input-group-addon" id="datepicker-icon-trigger" data-datepicker="#datepicker-icon"><i class="fa fa-calendar"></i></span> </div>#}
+                        {#</div>#}
+                        <div class="col-md-12">
+
+                        <div class="form-group">
+                           {{ form_label(formProduct.dateCreated,"Date Created",{ label_attr:{ class:"control-label col-lg-3 required"}}) }}
+                            <div class="input-group col-lg-3">
+                                {{ form_widget(formProduct.dateCreated,{type: "text", attr:{  placeholder:'Date'}, id:"datepicker-icon" }) }}
+
+                                {#<input type="text" placeholder="Date" id="datepicker-icon">#}
+                                <span class="input-group-addon" id="datepicker-icon-trigger" data-datepicker="#datepicker-icon"><i class="fa fa-calendar"></i></span> </div>
+                        </div>
+                        </div>
+
+</div>
+
+
+
+                        <!-- form-group -->
                          <div class="col-md-12"><br></div>
 
                          <div class="form-group">
@@ -366,7 +373,7 @@
                              </div>
 
 
-                     </form>
+     {{ form_end(formProduct) }} {#Desactive le html5 pour tout le formulaire #}
                  </div>
                  <!-- #tabinfo -->
              </div>
@@ -378,7 +385,6 @@
 
      <!-- form-horizontal -->
      <!-- Panel Widget -->
-     {{ form_end(formProduct) }} {#Desactive le html5 pour tout le formulaire #}
 
 
 
@@ -387,4 +393,32 @@
 {% block javascripts %}
 
     {{ parent() }}
+
+    <script type="text/javascript" src='{{ asset("plugins/tagsInput/jquery.tagsinput.min.js") }}'></script>
+
+    <script type="text/javascript" src='{{ asset("plugins/bootstrap-timepicker/bootstrap-timepicker.min.js") }}'></script>
+    <script type="text/javascript" src='{{ asset("plugins/daterangepicker/moment.min.js") }}'></script>
+    <script type="text/javascript" src='{{ asset("plugins/daterangepicker/daterangepicker.js") }}'></script>
+    <script type="text/javascript" src='{{ asset("plugins/colorpicker/colorpicker.js") }}'></script>
+    <script type="text/javascript" src='{{ asset("plugins/ckeditor/ckeditor.js") }}'></script>
+    <script type="text/javascript" src='{{ asset("plugins/ckeditor/adapters/jquery.js") }}'></script>
+
+
+    <script type="text/javascript">
+        $(window).load(function() {
+            "use strict";
+
+            $("#datepicker-icon").datepicker({dateFormat: 'dd M yy'});
+            $('[data-datepicker]').click(function (e) {
+                var data = $(this).data('datepicker');
+                $(data).focus();
+            });
+
+        });
+
+
+    </script>
+
+
+
 {% endblock %}

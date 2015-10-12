@@ -18,10 +18,10 @@ class ProductType extends AbstractType
             ->add('title')
             ->add('description')
             ->add('price')
-//            ->add('dateCreated')
+            ->add('dateCreated',"date")
             ->add('quantity')
             ->add('reference')
-            ->add('activate')
+            ->add('activate', "checkbox", ['label' => 'test'])
         ;
     }
     
