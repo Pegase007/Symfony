@@ -14,6 +14,9 @@ use TroisWA\BackBundle\Form\ProductType;
 class CategoryController extends Controller
 {
 
+
+
+
     public function indexAction(){
 //
 //        $categories = [

@@ -18,8 +18,9 @@
             {{ message }}
         </div>
 
-
     {% endfor %}
+
+
 
     {#{{ form(formProduct) }}#}
 
@@ -49,20 +50,20 @@
 
                         <h3 class="mgtp-15 mgbt-xs-20"> Product Information</h3>
                         <div class="form-group">
-                            <label  class="control-label col-lg-3" ><span data-toggle="tooltip" class="label-tooltip" data-original-title="Product type"> Type </span></label>
+                            <label  class="control-label col-lg-3" ><span data-toggle="tooltip" class="label-tooltip" data-original-title="Product type"> {{ form_label(formProduct.category) }} </span></label>
                             <div class="col-lg-9">
-                                <div class="vd_radio radio-success">
-                                    <input type="radio" checked=""  value="0" name="type_product" id="simple_product">
-                                    <label for="simple_product">Standard product</label>
-                                </div>
-                                <div class="vd_radio radio-success">
-                                    <input type="radio"  value="0" name="type_product" id="pack_product">
-                                    <label for="pack_product">Pack of product</label>
-                                </div>
-                                <div class="vd_radio radio-success">
-                                    <input type="radio"  value="2" name="type_product" id="virtual_product">
-                                    <label for="virtual_product">Virtual product (services, booking, downloadable products, etc.)</label>
-                                </div>
+
+
+                                {% for children in formProduct.category.children %}
+                                    {#{{ dump(children) }}#}
+                                    <div class="vd_radio radio-success">
+                                        <input type="radio" name="{{ children.vars.full_name }}" value="{{ children.vars.value }}" id="simple_product_{{ children.vars.value }}">
+                                        <label for="simple_product_{{ children.vars.value }}">{{ children.vars.label }}</label>
+                                    </div>
+                                {% endfor %}
+
+
+
                             </div>
                         </div>
                         <!-- form-group -->
@@ -110,13 +111,13 @@
                                  <div class="form-group">
                                     <span title="" data-toggle="tooltip" class="label-tooltip" data-original-title="">{{ form_label(formProduct.activate,"Enable",{ label_attr:{ class:"control-label col-lg-3 required"}}) }}  </span>
                                     <div class="col-lg-3">
-                                        {{ form_widget(formProduct.activate,{ attr:{ class:"updateCurrentText", placeholder:"Position" } }) }}
+                                        {{ form_widget(formProduct.activate,{ attr:{ class:"updateCurrentText" } }) }}
                                     </div>
 
                                  </div>
                             </div>
                             </div>
-                            {{ form_errors(formProduct.reference) }}
+                            {{ form_errors(formProduct.activate) }}
 
                             <!-- form-group -->
 
