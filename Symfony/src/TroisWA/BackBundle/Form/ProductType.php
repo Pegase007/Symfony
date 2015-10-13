@@ -5,6 +5,7 @@ namespace TroisWA\BackBundle\Form;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use TroisWA\BackBundle\Repository\CategoryRepository;
 
 class ProductType extends AbstractType
 {
@@ -21,8 +22,17 @@ class ProductType extends AbstractType
             ->add('dateCreated',"date")
             ->add('quantity')
             ->add('reference')
-            ->add('activate', "checkbox", ['label' => 'test'])
-        ;
+            ->add('activate', "checkbox")
+            ->add('category', 'entity',[
+//                "expanded"=>true,
+//                "multiple" => false,
+                'class' => 'TroisWABackBundle:Category',
+                'choice_label' => 'title',
+//                "data_class" => 'TroisWA\BackBundle\Entity\Category',
+                'query_builder'=>function(CategoryRepository $er){
+
+                    return $er->builderCategoryOrderPosition();
+                }]);
     }
     
 //   DEPRECIE!!!
@@ -42,6 +52,7 @@ class ProductType extends AbstractType
             'data_class' => 'Troiswa\BackBundle\Entity\Product'
         ));
     }
+
 
 
 

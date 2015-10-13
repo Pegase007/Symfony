@@ -19,7 +19,56 @@ class MainController extends Controller
     {
 
 
-        return $this->render("TroisWABackBundle:Main:admin.html.twig");
+        $em=$this->getDoctrine()
+            ->getManager();
+
+        $fiveProduct=$em->getRepository("TroisWABackBundle:Product")
+            ->fiveQuantity();
+
+        $noItems=$em->getRepository("TroisWABackBundle:Product")
+            ->noItems();
+
+
+        $catQuantity=$em->getRepository("TroisWABackBundle:Category")
+            ->catQuantity();
+
+        $catActive=$em->getRepository("TroisWABackBundle:Category")
+            ->catActive();
+
+
+        $catActInact=$em->getRepository("TroisWABackBundle:Category")
+            ->catActInact();
+
+        $sumPrice=$em->getRepository("TroisWABackBundle:Product")
+            ->sumPrice();
+
+        $countProduct=$em->getRepository("TroisWABackBundle:Product")
+            ->countProduct();
+
+        $price=$em->getRepository("TroisWABackBundle:Product")
+            ->price();
+
+
+
+
+//
+
+
+
+
+        return $this->render("TroisWABackBundle:Main:admin.html.twig",[
+            'fiveProduct'=>$fiveProduct,
+            'noItems'=>$noItems,
+            'catQuantity'=>$catQuantity,
+            'catActive'=>$catActive,
+            'sumPrice'=>$sumPrice,
+
+
+        ]);
+
+
+
+
     }
 
 

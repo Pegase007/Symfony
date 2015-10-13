@@ -9,8 +9,9 @@ use Symfony\Component\Validator\Constraints as Assert;
 /**
  * Product
  *
+ *
  * @ORM\Table(name="product")
- * @ORM\Entity(repositoryClass="TroisWA\BackBundle\Entity\ProductRepository")
+ * @ORM\Entity(repositoryClass="TroisWA\BackBundle\Repository\ProductRepository")
  */
 class Product
 {
@@ -103,6 +104,17 @@ class Product
      * @ORM\Column(name="activate", type="boolean")
      */
     private $activate;
+
+
+    /**
+     * @ORM\ManyToOne(targetEntity="Category")
+     *
+     */
+    private $category;
+
+
+
+
 
 
     public function __construct()
@@ -292,5 +304,29 @@ class Product
     public function getActivate()
     {
         return $this->activate;
+    }
+
+    /**
+     * Set category
+     *
+     * @param \TroisWA\BackBundle\Entity\Category $category
+     *
+     * @return Product
+     */
+    public function setCategory(\TroisWA\BackBundle\Entity\Category $category = null)
+    {
+        $this->category = $category;
+
+        return $this;
+    }
+
+    /**
+     * Get category
+     *
+     * @return \TroisWA\BackBundle\Entity\Category
+     */
+    public function getCategory()
+    {
+        return $this->category;
     }
 }
