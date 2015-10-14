@@ -63,6 +63,14 @@ class Category
      */
     private $activate;
 
+    /**
+     * @ORM\OneToOne(targetEntity="Image",cascade={"persist"})
+     * @Assert\NotBlank() (message="Must not be empty")
+     *
+     */
+    private $image;
+
+
 
 
     /**
@@ -216,4 +224,28 @@ class Category
 //            return $this->title;
 //        }
 
+
+    /**
+     * Set image
+     *
+     * @param \TroisWA\BackBundle\Entity\Image $image
+     *
+     * @return Category
+     */
+    public function setImage(\TroisWA\BackBundle\Entity\Image $image = null)
+    {
+        $this->image = $image;
+
+        return $this;
+    }
+
+    /**
+     * Get image
+     *
+     * @return \TroisWA\BackBundle\Entity\Image
+     */
+    public function getImage()
+    {
+        return $this->image;
+    }
 }

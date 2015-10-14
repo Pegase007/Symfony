@@ -6,10 +6,8 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class CategoryType extends AbstractType
+class ImageType extends AbstractType
 {
-
-
     /**
      * @param FormBuilderInterface $builder
      * @param array $options
@@ -17,21 +15,18 @@ class CategoryType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('title')
-            ->add('description')
-            ->add('position')
-            ->add('activate')
-            ->add("image",new ImageType())
-        ;
+//            ->add('path')
+//            ->add('caption')
+              ->add("file","file");
     }
     
     /**
-     * @param OptionsResolver $resolver
+     * @param configureOptions $resolver
      */
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'TroisWA\BackBundle\Entity\Category'
+            'data_class' => 'TroisWA\BackBundle\Entity\Image'
         ));
     }
 
@@ -40,6 +35,6 @@ class CategoryType extends AbstractType
      */
     public function getName()
     {
-        return 'troiswa_backbundle_category';
+        return 'troiswa_backbundle_image';
     }
 }

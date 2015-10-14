@@ -109,6 +109,7 @@ class ProductController extends Controller
                                     }
 
                                 ])
+                                ->add('brand')
 //                                ->add("submit","submit")
                                 ->getForm();
 

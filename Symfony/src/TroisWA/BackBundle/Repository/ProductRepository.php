@@ -102,13 +102,14 @@ class ProductRepository extends \Doctrine\ORM\EntityRepository
 
 
 
-    public function fiveQuantity()
+    public function fiveQuantity($qty = 5)
     {
 
 
         $query = $this->createQueryBuilder("prod")
-            ->where ('prod.quantity < 5')
-            ->getQuery();
+            ->where ('prod.quantity < :quantity')
+            ->getQuery()
+            ->setParameter("quantity",$qty);
         return $query->getResult();
     }
 

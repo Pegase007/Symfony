@@ -32,7 +32,8 @@ class ProductType extends AbstractType
                 'query_builder'=>function(CategoryRepository $er){
 
                     return $er->builderCategoryOrderPosition();
-                }]);
+                }])
+            ->add('brand');
     }
     
 //   DEPRECIE!!!
