@@ -1,0 +1,9 @@
+{% for cat in categories %}
+
+    <li>
+        <a href="{{ path("trois_wa_back_category",{'id':cat.id}) }}">
+            <span class="menu-text">{{ cat.title }}</span>
+        </a>
+    </li>
+
+{% endfor %}

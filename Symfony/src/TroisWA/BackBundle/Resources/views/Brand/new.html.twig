@@ -1,0 +1,16 @@
+{% extends "TroisWABackBundle::layoutBo2.html.twig" %}
+
+{% block page %} Brand creation {% endblock %}
+
+{% block content %}
+
+    {{ form(form) }}
+
+        <ul class="record_actions">
+    <li>
+        <a href="{{ path('brand') }}">
+            Back to the list
+        </a>
+    </li>
+</ul>
+{% endblock %}

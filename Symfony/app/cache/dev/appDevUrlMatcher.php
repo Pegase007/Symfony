@@ -127,6 +127,66 @@ class appDevUrlMatcher extends Symfony\Bundle\FrameworkBundle\Routing\Redirectab
 
         }
 
+        if (0 === strpos($pathinfo, '/brand')) {
+            // brand
+            if (rtrim($pathinfo, '/') === '/brand') {
+                if (substr($pathinfo, -1) !== '/') {
+                    return $this->redirect($pathinfo.'/', 'brand');
+                }
+
+                return array (  '_controller' => 'TroisWA\\BackBundle\\Controller\\BrandController::indexAction',  '_route' => 'brand',);
+            }
+
+            // brand_show
+            if (preg_match('#^/brand/(?P<id>[^/]++)/show$#s', $pathinfo, $matches)) {
+                return $this->mergeDefaults(array_replace($matches, array('_route' => 'brand_show')), array (  '_controller' => 'TroisWA\\BackBundle\\Controller\\BrandController::showAction',));
+            }
+
+            // brand_new
+            if ($pathinfo === '/brand/new') {
+                return array (  '_controller' => 'TroisWA\\BackBundle\\Controller\\BrandController::newAction',  '_route' => 'brand_new',);
+            }
+
+            // brand_create
+            if ($pathinfo === '/brand/create') {
+                if ($this->context->getMethod() != 'POST') {
+                    $allow[] = 'POST';
+                    goto not_brand_create;
+                }
+
+                return array (  '_controller' => 'TroisWA\\BackBundle\\Controller\\BrandController::createAction',  '_route' => 'brand_create',);
+            }
+            not_brand_create:
+
+            // brand_edit
+            if (preg_match('#^/brand/(?P<id>[^/]++)/edit$#s', $pathinfo, $matches)) {
+                return $this->mergeDefaults(array_replace($matches, array('_route' => 'brand_edit')), array (  '_controller' => 'TroisWA\\BackBundle\\Controller\\BrandController::editAction',));
+            }
+
+            // brand_update
+            if (preg_match('#^/brand/(?P<id>[^/]++)/update$#s', $pathinfo, $matches)) {
+                if (!in_array($this->context->getMethod(), array('POST', 'PUT'))) {
+                    $allow = array_merge($allow, array('POST', 'PUT'));
+                    goto not_brand_update;
+                }
+
+                return $this->mergeDefaults(array_replace($matches, array('_route' => 'brand_update')), array (  '_controller' => 'TroisWA\\BackBundle\\Controller\\BrandController::updateAction',));
+            }
+            not_brand_update:
+
+            // brand_delete
+            if (preg_match('#^/brand/(?P<id>[^/]++)/delete$#s', $pathinfo, $matches)) {
+                if (!in_array($this->context->getMethod(), array('POST', 'DELETE'))) {
+                    $allow = array_merge($allow, array('POST', 'DELETE'));
+                    goto not_brand_delete;
+                }
+
+                return $this->mergeDefaults(array_replace($matches, array('_route' => 'brand_delete')), array (  '_controller' => 'TroisWA\\BackBundle\\Controller\\BrandController::deleteAction',));
+            }
+            not_brand_delete:
+
+        }
+
         if (0 === strpos($pathinfo, '/product')) {
             // trois_wa_back_product_index
             if (rtrim($pathinfo, '/') === '/product') {
@@ -186,6 +246,11 @@ class appDevUrlMatcher extends Symfony\Bundle\FrameworkBundle\Routing\Redirectab
             }
 
             return array (  '_controller' => 'TroisWA\\BackBundle\\Controller\\MainController::adminAction',  '_route' => 'trois_wa_back_admin',);
+        }
+
+        // trois_wa_back_admin_request
+        if ($pathinfo === '/request') {
+            return array (  '_controller' => 'TroisWA\\BackBundle\\Controller\\MainController::requestAction',  '_route' => 'trois_wa_back_admin_request',);
         }
 
         if (0 === strpos($pathinfo, '/c')) {

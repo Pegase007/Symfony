@@ -15,6 +15,10 @@ trois_wa_back_admin:
     path:     /
     defaults: { _controller: TroisWABackBundle:Main:admin }
 
+trois_wa_back_admin_request:
+    path:     /request
+    defaults: { _controller: TroisWABackBundle:Main:request }
+
 trois_wa_back_client:
     path:     /client/{prenom}/{nom}
     defaults: { _controller: TroisWABackBundle:Main:client }

@@ -8,6 +8,8 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class CategoryType extends AbstractType
 {
+
+
     /**
      * @param FormBuilderInterface $builder
      * @param array $options
@@ -19,6 +21,7 @@ class CategoryType extends AbstractType
             ->add('description')
             ->add('position')
             ->add('activate')
+            ->add("image",new ImageType())
         ;
     }
     

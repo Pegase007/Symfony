@@ -4,12 +4,13 @@ namespace TroisWA\BackBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Validator\Context\ExecutionContextInterface;
 
 /**
  * Category
  *
  * @ORM\Table(name="category")
- * @ORM\Entity(repositoryClass="TroisWA\BackBundle\Entity\CategoryRepository")
+ * @ORM\Entity(repositoryClass="TroisWA\BackBundle\Repository\CategoryRepository")
  */
 class Category
 {
@@ -50,6 +51,7 @@ class Category
      * @Assert\GreaterThan(
      *     value = 0
      * )
+     * @Assert\NotBlank() (message="Must not be empty")
      * @ORM\Column(name="position", type="smallint")
      */
     private $position;
@@ -60,6 +62,14 @@ class Category
      * @ORM\Column(name="activate", type="boolean")
      */
     private $activate;
+
+    /**
+     * @ORM\OneToOne(targetEntity="Image",cascade={"persist"})
+     * @Assert\NotBlank() (message="Must not be empty")
+     *
+     */
+    private $image;
+
 
 
 
@@ -170,27 +180,72 @@ class Category
     }
 
     /**
-     * Set yes
+     * @Assert\Callback
+     */
+
+    public function isValide(ExecutionContextInterface $context)
+    {
+
+
+//        if (!ucfirst($this->getTitle())) {
+        if (!preg_match('/^[A-Z]/', $this->getTitle())) {
+
+            $context->buildViolation('The title must start with a capital letter')
+                ->atPath('title')
+                ->addViolation();
+
+
+        }
+    }
+
+        /**
+         * @Assert\True (message="La position est 1 alors le titre dois etre egal à Accueil")
+         */
+
+        public function isContentValide()
+        {
+
+            if ($this->getPosition()===1 && $this->getTitle()!="Accueil"){
+
+                return false;
+
+            } else{
+
+                return true;
+
+
+            }
+        }
+
+
+//        public function __toString()
+//        {
+//
+//            return $this->title;
+//        }
+
+
+    /**
+     * Set image
      *
-     * @param string $yes
+     * @param \TroisWA\BackBundle\Entity\Image $image
      *
      * @return Category
      */
-    public function setYes($yes)
+    public function setImage(\TroisWA\BackBundle\Entity\Image $image = null)
     {
-        $this->yes = $yes;
+        $this->image = $image;
 
         return $this;
     }
 
     /**
-     * Get yes
+     * Get image
      *
-     * @return string
+     * @return \TroisWA\BackBundle\Entity\Image
      */
-    public function getYes()
+    public function getImage()
     {
-        return $this->yes;
+        return $this->image;
     }
 }
-

@@ -22,8 +22,12 @@
     <div class="row">
         <div class="col-md-12">
             <div class="panel widget">
-                <div class="panel-heading vd_bg-grey">
-                    <h3 class="panel-title"> <span class="menu-icon"> <i class="fa fa-dot-circle-o"></i> </span> Table Basic with Hover </h3>
+                <div class="panel-heading vd_bg-grey col-md-12">
+                    <h3 class="panel-title"> <span class="menu-icon"> <i class="fa fa-dot-circle-o"></i> </span> Available categories </h3>
+
+                    <a href="{{  path("trois_wa_back_product_add")}}" class="btn-xs pull-right menu-icon vd_bd-white vd_white">
+                        <i class="fa fa-plus"></i>
+                    </a>
                 </div>
                 <div class="panel-body table-responsive">
                     <table class="table table-hover">
@@ -31,7 +35,7 @@
                         <tr>
                             <th>ID</th>
                             <th>Name</th>
-                            <th>Date</th>
+                            <th>Position</th>
                             <th>Status</th>
                             <th>Description</th>
                             <th>Actions</th>
@@ -42,11 +46,12 @@
         <tr>
             <td>{{ category.id }}</td>
             <td>{{ category.title }}</td>
-            <td>{{ category.date_created|date("d/m/Y") }}</td>
-            <td><span class="label label-{% if category.active ==true %}success">Actif{% else %}warning">Not Actif{% endif %}</span></td>
+            {#<td>{{ category.date_created|date("d/m/Y") }}</td>#}
+            <td>{{ category.position }}</td>
+            <td><span class="label label-{% if category.activate ==true %}success">Actif{% else %}warning">Not Actif{% endif %}</span></td>
             <td>{{ category.description |raw }}</td>
                             <td class="menu-action">
-                                <a href="{{  path("trois_wa_back_product",{'id':category.id} ) }}" data-original-title="view" data-toggle="tooltip" data-placement="top" class="btn menu-icon vd_bd-green vd_green">
+                                <a href="{{  path("trois_wa_back_category",{'id':category.id} ) }}" data-original-title="view" data-toggle="tooltip" data-placement="top" class="btn menu-icon vd_bd-green vd_green">
                                     <i class="fa fa-eye"></i>
                                 </a>
                                 <a href="" data-original-title="edit" data-toggle="tooltip" data-placement="top" class="btn menu-icon vd_bd-yellow vd_yellow">
@@ -77,5 +82,12 @@
     </div>
 
 
+
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+
+    <script src="{{ asset("js/delete.js") }}"></script>
 
 {% endblock %}

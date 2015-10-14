@@ -445,12 +445,12 @@
                                     </li>
                                     <li {% if app.request.attributes.get("_route")== "trois_wa_back_product_add" %} class="active" style="pointer-events:none; cursor:default" {% endif %}>
 
-                                    <a href="{{ path("trois_wa_back_product_add") }}">
+                                        <a href="{{ path("trois_wa_back_product_add") }}">
                                             <span class="menu-text">Add a product</span>
                                         </a>
                                     </li>
                                     <li {% if app.request.attributes.get("_route")== "trois_wa_back_product_custom" %} class="active" style="pointer-events:none; cursor:default" {% endif %}>
-                                    <a href="{{ path("trois_wa_back_product_custom") }}">
+                                        <a href="{{ path("trois_wa_back_product_custom") }}">
                                             <span class="menu-text">Product custom</span>
                                         </a>
                                     </li>
@@ -466,13 +466,29 @@
                             </a>
                             <div class="child-menu"  data-action="click-target">
                                 <ul>
-                                    <li {% if app.request.attributes.get("_route")== "trois_wa_back_categories" %} class="active" style="pointer-events:none; cursor:default" {% endif %}>
-                                        <a href="{{ path("trois_wa_back_categories") }}">
+                                    <li>
+                                        <a href="javascript:void(0);" data-action="click-trigger">
                                             <span class="menu-text">See all categories</span>
                                         </a>
+                                        <div class="child-menu"  data-action="click-target">
+                                            <ul>
+                                                <li {% if app.request.attributes.get("_route")== "trois_wa_back_categories" %} class="active" style="pointer-events:none; cursor:default" {% endif %}>
+                                                    <a href="{{ path("trois_wa_back_categories") }}">
+                                                        <span class="menu-text">all</span>
+                                                    </a>
+                                                </li>
+
+                                                {{ render(controller("TroisWABackBundle:Category:renderAllCategory")) }}
+                                                <li {% if app.request.attributes.get("_route")== "trois_wa_back_categories" %} class="active" style="pointer-events:none; cursor:default" {% endif %}>
+                                                    <a href="{{ path("trois_wa_back_categories") }}">
+                                                        <span class="menu-text">all</span>
+                                                    </a>
+                                                </li>
+                                            </ul>
+                                        </div>
                                     </li>
                                     <li>
-                                        <a href="skin-nav-medium-profile-dark.html">
+                                        <a href="{{ path("trois_wa_back_category_add") }}">
                                             <span class="menu-text">Add a category</span>
                                         </a>
                                     </li>
@@ -502,6 +518,28 @@
                                     </li>
                                     <li>
                                         <a href="forms-layouts.html">
+                                            <span class="menu-text">Add</span>
+                                        </a>
+                                    </li>
+
+                                </ul>
+                            </div>
+                        </li>
+                        <li>
+                            <a href="javascript:void(0);" data-action="click-trigger">
+                                <span class="menu-icon"><i class="fa fa-th-list"></i></span>
+                                <span class="menu-text">Brand</span>
+                                <span class="menu-badge"><span class="badge vd_bg-black-30"><i class="fa fa-angle-down"></i></span></span>
+                            </a>
+                            <div class="child-menu"  data-action="click-target">
+                                <ul>
+                                    <li>
+                                        <a href="{{ path("brand") }}">
+                                            <span class="menu-text">See</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="">
                                             <span class="menu-text">Add</span>
                                         </a>
                                     </li>
@@ -554,5 +592,5 @@
 
 
                 <div class="navbar-spacing clearfix">
+                </div>
             </div>
-        </div>

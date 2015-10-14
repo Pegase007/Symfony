@@ -9,8 +9,9 @@ use Symfony\Component\Validator\Constraints as Assert;
 /**
  * Product
  *
+ *
  * @ORM\Table(name="product")
- * @ORM\Entity(repositoryClass="TroisWA\BackBundle\Entity\ProductRepository")
+ * @ORM\Entity(repositoryClass="TroisWA\BackBundle\Repository\ProductRepository")
  */
 class Product
 {
@@ -27,10 +28,10 @@ class Product
     /**
      * @var string
      *
-     * * @Assert\Length(
-     *      min = 2,
-     *      minMessage = "Your first name must be at least {{ limit }} characters long",
-     * )
+     * @Assert\Length(
+     *    min = 2,
+     *    minMessage = "Your first name must be at least {{ limit }} characters long",
+     *)
      * @Assert\NotBlank() (message="Must not be empty")
      * @ORM\Column(name="title", type="string", length=100)
      */
@@ -100,11 +101,27 @@ class Product
     /**
      * @var boolean
      *
-
-     *
      * @ORM\Column(name="activate", type="boolean")
      */
     private $activate;
+
+
+    /**
+     * @ORM\ManyToOne(targetEntity="Category")
+     *
+     */
+    private $category;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="Brand")
+     * @ORM\JoinColumn(name="brand_id",referencedColumnName="id",nullable=false)
+     *
+     */
+    private $brand;
+
+
+
+
 
 
     public function __construct()
@@ -295,4 +312,35 @@ class Product
     {
         return $this->activate;
     }
+
+    /**
+     * Set category
+     *
+     * @param \TroisWA\BackBundle\Entity\Category $category
+     *
+     * @return Product
+     */
+    public function setCategory(\TroisWA\BackBundle\Entity\Category $category = null)
+    {
+        $this->category = $category;
+
+        return $this;
+    }
+
+    /**
+     * Get category
+     *
+     * @return \TroisWA\BackBundle\Entity\Category
+     */
+    public function getCategory()
+    {
+        return $this->category;
+    }
+
+    public function __toString()
+    {
+
+        return $this->title;
+    }
+
 }
