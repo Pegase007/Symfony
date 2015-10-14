@@ -3,29 +3,34 @@
 namespace TroisWA\BackBundle\Controller;
 
 
-
+use Doctrine\ORM\EntityRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use TroisWA\BackBundle\Entity\Category;
+use TroisWA\BackBundle\Repository\CategoryRepository;
 use TroisWA\BackBundle\Entity\Product;
 use TroisWA\BackBundle\Form\ProductType;
 
 class ProductController extends Controller
 {
 
-    public function productAction($id)
+    public function productAction(Product $products)
     {
+//          UTILISATION DU PARAMCONVERTER AU NIVEAU DE LA METHODE
 
-        $em = $this->getDoctrine()->getManager();
-        $products=$em->getRepository("TroisWABackBundle:Product")
-            ->find($id);
 
-//        FORMULAIRE SUPPRESSION
-//        $formProductDelete=$this->createFormDelete($id);
-
-//    return new Response(' ok ');
-
-//        return $this->render("TroisWABackBundle:Product:product.html.twig",["product"=>$products,"formDelete"=>$formProductDelete->createView()]);
+//        $em = $this->getDoctrine()->getManager();
+//        $products=$em->getRepository("TroisWABackBundle:Product")
+//            ->find($id);
+//
+////        FORMULAIRE SUPPRESSION
+////        $formProductDelete=$this->createFormDelete($id);
+//
+////    return new Response(' ok ');
+//
+////        return $this->render("TroisWABackBundle:Product:product.html.twig",["product"=>$products,"formDelete"=>$formProductDelete->createView()]);
         return $this->render("TroisWABackBundle:Product:product.html.twig",["product"=>$products]);
 
     }
@@ -48,8 +53,14 @@ class ProductController extends Controller
 
 
         $em = $this->getDoctrine()->getManager();
+//        $products=$em->getRepository("TroisWABackBundle:Product")
+//                     ->findAll();
+//        dump($findAllProductsWithCategories);
+//        die();
+
         $products=$em->getRepository("TroisWABackBundle:Product")
-                     ->findAll();
+            ->findAllProductsWithCategories();
+
 
 
 //die(dump($products));
@@ -83,6 +94,22 @@ class ProductController extends Controller
                                 ->add("reference","text")
                                 ->add("activate","checkbox")
                                 ->add("price","number")
+                                ->add('dateCreated',"date",[
+                                    "widget"=>"single_text"
+                                ])
+
+                                ->add('category', 'entity',[
+                                    "expanded"=>true,
+                                    'class' => 'TroisWABackBundle:Category',
+                                    'choice_label' => 'title',
+                                    'query_builder'=>function(CategoryRepository $er){
+
+
+                                    return $er->builderCategoryOrderPosition();
+                                    }
+
+                                ])
+                                ->add('brand')
 //                                ->add("submit","submit")
                                 ->getForm();
 
@@ -120,6 +147,8 @@ class ProductController extends Controller
         $em = $this->getDoctrine()->getEntityManager();
         $product = $em->getRepository('TroisWABackBundle:Product')->find($id);
 
+
+
         if (!$product) {
             throw $this->createNotFoundException('Unable to find product to edit.');
         }
@@ -137,6 +166,7 @@ class ProductController extends Controller
         $editForm= $this->createForm(new ProductType(),$product)
 
                  ->add("submit","submit");
+
 
         $editForm->handleRequest($request);
 
@@ -190,6 +220,7 @@ class ProductController extends Controller
 
         $em = $this->getDoctrine()->getManager();
         $product = $em->getRepository('TroisWABackBundle:Product')->find($id);
+
         if (!$product) {
                 throw $this->createNotFoundException('Unable to find Product to delete.');
             }
@@ -198,6 +229,12 @@ class ProductController extends Controller
             $em->flush();
             // Fin code de la suppression
 
+        if($request->isXmlHttpRequest())
+        {
+
+            return new JsonResponse();
+
+        }
             return $this->redirect($this->generateUrl("trois_wa_back_product_index"));
 
 

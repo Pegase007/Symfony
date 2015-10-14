@@ -14,77 +14,102 @@ use TroisWA\BackBundle\Form\ProductType;
 class CategoryController extends Controller
 {
 
+
+
+
     public function indexAction(){
+//
+//        $categories = [
+//            1 => [
+//                "id" => 1,
+//                "title" => "Homme",
+//                "description" => "lorem ipsum \n suite du contenu",
+//                "date_created" => new \DateTime('now'),
+//                "active" => true
+//            ],
+//            2 => [
+//                "id" => 2,
+//                "title" => "Femme",
+//                "description" => "<strong>lorem</strong> ipsum",
+//                "date_created" => new \DateTime('-10 Days'),
+//                "active" => true
+//            ],
+//            3 => [
+//                "id" => 3,
+//                "title" => "Enfant",
+//                "description" => "lorem ipsum",
+//                "date_created" => new \DateTime('-1 Days'),
+//                "active" => false
+//            ],
+//        ];
 
-        $categories = [
-            1 => [
-                "id" => 1,
-                "title" => "Homme",
-                "description" => "lorem ipsum \n suite du contenu",
-                "date_created" => new \DateTime('now'),
-                "active" => true
-            ],
-            2 => [
-                "id" => 2,
-                "title" => "Femme",
-                "description" => "<strong>lorem</strong> ipsum",
-                "date_created" => new \DateTime('-10 Days'),
-                "active" => true
-            ],
-            3 => [
-                "id" => 3,
-                "title" => "Enfant",
-                "description" => "lorem ipsum",
-                "date_created" => new \DateTime('-1 Days'),
-                "active" => false
-            ],
-        ];
+            $em = $this->getDoctrine()->getManager();
+            $category=$em->getRepository("TroisWABackBundle:Category")
+            ->findAll();
 
 
-        return $this->render("TroisWABackBundle:Category:index.html.twig",["categories"=>$categories]);
+//die(dump($products));
+//    return new Response(' ok ');
+
+
+            return $this->render("TroisWABackBundle:Category:index.html.twig",["categories"=>$category]);
 
     }
 
     public function catAction($id){
 
-        $categories = [
-            1 => [
-                "id" => 1,
-                "title" => "Homme",
-                "description" => "lorem ipsum \n suite du contenu",
-                "date_created" => new \DateTime('now'),
-                "active" => true
-            ],
-            2 => [
-                "id" => 2,
-                "title" => "Femme",
-                "description" => "<strong>lorem</strong> ipsum",
-                "date_created" => new \DateTime('-10 Days'),
-                "active" => true
-            ],
-            3 => [
-                "id" => 3,
-                "title" => "Enfant",
-                "description" => "lorem ipsum",
-                "date_created" => new \DateTime('-1 Days'),
-                "active" => false
-            ],
-        ];
+//        $categories = [
+//            1 => [
+//                "id" => 1,
+//                "title" => "Homme",
+//                "description" => "lorem ipsum \n suite du contenu",
+//                "date_created" => new \DateTime('now'),
+//                "active" => true
+//            ],
+//            2 => [
+//                "id" => 2,
+//                "title" => "Femme",
+//                "description" => "<strong>lorem</strong> ipsum",
+//                "date_created" => new \DateTime('-10 Days'),
+//                "active" => true
+//            ],
+//            3 => [
+//                "id" => 3,
+//                "title" => "Enfant",
+//                "description" => "lorem ipsum",
+//                "date_created" => new \DateTime('-1 Days'),
+//                "active" => false
+//            ],
+//        ];
+//
+//        if(array_key_exists($id,$categories))
+//        {
+//
+//            $cat=$categories[$id];
+//
+//            return $this->render("TroisWABackBundle:Category:cat.html.twig",["cat"=>$cat]);
+//
+//        }
+//        else
+//        {
+//            throw $this->createNotFoundException("La categorie n'existe pas");
+//        }
 
-        if(array_key_exists($id,$categories))
-        {
+        $em=$this->getDoctrine()->getManager();
+        $categories=$em->getRepository("TroisWABackBundle:Category")->find($id);
 
-            $cat=$categories[$id];
 
-            return $this->render("TroisWABackBundle:Category:cat.html.twig",["cat"=>$cat]);
 
-        }
-        else
-        {
-            throw $this->createNotFoundException("La categorie n'existe pas");
-        }
+
+
+        return $this->render("TroisWABackBundle:Category:cat.html.twig",["cat"=>$categories]);
+
+
 
     }
+
+
+
 
     public function addAction(Request $request)
     {
@@ -103,6 +128,15 @@ class CategoryController extends Controller
         if ($formCategory->isValid()) {
 
             $em = $this->getDoctrine()->getManager();
+//            die(dump($category));
+            $image=$category->getImage();
+            $image->upload();
+
+            //ON supprime les deux lignes du dessous car => cascade persist dans @ORM de $image dans category
+//            $em->persist($image);
+//            $em->flush();
+
+
             $em->persist($category);
             $em->flush();
 
@@ -116,6 +150,18 @@ class CategoryController extends Controller
 
         }
         return $this->render("TroisWABackBundle:Category:add.html.twig", ["formCategory" => $formCategory->createView()]);
+
+
+    }
+
+    public function renderAllCategoryAction()
+    {
+
+        $em=$this->getDoctrine()->getManager();
+//        $categories=$em->getRepository("TroisWABackBundle:Category")->findAll();
+        $categories=$em->getRepository("TroisWABackBundle:Category")->findBy( [],["position"=>"asc"]);
+
+        return $this->render("TroisWABackBundle:Category/render:renderCategory.html.twig",["categories"=>$categories]);
 
 
     }
