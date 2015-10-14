@@ -45,7 +45,7 @@ class Image
 
         $this->file->move(
 
-            __DIR__.$this->getRootWebDir(),$nameImage);
+            __DIR__."/../../../../web/".$this->getRootWebDir(),$nameImage);
 
         $this->caption=$nameImage;
         $this->path=$nameImage;
