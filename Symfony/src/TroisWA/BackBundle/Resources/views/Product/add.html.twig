@@ -98,6 +98,43 @@
                             </div>
                             {{ form_errors(formProduct.title) }}
                         </div>
+
+                    <!-- form-group -->
+                    <div class="col-md-12">
+
+                        <div class="form-group">
+                            <span title="" data-toggle="tooltip" class="label-tooltip" data-original-title="Product Name">  {{ form_label(formProduct.brand,"Brand",{ label_attr:{ class:"control-label col-lg-3 required"}}) }} </span>
+
+                            <div class="col-lg-5">
+                                <div class="row mgbt-xs-0">
+                                    <div class="col-sm-9">
+                                        {{ form_widget(formProduct.brand,{ attr:{ class:"updateCurrentText" } }) }}
+                                    </div>
+
+
+
+                                </div>
+                            </div>
+                        </div>
+                        {{ form_errors(formProduct.brand) }}
+                    </div>
+
+                    <div class="col-md-12">
+                        <!-- form-group -->
+
+                        <div class="form-group">
+                            <span title="" data-toggle="tooltip" class="label-tooltip" data-original-title="">{{ form_label(formProduct.price,"Price",{ label_attr:{ class:"control-label col-lg-3 required"}}) }} </span>
+                            <div class="col-lg-4">
+                                <div class="input-group"> <span class="input-group-addon">$ </span>
+                                    {{ form_widget(formProduct.price) }}
+                                    {# <input type="text" onkeyup="if (isArrowKey(event)) return ;this.value = this.value.replace(/,/g, '.'); unitPriceWithTax('unit');" maxlength="14" value="0.00" name="unit_price" id="unit_price">#}
+                                </div>
+                            </div>
+                        </div>
+                        {{ form_errors(formProduct.price) }}
+
+                    </div>
+
                         <!-- form-group -->
                         <div class="col-md-12"><br></div>
                         <div class="col-md-12">
@@ -117,7 +154,6 @@
                                  </div>
                             </div>
                             </div>
-                            {{ form_errors(formProduct.activate) }}
 
                             <!-- form-group -->
 
@@ -222,34 +258,7 @@
                                  </div>
                              </div>
                          </div>
-                         <div class="col-md-12">
-                             <h3 class="mgtp-15 mgbt-xs-20"> Product Price</h3>
-                             <!-- form-group -->
-                             <div class="form-group">
-                                 <label for="priceTE" class="control-label col-md-3"> <span title="" data-toggle="tooltip" class="label-tooltip" data-original-title="">Retail price</span> </label>
-                                 <div class="col-md-7">
-                                     <div class="input-group "> <span class="input-group-addon">$ </span>
-                                         <input type="hidden" value="16.510000" name="price" id="priceTEReal">
-                                         <input type="text" onkeyup="$('#priceType').val('TE'); $('#priceTEReal').val(this.value.replace(/,/g, '.')); if (isArrowKey(event)) return; calcPriceTI();" onchange="noComma('priceTE'); $('#priceTEReal').val(this.value);" value="16.510000" name="price_displayed" id="priceTE" maxlength="14" size="11">
-                                     </div>
-                                 </div>
-                             </div>
-                             <div class="col-md-12">
 
-                             <br>
-                                 </div>
-                             <div class="form-group">
-                                  <span title="" data-toggle="tooltip" class="label-tooltip" data-original-title="">{{ form_label(formProduct.price,"Price",{ label_attr:{ class:"control-label col-lg-3 required"}}) }} </span>
-                                 <div class="col-lg-4">
-                                     <div class="input-group"> <span class="input-group-addon">$ </span>
-                                         {{ form_widget(formProduct.price) }}
-                                        {# <input type="text" onkeyup="if (isArrowKey(event)) return ;this.value = this.value.replace(/,/g, '.'); unitPriceWithTax('unit');" maxlength="14" value="0.00" name="unit_price" id="unit_price">#}
-                                     </div>
-                                 </div>
-                             </div>
-                             {{ form_errors(formProduct.price) }}
-
-                         </div>
                          <div class="col-md-12">
 
                              <h3 class="mgtp-15 mgbt-xs-20"> Shipping</h3>

@@ -118,9 +118,9 @@ class CategoryController extends Controller
         $category = new Category();
 
 
-        $formCategory = $this->createForm(new CategoryType(), $category)
+        $formCategory = $this->createForm(new CategoryType(), $category);
 
-            ->add("submit", "submit");
+//            ->add("submit", "submit");
 
 
         $formCategory->handleRequest($request);
