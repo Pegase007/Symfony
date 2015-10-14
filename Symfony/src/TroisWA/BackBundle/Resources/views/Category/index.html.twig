@@ -5,27 +5,27 @@
 {% block content %}
 
 
-{#<ul>#}
+    {#<ul>#}
     {#{% for category in categories %}#}
     {#<li> <a href="{{ path("trois_wa_back_category",{ 'id': category.id } ) }}"> {{ category.title }} </a></li>#}
     {#{% endfor %}#}
-{#</ul>#}
+    {#</ul>#}
 
 
-{#<h2> Actifs</h2>#}
+    {#<h2> Actifs</h2>#}
 
-{#{% for category in categories if category.active == true %}#}
+    {#{% for category in categories if category.active == true %}#}
 
-        {#{{ category.title }}#}
+    {#{{ category.title }}#}
 
-{#{% endfor %}#}
+    {#{% endfor %}#}
     <div class="row">
         <div class="col-md-12">
             <div class="panel widget">
                 <div class="panel-heading vd_bg-grey col-md-12">
-                    <h3 class="panel-title"> <span class="menu-icon"> <i class="fa fa-dot-circle-o"></i> </span> Available categories </h3>
 
-                    <a href="{{  path("trois_wa_back_product_add")}}" class="btn-xs pull-right menu-icon vd_bd-white vd_white">
+                    <h3 class="panel-title col-md-6"> <span class="menu-icon"> <i class="fa fa-dot-circle-o"></i> </span> Available categories </h3>
+                    <a href="{{  path("trois_wa_back_category_add")}}" class="btn-xs pull-right menu-icon vd_bd-white vd_white">
                         <i class="fa fa-plus"></i>
                     </a>
                 </div>
@@ -42,27 +42,27 @@
                         </tr>
                         </thead>
                         <tbody>
-    {% for category in categories %}
-        <tr>
-            <td>{{ category.id }}</td>
-            <td>{{ category.title }}</td>
-            {#<td>{{ category.date_created|date("d/m/Y") }}</td>#}
-            <td>{{ category.position }}</td>
-            <td><span class="label label-{% if category.activate ==true %}success">Actif{% else %}warning">Not Actif{% endif %}</span></td>
-            <td>{{ category.description |raw }}</td>
-                            <td class="menu-action">
-                                <a href="{{  path("trois_wa_back_category",{'id':category.id} ) }}" data-original-title="view" data-toggle="tooltip" data-placement="top" class="btn menu-icon vd_bd-green vd_green">
-                                    <i class="fa fa-eye"></i>
-                                </a>
-                                <a href="" data-original-title="edit" data-toggle="tooltip" data-placement="top" class="btn menu-icon vd_bd-yellow vd_yellow">
-                                    <i class="fa fa-pencil"></i>
-                                </a>
-                                <a href="" data-original-title="delete" data-toggle="tooltip" data-placement="top" class="btn menu-icon vd_bd-red vd_red">
-                                    <i class="fa fa-times"></i>
-                                </a>
-                            </td>
-                        </tr>
-    {% endfor %}
+                        {% for category in categories %}
+                            <tr>
+                                <td>{{ category.id }}</td>
+                                <td>{{ category.title }}</td>
+                                {#<td>{{ category.date_created|date("d/m/Y") }}</td>#}
+                                <td>{{ category.position }}</td>
+                                <td><span class="label label-{% if category.activate ==true %}success">Actif{% else %}warning">Not Actif{% endif %}</span></td>
+                                <td>{{ category.description |raw }}</td>
+                                <td class="menu-action">
+                                    <a href="{{  path("trois_wa_back_category",{'id':category.id} ) }}" data-original-title="view" data-toggle="tooltip" data-placement="top" class="btn menu-icon vd_bd-green vd_green">
+                                        <i class="fa fa-eye"></i>
+                                    </a>
+                                    <a href="" data-original-title="edit" data-toggle="tooltip" data-placement="top" class="btn menu-icon vd_bd-yellow vd_yellow">
+                                        <i class="fa fa-pencil"></i>
+                                    </a>
+                                    <a href="" data-original-title="delete" data-toggle="tooltip" data-placement="top" class="btn menu-icon vd_bd-red vd_red">
+                                        <i class="fa fa-times"></i>
+                                    </a>
+                                </td>
+                            </tr>
+                        {% endfor %}
                         </tbody>
                     </table>
                     <ul class="pagination">

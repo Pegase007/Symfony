@@ -145,4 +145,3 @@ class Image
         return $this->caption;
     }
 }
-
