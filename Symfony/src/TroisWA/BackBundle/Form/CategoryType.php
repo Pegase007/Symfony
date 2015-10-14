@@ -21,6 +21,7 @@ class CategoryType extends AbstractType
             ->add('description')
             ->add('position')
             ->add('activate')
+            ->add("image",new ImageType())
         ;
     }
     

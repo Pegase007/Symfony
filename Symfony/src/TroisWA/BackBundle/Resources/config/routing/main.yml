@@ -1,0 +1,25 @@
+
+trois_wa_back_contact:
+    path:     /contact
+    defaults: { _controller: TroisWABackBundle:Main:contact }
+
+trois_wa_back_feedback:
+    path:     /feedback
+    defaults: { _controller: TroisWABackBundle:Main:feedback }
+
+trois_wa_back_about:
+    path:     /about
+    defaults: { _controller: TroisWABackBundle:Main:about }
+
+trois_wa_back_admin:
+    path:     /
+    defaults: { _controller: TroisWABackBundle:Main:admin }
+
+trois_wa_back_admin_request:
+    path:     /request
+    defaults: { _controller: TroisWABackBundle:Main:request }
+
+trois_wa_back_client:
+    path:     /client/{prenom}/{nom}
+    defaults: { _controller: TroisWABackBundle:Main:client }
+

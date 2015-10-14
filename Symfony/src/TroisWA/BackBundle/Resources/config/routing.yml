@@ -1,12 +1,16 @@
+trois_wa_back_brand:
+    resource: "@TroisWABackBundle/Resources/config/routing/brand.yml"
+    prefix:   /brand
+
 trois_wa_back_ressources_product:
-    resource: "@TroisWABackBundle/Resources/config/Routing/product.yml"
+    resource: "@TroisWABackBundle/Resources/config/routing/product.yml"
     prefix: /product
 
 
 trois_wa_back_ressources_main:
-    resource: "@TroisWABackBundle/Resources/config/Routing/main.yml"
+    resource: "@TroisWABackBundle/Resources/config/routing/main.yml"
 
 
 trois_wa_back_ressources_category:
-    resource: "@TroisWABackBundle/Resources/config/Routing/category.yml"
+    resource: "@TroisWABackBundle/Resources/config/routing/category.yml"
     prefix: /category

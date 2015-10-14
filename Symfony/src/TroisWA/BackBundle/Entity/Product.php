@@ -109,8 +109,17 @@ class Product
     /**
      * @ORM\ManyToOne(targetEntity="Category")
      *
+     * @Assert\NotBlank() (message="Must not be empty")
      */
     private $category;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="Brand")
+     * @ORM\JoinColumn(name="brand_id",referencedColumnName="id",nullable=false)
+     * @Assert\NotBlank() (message="Must not be empty")
+     *
+     */
+    private $brand;
 
 
 
@@ -328,5 +337,36 @@ class Product
     public function getCategory()
     {
         return $this->category;
+    }
+
+    public function __toString()
+    {
+
+        return $this->title;
+    }
+
+
+    /**
+     * Set brand
+     *
+     * @param \TroisWA\BackBundle\Entity\Brand $brand
+     *
+     * @return Product
+     */
+    public function setBrand(\TroisWA\BackBundle\Entity\Brand $brand)
+    {
+        $this->brand = $brand;
+
+        return $this;
+    }
+
+    /**
+     * Get brand
+     *
+     * @return \TroisWA\BackBundle\Entity\Brand
+     */
+    public function getBrand()
+    {
+        return $this->brand;
     }
 }

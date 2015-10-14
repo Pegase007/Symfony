@@ -51,7 +51,7 @@
             <td><span class="label label-{% if category.activate ==true %}success">Actif{% else %}warning">Not Actif{% endif %}</span></td>
             <td>{{ category.description |raw }}</td>
                             <td class="menu-action">
-                                <a href="{{  path("trois_wa_back_product",{'id':category.id} ) }}" data-original-title="view" data-toggle="tooltip" data-placement="top" class="btn menu-icon vd_bd-green vd_green">
+                                <a href="{{  path("trois_wa_back_category",{'id':category.id} ) }}" data-original-title="view" data-toggle="tooltip" data-placement="top" class="btn menu-icon vd_bd-green vd_green">
                                     <i class="fa fa-eye"></i>
                                 </a>
                                 <a href="" data-original-title="edit" data-toggle="tooltip" data-placement="top" class="btn menu-icon vd_bd-yellow vd_yellow">
