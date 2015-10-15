@@ -64,9 +64,9 @@ class Category
     private $activate;
 
     /**
-     * @ORM\OneToOne(targetEntity="Image",cascade={"persist"})
-     * @Assert\NotBlank() (message="Must not be empty")
+     * @ORM\OneToOne(targetEntity="Image", cascade={"persist","remove"})
      *
+     * @Assert\Valid
      */
     private $image;
 
@@ -234,6 +234,14 @@ class Category
      */
     public function setImage(\TroisWA\BackBundle\Entity\Image $image = null)
     {
+
+
+        if($image == null || !$image->getFile())
+        {
+            $image=null;
+
+        }
+
         $this->image = $image;
 
         return $this;
