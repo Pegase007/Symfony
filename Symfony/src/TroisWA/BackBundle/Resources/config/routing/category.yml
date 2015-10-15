@@ -15,9 +15,9 @@ trois_wa_back_category_add:
     defaults: { _controller: TroisWABackBundle:Category:add }
 
 trois_wa_back_category_edit:
-    path:     /edit
+    path:     /edit/{id}
     defaults: { _controller: TroisWABackBundle:Category:edit }
 
 trois_wa_back_category_delete:
-    path:     /delete
+    path:     /delete/{id}
     defaults: { _controller: TroisWABackBundle:Category:delete }

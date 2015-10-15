@@ -1,0 +1,19 @@
+{% extends "TroisWABackBundle::layoutBo2.html.twig" %}
+{% block page %} Edit Category {% endblock %}
+
+
+
+{% block content %}
+
+
+    {{ form(editForm,{'attr':{novalidate:"novalidate"}}) }}
+
+
+
+
+{% endblock %}
+
+{% block javascripts %}
+
+    {{ parent() }}
+{% endblock %}

@@ -35,7 +35,7 @@
                         <tr>
                             <th>ID</th>
                             <th>Name</th>
-                            <th>Position</th>
+                            <th>Thumbnail</th>
                             <th>Status</th>
                             <th>Description</th>
                             <th>Actions</th>
@@ -47,17 +47,20 @@
                                 <td>{{ category.id }}</td>
                                 <td>{{ category.title }}</td>
                                 {#<td>{{ category.date_created|date("d/m/Y") }}</td>#}
-                                <td>{{ category.position }}</td>
+                                {% if category.image %}
+                                <td><img src="{{ asset(category.image.webpath("thumb-small")) }}"></td>
+                                {% endif %}
+
                                 <td><span class="label label-{% if category.activate ==true %}success">Actif{% else %}warning">Not Actif{% endif %}</span></td>
                                 <td>{{ category.description |raw }}</td>
                                 <td class="menu-action">
                                     <a href="{{  path("trois_wa_back_category",{'id':category.id} ) }}" data-original-title="view" data-toggle="tooltip" data-placement="top" class="btn menu-icon vd_bd-green vd_green">
                                         <i class="fa fa-eye"></i>
                                     </a>
-                                    <a href="" data-original-title="edit" data-toggle="tooltip" data-placement="top" class="btn menu-icon vd_bd-yellow vd_yellow">
+                                    <a href="{{ path("trois_wa_back_category_edit",{'id':category.id} ) }}" data-original-title="edit" data-toggle="tooltip" data-placement="top" class="btn menu-icon vd_bd-yellow vd_yellow">
                                         <i class="fa fa-pencil"></i>
                                     </a>
-                                    <a href="" data-original-title="delete" data-toggle="tooltip" data-placement="top" class="btn menu-icon vd_bd-red vd_red">
+                                    <a href="{{ path("trois_wa_back_category_delete",{'id':category.id}) }}" data-original-title="delete" data-toggle="tooltip" data-placement="top" class="btn menu-icon vd_bd-red vd_red">
                                         <i class="fa fa-times"></i>
                                     </a>
                                 </td>
