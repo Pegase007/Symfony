@@ -129,17 +129,18 @@ class CategoryController extends Controller
 
             $em = $this->getDoctrine()->getManager();
 //            die(dump($category));
-            $image=$category->getImage();
-            $image->upload();
+////
+//            Utilisation des LifecycleCallbacks pour supprimer les 2 lignes ci-dessous
+
+//            $image=$category->getImage();
+//            $image->upload();
 
             //ON supprime les deux lignes du dessous car => cascade persist dans @ORM de $image dans category
 //            $em->persist($image);
 //            $em->flush();
 
-
             $em->persist($category);
             $em->flush();
-
 
             $this->get("session")->getFlashBag()
                 ->add("success", "Le message à bien été envoyé");
@@ -154,6 +155,49 @@ class CategoryController extends Controller
 
     }
 
+    public function editAction($id, Request $request)
+    {
+
+        $em = $this->getDoctrine()->getEntityManager();
+        $category = $em->getRepository('TroisWABackBundle:Category')->find($id);
+
+
+
+        if (!$category) {
+            throw $this->createNotFoundException('Unable to find product to edit.');
+        }
+
+        $editForm= $this->createForm(new CategoryType(),$category)
+
+            ->add("submit","submit");
+
+
+        $editForm->handleRequest($request);
+
+        if($editForm->isValid())
+        {
+
+            $em=$this->getDoctrine()->getManager();
+            $em->persist($category);
+            $em->flush();
+
+
+            $this->get("session")->getFlashBag()
+                ->add("success","Le produit à bien été mis à jour");
+
+//                Get to Post permet de transformer les formulaire qui arrive en post -> get()
+            return $this->redirectToRoute("trois_wa_back_categories");
+
+        }
+
+
+
+        return $this->render('TroisWABackBundle:Category:edit.html.twig', ["editForm"=> $editForm->createView()]);
+    }
+
+
+
+
     public function renderAllCategoryAction()
     {
 
@@ -165,5 +209,37 @@ class CategoryController extends Controller
 
 
     }
+
+
+    public function deleteAction(Category $category, Request $request){
+
+//    die(dump($category));
+        $em = $this->getDoctrine()->getManager();
+
+
+//         Code de la suppression
+        $em->remove($category);
+        $em->flush();
+        // Fin code de la suppression
+
+        if($request->isXmlHttpRequest())
+        {
+
+            return new JsonResponse();
+
+        }
+
+
+        $this->get("session")->getFlashBag()
+            ->add("success","Le produit à bien été supprimée");
+
+
+        return $this->redirect($this->generateUrl("trois_wa_back_categories"));
+
+
+
+    }
+
+
 
     }
