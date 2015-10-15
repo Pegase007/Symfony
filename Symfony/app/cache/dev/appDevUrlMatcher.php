@@ -280,13 +280,13 @@ class appDevUrlMatcher extends Symfony\Bundle\FrameworkBundle\Routing\Redirectab
                 }
 
                 // trois_wa_back_category_edit
-                if ($pathinfo === '/category/edit') {
-                    return array (  '_controller' => 'TroisWA\\BackBundle\\Controller\\CategoryController::editAction',  '_route' => 'trois_wa_back_category_edit',);
+                if (0 === strpos($pathinfo, '/category/edit') && preg_match('#^/category/edit/(?P<id>[^/]++)$#s', $pathinfo, $matches)) {
+                    return $this->mergeDefaults(array_replace($matches, array('_route' => 'trois_wa_back_category_edit')), array (  '_controller' => 'TroisWA\\BackBundle\\Controller\\CategoryController::editAction',));
                 }
 
                 // trois_wa_back_category_delete
-                if ($pathinfo === '/category/delete') {
-                    return array (  '_controller' => 'TroisWA\\BackBundle\\Controller\\CategoryController::deleteAction',  '_route' => 'trois_wa_back_category_delete',);
+                if (0 === strpos($pathinfo, '/category/delete') && preg_match('#^/category/delete/(?P<id>[^/]++)$#s', $pathinfo, $matches)) {
+                    return $this->mergeDefaults(array_replace($matches, array('_route' => 'trois_wa_back_category_delete')), array (  '_controller' => 'TroisWA\\BackBundle\\Controller\\CategoryController::deleteAction',));
                 }
 
             }

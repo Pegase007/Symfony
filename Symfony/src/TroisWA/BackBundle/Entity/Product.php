@@ -108,14 +108,14 @@ class Product
 
     /**
      * @ORM\ManyToOne(targetEntity="Category")
-     *
+     * @ORM\JoinColumn(name="category_id", referencedColumnName="id", onDelete="SET NULL")
      * @Assert\NotBlank() (message="Must not be empty")
      */
     private $category;
 
     /**
      * @ORM\ManyToOne(targetEntity="Brand")
-     * @ORM\JoinColumn(name="brand_id",referencedColumnName="id",nullable=false)
+     * @ORM\JoinColumn(name="brand_id",referencedColumnName="id", nullable=false)
      * @Assert\NotBlank() (message="Must not be empty")
      *
      */
