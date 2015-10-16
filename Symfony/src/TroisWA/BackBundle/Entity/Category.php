@@ -247,6 +247,14 @@ class Category
         return $this;
     }
 
+    public function setImageFixture(\TroisWA\BackBundle\Entity\Image $image = null)
+    {
+
+        $this->image = $image;
+
+        return $this;
+    }
+
     /**
      * Get image
      *

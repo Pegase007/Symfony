@@ -19,24 +19,37 @@ class LoadProductData extends AbstractFixture implements OrderedFixtureInterface
     {
 //        die("product");
 
+        $faker = \Faker\Factory::create('fr_FR');
+
+        // generate data by accessing properties
+//        echo $faker->name;
+//        die;
+
+        for ($i = 0; $i < 10; $i++)
+        {
         $product = new Product();
-        $product->setTitle('Hello');
-        $product->setDescription('lorem Ipsum');
-        $product->setQuantity('5');
-        $product->setPrice('45');
-        $product->setReference('REF-55899');
-        $product->setActivate('1');
-        $category=$this->getReference("categ");
+        $product->setTitle($faker->sentence(3));
+        $product->setDescription($faker->paragraph(3));
+        $product->setQuantity($faker->randomDigitNotNull);
+            $product->setPrice($faker->randomFloat(2,0,1000));
+        $product->setReference($faker->numerify('REF-######'));
+        $product->setActivate($faker->numberBetween(0,1));
+
+        $category=$faker->randomElement($this->getReference("categ"));
         $product->setCategory($category);
+
+        $brand=$this->getReference("brand");
+        $product->setBrand($brand);
 
         $manager->persist($product);
         $manager->flush();
 
+        }
 
 
     }
     public function getOrder()
     {
-        return 2;
+        return 4;
     }
 }
