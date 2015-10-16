@@ -10,6 +10,16 @@ namespace TroisWA\BackBundle\Repository;
  */
 class CategoryRepository extends \Doctrine\ORM\EntityRepository
 {
+//    public function latestCat()
+//    {
+//        $query = $this->createQueryBuilder("prod")
+//        ->orderBy('prod.date_created','desc')
+//        ->getQuery();
+//        return $query->getResult();
+//
+//
+//    }
+
 
     public function CatQuantity()
     {
@@ -20,6 +30,8 @@ class CategoryRepository extends \Doctrine\ORM\EntityRepository
             ->getQuery();
         return $query->getSingleScalarResult();
     }
+
+
 
     public function catActive()
     {

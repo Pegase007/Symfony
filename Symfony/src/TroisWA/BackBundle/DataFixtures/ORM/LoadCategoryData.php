@@ -20,24 +20,33 @@ class LoadCategoryData extends AbstractFixture implements OrderedFixtureInterfac
     public function load(ObjectManager $manager)
     {
 
+        $allCategories = [];
 //        die("test");
-
-        $category = new Category();
-        $category->setTitle('Hello');
-        $category->setDescription('lorem Ipsum');
-        $category->setPosition('2');
-        $category->setActivate('1');
-
-        $this->addReference("categ",$category);
-
-        $manager->persist($category);
-        $manager->flush();
+        $faker = \Faker\Factory::create('fr_FR');
 
 
+        for ($i = 0; $i < 10; $i++) {
+            $category = new Category();
+            $category->setTitle($faker->sentence(3));
+            $category->setDescription($faker->paragraph(3));
+            $category->setPosition($faker->randomDigitNotNull);
+            $category->setActivate($faker->numberBetween(0, 1));
+
+//            $this->addReference("categ", $category);
+
+            $image = $this->getReference("image");
+            $category->setImageFixture($image);
+
+            $manager->persist($category);
+            $manager->flush();
+            array_push($allCategories, $category);
+
+        }
+        $this->addReference('categ', $allCategories);
     }
 
     public function getOrder()
     {
-        return 1;
+        return 3;
     }
 }

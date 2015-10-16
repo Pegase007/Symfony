@@ -1,6 +1,7 @@
 <?php
 
 namespace TroisWA\BackBundle\Repository;
+use Symfony\Component\HttpFoundation\JsonResponse;
 
 /**
  * ProductRepository
@@ -171,6 +172,91 @@ class ProductRepository extends \Doctrine\ORM\EntityRepository
 
 
     }
+
+    public function getProductCategoryAccueil()
+    {
+
+    $query= $this->createQueryBuilder("prod")
+        ->join('prod.category','cat')
+        ->where('cat.title = :title')
+        ->setParameter('title',"Accueil")
+        ->getQuery();
+
+//        die(dump($query->getResult()));
+
+        return $query->getResult();
+
+    }
+
+    public function getProductNoCat()
+    {
+
+        $query= $this->createQueryBuilder("prod")
+            ->where('prod.category is null')
+            ->getQuery();
+
+//        die(dump($query->getResult()));
+
+        return $query->getResult();
+
+    }
+
+    public function getProductNoCatBrand()
+    {
+
+        $query= $this->createQueryBuilder("prod")
+            ->where('prod.category is null','prod.brand is not null')
+            ->getQuery();
+
+//        die(dump($query->getResult()));
+
+        return $query->getResult();
+
+    }
+
+    public function getProdParCat()
+    {
+
+        $query= $this->createQueryBuilder("prod")
+            ->select("COUNT(prod)","cat.title")
+            ->join("prod.category","cat")
+            ->groupBy("cat.id")
+            ->getQuery();
+        $result=$query->getResult();
+
+//dump($result);
+//        die();
+        return $query->getResult();
+//$table=[];
+//
+//        foreach($result as $res){
+//
+//           $table[]=array(
+//               'label'=>$res['title'],
+//               'data'=>$res['1']);
+//
+//        }
+//
+////        dump($table);
+//
+//            $json=new JsonResponse();
+//
+//            $json->setData(
+//
+//                $table
+//            );
+//
+////        dump($json->getContent());
+////        die();
+//        return $json->getContent();
+
+    }
+
+
+
+
+
+
 
 
 }
