@@ -237,7 +237,8 @@ class ProductController extends Controller
         }
             return $this->redirect($this->generateUrl("trois_wa_back_product_index"));
 
-
-
     }
+
+
+
 }
