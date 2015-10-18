@@ -25,6 +25,9 @@ class MainController extends Controller
         $fiveProduct=$em->getRepository("TroisWABackBundle:Product")
             ->fiveQuantity();
 
+        $findAllPerso=$em->getRepository("TroisWABackBundle:Product")
+            ->findAllPerso();
+
         $noItems=$em->getRepository("TroisWABackBundle:Product")
             ->noItems();
 
@@ -49,6 +52,31 @@ class MainController extends Controller
             ->price();
 
 
+        $getProductCategoryAccueil=$em->getRepository("TroisWABackBundle:Product")
+            ->getProductCategoryAccueil();
+
+
+         $getProductNoCat=$em->getRepository("TroisWABackBundle:Product")
+                    ->getProductNoCat();
+
+
+        $getProductNoCatBrand=$em->getRepository("TroisWABackBundle:Product")
+                    ->getProductNoCatBrand();
+
+        $getProdParCat=$em->getRepository("TroisWABackBundle:Product")
+            -> getProdParCat();
+
+
+//        $latestCat=$em->getRepository("TroisWABackBundle:Category")
+//            -> latestCat();
+//
+
+
+
+
+
+
+
 
 
 //
@@ -62,6 +90,8 @@ class MainController extends Controller
             'catQuantity'=>$catQuantity,
             'catActive'=>$catActive,
             'sumPrice'=>$sumPrice,
+            'getProdParCat'=>$getProdParCat,
+//            'latestCat'=>$latestCat
 
 
         ]);
