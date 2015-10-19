@@ -1,27 +1,177 @@
-{% extends "TroisWABackBundle::layoutBo2.html.twig" %}
+    {% extends "TroisWABackBundle::layoutBo2.html.twig" %}
 
-{% block page %} Category {% endblock %}
+    {% block page %} Category edit {% endblock %}
 
-{% block content %}
+    {% block stylesheets %}
+        {{ parent() }}
 
-<h1> Category {{ cat.id }}: {{ cat.title }}</h1>
-<a href="{{ path("trois_wa_back_categories") }}">Retour vers toutes les categories</a>
+        <link rel="stylesheet" href="{{ asset("css/prettyPhoto.css") }}">
+        <link rel="stylesheet" href="{{ asset("css/colpick.css") }}">
+        <link rel="stylesheet" href="{{ asset("css/owl.carousel.css") }}">
+        <link rel="stylesheet" href="{{ asset("css/style.css") }}">
 
-<br>
-<br>
+    {% endblock %}
 
-{% if cat.image %}
+    {% block content %}
 
-<img src="{{ asset(cat.image.webPath) }}">
+        {#{{ dump(product.category.title) }}#}
 
-{% endif %}
-<br>
-<h3> Description:</h3>
-{{ cat.description | nl2br | raw }}
-<br>
-<br>
-{{ cat.description |striptags | length }} caracteres | Date:
+        <div class="row">
+            <div class="col-md-12">
+
+                <div class="row">
+
+                    <div class="col-md-6 col-sm-12 col-xs-12 product-viewer clearfix">
+
+                        <div id="product-image-carousel-container">
+                            <ul id="product-carousel" class="celastislide-list">
+                                <li class="active-slide"><a data-rel='prettyPhoto' href="images/products/big-phone1.jpg" ><img src="{{ cat.image }}" alt="Phone photo 1"></a></li>
+
+                            </ul><!-- End product-carousel -->
+                        </div>
+
+
+                    </div><!-- End .col-md-6 -->
+
+                    <div class="col-md-6 col-sm-12 col-xs-12 product">
+                        <div class="lg-margin visible-sm visible-xs"></div><!-- Space -->
+                        <h1 class="product-name">{{ cat.title }}</h1>
+                        <div class="ratings-container">
+                            <div class="ratings separator">
+                                <div class="ratings-result" data-result="70"></div>
+                            </div><!-- End .ratings -->
+								<span class="ratings-amount separator">
+									3 Products
+								</span>
+                            <span class="separator">|</span>
+                            <a href="#review" class="rate-this">See Products</a>
+                        </div><!-- End .rating-container -->
+                        <ul class="product-list">
+                            <li><span>Active:</span>{% if cat.activate == 1 %} Visible {% else %} hidden {% endif %}</li>
+                        </ul>
+
+                        <div class="product-extra clearfix">
+
+
+                            <a href="{{  path("trois_wa_back_category_edit",{'id':cat.id} ) }}" class="btn btn-success"> <i class="fa fa-pencil"></i></a>
+                            <a href="{{  path("trois_wa_back_category_delete",{'id':cat.id} ) }}" class="btn btn-success">  <i class="fa fa-times"></i></a>
+
+
+                            <div class="md-margin visible-xs"></div>
+                            <div class="share-button-group">
+
+                            </div><!-- End .share-button-group -->
+                        </div>
+                    </div><!-- End .col-md-6 -->
+
+
+                </div><!-- End .row -->
+
+
+                <div class="row">
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+
+                        <div class="tab-container left product-detail-tab clearfix">
+                            <ul class="nav-tabs">
+                                <li class="active"><a href="#overview" data-toggle="tab">Description</a></li>
+                                <li><a href="#description" data-toggle="tab">Overview</a></li>
+                            </ul>
+                            <div class="tab-content clearfix">
+
+                                <div class="tab-pane active" id="overview">
+                                    {{ cat.description|raw }}
+
+                                </div><!-- End .tab-pane -->
+
+                                <div class="tab-pane" id="description">
+                                    <p>The perfect mix of portability and performance in a slim 1" form factor:</p>
+                                    <ul class="product-details-list">
+                                        <li>3rd gen Intel® Core™ i7 quad core processor available;</li>
+                                        <li>Windows 8 Pro available;</li>
+                                        <li>13.3" and 15.5" screen sizes available;</li>
+                                        <li>Double your battery life with available sheet battery;</li>
+                                        <li>4th gen Intel® Core™ i7 processor available;</li>
+                                        <li>Full HD TRILUMINOS IPS touchscreen (1920 x 1080);</li>
+                                        <li>Super fast 512GB PCIe SSD available;</li>
+                                        <li>Ultra-light at just 2.34 lbs.</li>
+                                        <li>And more...</li>
+                                    </ul>
+                                </div><!-- End .tab-pane -->
+
+
+                            </div><!-- End .tab-content -->
+                        </div><!-- End .tab-container -->
+                        <div class="lg-margin visible-xs"></div>
+                    </div><!-- End .col-md-9 -->
+                    <div class="lg-margin2x visible-sm visible-xs"></div><!-- Space -->
+                </div><!-- End .row -->
+
+            </div><!-- End .col-md-12 -->
+        </div><!-- End .row -->
 
 
 
-{% endblock %}
+
+
+    {% endblock %}
+
+    {% block javascripts  %}
+        {{ parent() }}
+        <script src="{{ asset("js/owl.carousel.min.js") }}"></script>
+        <script src="{{ asset("js/jquery.prettyPhoto.js") }}"></script>
+        <script src="{{ asset("js/colpick.js") }}"></script>
+        <script src="{{ asset("js/jquery.elastislide.js") }}"></script>
+        <script src="{{ asset("js/jquery.mlens-1.3.min.js") }}"></script>
+        <script src="{{ asset("js/main.js") }}"></script>
+        <script src="{{ asset("js/modernizr.js") }}"></script>
+        {#<script src="{{ asset("js/jquery.flexslider-min.js") }}"></script>#}
+
+        <script>
+            $(function() {
+
+                var carouselContainer = $('#product-carousel'),
+                        productImg =  $('#product-image');
+
+                carouselContainer.elastislide({
+                    orientation : 'vertical',
+                    minItems : 4
+
+                });
+
+                productImg.mlens({
+                    imgSrc: $("#product-image").attr("data-big"),
+                    lensShape: "square",
+                    lensSize: 150,
+                    borderSize: 4,
+                    borderColor: "#999",
+                    borderRadius: 0
+                });
+
+
+                var oldImg = productImg.attr('src');
+                carouselContainer.find('li').on('mouseover', function() {
+
+                    var newImg = $(this).find('a').attr('href');
+
+                    productImg.attr({'src': newImg, 'data-big': newImg}).trigger('imagechanged');
+
+                });
+
+                // triggered with custom event
+                productImg.on('imagechanged', function() {
+                    productImg.mlens("update", 0 ,{
+                        imgSrc: productImg.attr("data-big"),
+                        lensShape: "square",
+                        lensSize: 150,
+                        borderSize: 4,
+                        borderColor: "#999"
+                    });
+                });
+
+            });
+        </script>
+
+    {% endblock %}
+
+
+
