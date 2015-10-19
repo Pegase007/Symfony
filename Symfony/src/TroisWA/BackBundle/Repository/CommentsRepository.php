@@ -1,6 +1,6 @@
 <?php
 
-namespace TroisWA\BackBundle\Entity;
+namespace TroisWA\BackBundle\Repository;
 
 /**
  * CommentsRepository
@@ -10,4 +10,19 @@ namespace TroisWA\BackBundle\Entity;
  */
 class CommentsRepository extends \Doctrine\ORM\EntityRepository
 {
+
+
+    public function lastComments($id)
+    {
+        $query = $this->createQueryBuilder("com")
+            ->where ('com.product = :idProd')
+            ->setParameters(["idProd"=>$id])
+            ->orderBy('com.dateCreated','desc')
+            ->setMaxResults(5)
+            ->getQuery();
+
+        return $query->getResult();
+    }
+
+
 }

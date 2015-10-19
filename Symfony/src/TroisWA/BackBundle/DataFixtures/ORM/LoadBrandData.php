@@ -20,16 +20,18 @@ class BrandProductData extends AbstractFixture implements OrderedFixtureInterfac
     {
 //        die("product");
 
-        $faker = \Faker\Factory::create('fr_FR');
+        for ($i = 0; $i < 10; $i++) {
+            $faker = \Faker\Factory::create('fr_FR');
 
-        $brand = new Brand();
-        $brand->setTitle($faker->sentence(3));
+            $brand = new Brand();
+            $brand->setTitle($faker->sentence(3));
 
-        $this->addReference("brand",$brand);
+            $this->addReference('brand_'. $i, $brand);
 
-        $manager->persist($brand);
-        $manager->flush();
+            $manager->persist($brand);
+            $manager->flush();
 
+        }
 
     }
     public function getOrder()

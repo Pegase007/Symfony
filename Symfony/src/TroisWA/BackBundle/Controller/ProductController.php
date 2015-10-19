@@ -9,6 +9,8 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use TroisWA\BackBundle\Entity\Category;
+use TroisWA\BackBundle\Entity\Comments;
+use TroisWA\BackBundle\Form\CommentsType;
 use TroisWA\BackBundle\Repository\CategoryRepository;
 use TroisWA\BackBundle\Entity\Product;
 use TroisWA\BackBundle\Form\ProductType;
@@ -16,7 +18,7 @@ use TroisWA\BackBundle\Form\ProductType;
 class ProductController extends Controller
 {
 
-    public function productAction(Product $products)
+    public function productAction(Product $products,Request $request,$id)
     {
 //          UTILISATION DU PARAMCONVERTER AU NIVEAU DE LA METHODE
 
@@ -31,9 +33,58 @@ class ProductController extends Controller
 ////    return new Response(' ok ');
 //
 ////        return $this->render("TroisWABackBundle:Product:product.html.twig",["product"=>$products,"formDelete"=>$formProductDelete->createView()]);
-        return $this->render("TroisWABackBundle:Product:product.html.twig",["product"=>$products]);
 
-    }
+        $em=$this->getDoctrine()
+            ->getManager();
+
+        $lastComments=$em->getRepository("TroisWABackBundle:Comments")
+            ->lastComments($products);
+
+//dump($products->getId());
+//
+// dump($lastComments);
+//        die();
+
+        $comments = new Comments();
+
+        $comments->setProduct($products);
+
+
+        $formComments = $this->createForm(new CommentsType(), $comments);
+
+
+
+        $formComments->handleRequest($request);
+
+        if ($formComments->isValid()) {
+
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($comments);
+            $em->flush();
+
+
+            $this->get("session")->getFlashBag()
+                ->add("success", "Le message à bien été envoyé");
+
+//                Get to Post permet de transformer les formulaire qui arrive en post -> get()
+            return $this->redirectToRoute("trois_wa_back_product",["id"=>$products->getId()]);
+
+
+        }
+
+
+
+
+
+
+
+        return $this->render("TroisWABackBundle:Product:product.html.twig",
+            ["product"=>$products,
+            "formComments" => $formComments->createView(),
+            "lastComments"=>$lastComments,
+            ]);
+
+//    }
 
 //        FORMULAIRE SUPPRESSION
 
@@ -45,7 +96,7 @@ class ProductController extends Controller
 //                        ->setAction($this->generateUrl('trois_wa_back_product_delete', array('id' => $id)))
 //                        ->getForm();
 //
-//    }
+    }
 
 
     public function indexAction(Request $request)

@@ -1,6 +1,6 @@
 <?php
 
-namespace TroisWA\BackBundle\Entity;
+namespace TroisWA\BackBundle\Repository;
 
 /**
  * ImageRepository

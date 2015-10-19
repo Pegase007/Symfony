@@ -3,6 +3,7 @@
 namespace TroisWA\BackBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Comments
@@ -29,14 +30,35 @@ class Comments
     private $content;
 
     /**
+     * @var string
+     *
+     * @Assert\Length(
+     *    min = 2,
+     *    minMessage = "Your first name must be at least {{ limit }} characters long",
+     *)
+     *
+     * @Assert\NotBlank() (message="Must not be empty")
+     *
+     * @ORM\Column(name="author", type="string", length=100)
+     */
+    private $author;
+
+    /**
      * @var \DateTime
      *
+     * @Assert\NotBlank() (message="Must not be empty")
      * @ORM\Column(name="date_created", type="datetime")
      */
     private $dateCreated;
 
     /**
      * @var integer
+     *
+     * @Assert\Range(
+     *      min = 0,
+     *      max = 5,
+     *      maxMessage = "The higher mark must be 5"
+     * )
      *
      * @ORM\Column(name="mark", type="integer")
      */
@@ -51,12 +73,19 @@ class Comments
 
     /**
      * @ORM\ManyToOne(targetEntity="Product")
-     * @ORM\JoinColumn(name="product_id", referencedColumnName="id", onDelete="SET NULL")
+     * @ORM\JoinColumn(name="product_id", referencedColumnName="id", nullable=false)
      */
     private $product;
 
 
 
+    public function __construct()
+    {
+        $this->dateCreated= new \DateTime("now");
+        $this->activate=false;
+
+
+    }
 
     /**
      * Get id
@@ -186,5 +215,29 @@ class Comments
     public function getProduct()
     {
         return $this->product;
+    }
+
+    /**
+     * Set author
+     *
+     * @param string $author
+     *
+     * @return Comments
+     */
+    public function setAuthor($author)
+    {
+        $this->author = $author;
+
+        return $this;
+    }
+
+    /**
+     * Get author
+     *
+     * @return string
+     */
+    public function getAuthor()
+    {
+        return $this->author;
     }
 }

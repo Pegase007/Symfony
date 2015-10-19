@@ -3,6 +3,7 @@
 namespace TroisWA\BackBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Comments
@@ -29,6 +30,20 @@ class Comments
     private $content;
 
     /**
+     * @var string
+     *
+     * @Assert\Length(
+     *    min = 2,
+     *    minMessage = "Your first name must be at least {{ limit }} characters long",
+     *)
+     *
+     * @Assert\NotBlank() (message="Must not be empty")
+     *
+     * @ORM\Column(name="author", type="string", length=100)
+     */
+    private $author;
+
+    /**
      * @var \DateTime
      *
      * @ORM\Column(name="date_created", type="datetime")
@@ -38,6 +53,12 @@ class Comments
     /**
      * @var integer
      *
+     * @Assert\Range(
+     *      min = 0,
+     *      max = 5,
+     *      maxMessage = "The higher mark must be 5"
+     * )
+     *
      * @ORM\Column(name="mark", type="integer")
      */
     private $mark;
@@ -45,6 +66,7 @@ class Comments
     /**
      * @var boolean
      *
+     * @Assert\NotBlank() (message="Must not be empty")
      * @ORM\Column(name="activate", type="boolean")
      */
     private $activate;

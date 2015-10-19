@@ -32,16 +32,17 @@ class LoadImageData extends AbstractFixture implements OrderedFixtureInterface
             $image->setPath('561fcba024270604140660.png');
             $image->setCaption($faker->catchPhrase);
 
+            $this->addReference('image_'.$i, $image);
 
             $manager->persist($image);
             $manager->flush();
 
-            array_push($allImg, $image);
 
         }
 
-        $test=new \stdClass(json_encode($allImg));
-        $this->addRefrence('img',$test);
+//
+
+
     }
 
 

@@ -27,22 +27,22 @@ class LoadProductData extends AbstractFixture implements OrderedFixtureInterface
 
         for ($i = 0; $i < 10; $i++)
         {
-        $product = new Product();
-        $product->setTitle($faker->sentence(3));
-        $product->setDescription($faker->paragraph(3));
-        $product->setQuantity($faker->randomDigitNotNull);
+            $product = new Product();
+            $product->setTitle($faker->word);
+            $product->setDescription($faker->paragraph(3));
+            $product->setQuantity($faker->randomDigitNotNull);
             $product->setPrice($faker->randomFloat(2,0,1000));
-        $product->setReference($faker->numerify('REF-######'));
-        $product->setActivate($faker->numberBetween(0,1));
+            $product->setReference($faker->numerify('REF-######'));
+            $product->setActivate($faker->numberBetween(0,1));
 
-        $category=$faker->randomElement($this->getReference("categ"));
-        $product->setCategory($category);
+            $category=$this->getReference("categorie_".$i);
+            $product->setCategory($category);
 
-        $brand=$this->getReference("brand");
-        $product->setBrand($brand);
+            $brand=$this->getReference("brand_".$i);
+            $product->setBrand($brand);
 
-        $manager->persist($product);
-        $manager->flush();
+            $manager->persist($product);
+            $manager->flush();
 
         }
 

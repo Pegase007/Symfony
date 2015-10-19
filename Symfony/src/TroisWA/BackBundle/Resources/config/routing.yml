@@ -14,3 +14,7 @@ trois_wa_back_ressources_main:
 trois_wa_back_ressources_category:
     resource: "@TroisWABackBundle/Resources/config/routing/category.yml"
     prefix: /category
+
+trois_wa_back_ressources_comments:
+    resource: "@TroisWABackBundle/Resources/config/routing/comments.yml"
+    prefix: /comments
