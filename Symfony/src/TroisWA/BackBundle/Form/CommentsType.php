@@ -4,7 +4,7 @@ namespace TroisWA\BackBundle\Form;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class CommentsType extends AbstractType
 {
@@ -16,17 +16,20 @@ class CommentsType extends AbstractType
     {
         $builder
             ->add('content')
-            ->add('dateCreated')
-            ->add('mark')
-            ->add('activate')
-            ->add('product')
-        ;
+            //->add('dateCreated')
+            ->add('mark','choice', array(
+                'multiple' => false,
+                'expanded' => true,
+                'choices' => range(0,5)))
+            //->add('activate')
+            //->add('product')
+            ->add('author');
     }
     
     /**
-     * @param OptionsResolverInterface $resolver
+     * @param OptionsResolver $resolver
      */
-    public function setDefaultOptions(OptionsResolverInterface $resolver)
+    public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
             'data_class' => 'TroisWA\BackBundle\Entity\Comments'

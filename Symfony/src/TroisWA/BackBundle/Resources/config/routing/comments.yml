@@ -1,0 +1,16 @@
+
+trois_wa_back_comments:
+    path:     /
+    defaults: { _controller: TroisWABackBundle:Comments:index }
+
+trois_wa_back_activate:
+    path:     /activate/{id}/{action}
+    defaults: { _controller: TroisWABackBundle:Comments:activate }
+
+trois_wa_back_comment_edit:
+    path:     /edit/{id}
+    defaults: { _controller: TroisWABackBundle:Comments:edit }
+
+trois_wa_back_comment_delete:
+    path:     /delete/{id}
+    defaults: { _controller: TroisWABackBundle:Comments:delete }
