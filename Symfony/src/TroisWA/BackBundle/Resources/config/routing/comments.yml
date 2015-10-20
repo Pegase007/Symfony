@@ -12,5 +12,6 @@ trois_wa_back_comment_edit:
     defaults: { _controller: TroisWABackBundle:Comments:edit }
 
 trois_wa_back_comment_delete:
-    path:     /delete/{id}
+    path:     /delete/{id}/{prodId}
     defaults: { _controller: TroisWABackBundle:Comments:delete }
+

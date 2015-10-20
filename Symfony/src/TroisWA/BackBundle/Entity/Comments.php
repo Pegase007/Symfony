@@ -4,6 +4,7 @@ namespace TroisWA\BackBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
+use TroisWA\BackBundle\Validator\StopSwearWords;
 
 /**
  * Comments
@@ -24,6 +25,8 @@ class Comments
 
     /**
      * @var string
+     *
+     * @StopSwearWords(message="redefinition du message")
      *
      * @ORM\Column(name="content", type="text")
      */

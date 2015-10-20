@@ -7,6 +7,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 use TroisWA\BackBundle\Entity\Brand;
 use TroisWA\BackBundle\Form\BrandType;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 
 /**
  * Brand controller.
@@ -19,15 +20,36 @@ class BrandController extends Controller
      * Lists all Brand entities.
      *
      */
-    public function indexAction()
+    public function indexAction(Request $request, $page)
     {
         $em = $this->getDoctrine()->getManager();
 
-        $entities = $em->getRepository('TroisWABackBundle:Brand')->findAll();
+//        $allEntities = $em->getRepository('TroisWABackBundle:Brand')->findAll();
+        $allEntities=$em->createQuery("SELECT mar FROM TroisWABackBundle:Brand mar");
+
+
+        if(empty($page))
+        {
+            $page=$request->query->getInt('page',1);
+        }
+
+        $paginator  = $this->get('knp_paginator');
+        $entities = $paginator->paginate(
+            $allEntities,
+            $page/*page number*/,
+            5/*limit per page*/
+        );
+
+
 
         return $this->render('TroisWABackBundle:Brand:index.html.twig', array(
             'entities' => $entities,
         ));
+
+
+
+
+
     }
     /**
      * Creates a new Brand entity.
@@ -88,14 +110,19 @@ class BrandController extends Controller
     }
 
     /**
-     * Finds and displays a Brand entity.
      *
+     *  path: /marque/{id}/:show
+     * entity = nom de la variable
+     * id = variable du routing
+     * slug = nom de la colonne dans la base de données
+     * @ParamConverter("entity", class="TroisWABackBundle:Brand", options={"mapping": {"id" = "slug"}})
      */
-    public function showAction($id)
+    public function showAction(Brand $entity)
     {
+
         $em = $this->getDoctrine()->getManager();
 
-        $entity = $em->getRepository('TroisWABackBundle:Brand')->findOneBy(['slug'=>$id]);
+//        $entity = $em->getRepository('TroisWABackBundle:Brand')->findOneBy(['slug'=>$id]);
 
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find Brand entity.');

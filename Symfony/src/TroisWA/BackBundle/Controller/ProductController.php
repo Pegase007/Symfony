@@ -14,12 +14,23 @@ use TroisWA\BackBundle\Form\CommentsType;
 use TroisWA\BackBundle\Repository\CategoryRepository;
 use TroisWA\BackBundle\Entity\Product;
 use TroisWA\BackBundle\Form\ProductType;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 
 class ProductController extends Controller
 {
 
 //    public function productAction(Product $products,Request $request,$id)
-    public function productAction(Request $request,$id)
+
+    /**
+     * @param Request $request
+     * @param $id
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse|Response
+     *
+     *
+     * @ParamConverter("products", options={"repository_method" = "lastComments"})
+     *
+     */
+    public function productAction(Request $request, Product $products)
     {
 //          UTILISATION DU PARAMCONVERTER AU NIVEAU DE LA METHODE
 
@@ -40,24 +51,30 @@ class ProductController extends Controller
 
 
 
-//        REQUETE POUR RECUPERER LES COMMENTAIRES
-        $em=$this->getDoctrine()
-            ->getManager();
+////        REQUETE POUR RECUPERER LES COMMENTAIRES
+//        $em=$this->getDoctrine()->getManager();
+//
+//        /*
+//        $lastComments=$em->getRepository("TroisWABackBundle:Comments")
+//            ->lastComments($products);
+//        */
+//        $lastComments = [];
+//
+//        $products = $em->getRepository("TroisWABackBundle:Product")
+//            ->lastComments($id);
+//
 
-        /*
-        $lastComments=$em->getRepository("TroisWABackBundle:Comments")
-            ->lastComments($products);
-        */
-        $lastComments = [];
 
-        $products = $em->getRepository("TroisWABackBundle:Product")
-            ->lastComments($id);
+
 //
 ////dump($products->getId());
 ////
 //// dump($lastComments);
 ////        die();
 //
+
+
+
         $comments = new Comments();
 
         $comments->setProduct($products);

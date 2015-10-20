@@ -57,7 +57,31 @@ class CommentsController extends Controller
 
     }
 
+//
+    public function deleteAction($id,$prodId)
+    {
 
+//        die(dump($id));
+
+        $em=$this->getDoctrine()->getManager();
+        $comment=$em->getRepository("TroisWABackBundle:Comments")->find($id);
+
+//        die(dump($comment));
+
+        if(!$comment)
+        {
+            throw $this->createNotFoundException("Unable to find Comment to delete");
+
+        }
+
+        $em->remove($comment);
+        $em->flush();
+
+        return $this->redirect($this->generateUrl("trois_wa_back_product", ['id'=>$prodId]));
+
+
+
+    }
 
 
 }

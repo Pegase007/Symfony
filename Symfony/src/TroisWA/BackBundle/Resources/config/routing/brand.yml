@@ -1,6 +1,7 @@
 brand:
-    path:     /
-    defaults: { _controller: "TroisWABackBundle:Brand:index" }
+    path:     /{page}
+    defaults: { _controller: "TroisWABackBundle:Brand:index", page: 1 }
+
 
 brand_show:
     path:     /{id}/show

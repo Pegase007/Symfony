@@ -148,7 +148,7 @@
                                                     <input type="checkbox" data-desactivate="{{ path("trois_wa_back_activate",{'id':coms.id,'action':"desactivate"} ) }}" data-activate="{{ path("trois_wa_back_activate",{'id':coms.id,'action':"activate"} ) }}"  class="activate" data-rel="switch" data-size="mini" data-wrapper-class="green" {% if coms.activate %}checked {% endif  %}>
                                                 </div>
                                                 <div class="col-md-4">
-                                                    <a href="" class="btn btn-xs btn-danger col-md-3 ">  <i class="fa fa-times"></i></a>
+                                                    <a href="{{ path("trois_wa_back_comment_delete",{'id':coms.id,'prodId':product.id}) }}" class="btn btn-xs btn-danger col-md-3 ">  <i class="fa fa-times"></i></a>
                                                     <a href="" class="btn btn-xs btn-warning col-md-offset-1 col-md-3"> <i class="fa fa-pencil"></i></a>
                                                  </div>
                                                  <div class="col-md-1">
