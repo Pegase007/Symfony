@@ -4,7 +4,7 @@ namespace TroisWA\BackBundle\Form;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class BrandType extends AbstractType
 {
@@ -15,12 +15,11 @@ class BrandType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('title')
-        ;
+            ->add('title');
     }
-    
+
     /**
-     * @param configureOptions $resolver
+     * @param OptionsResolver $resolver
      */
     public function configureOptions(OptionsResolver $resolver)
     {

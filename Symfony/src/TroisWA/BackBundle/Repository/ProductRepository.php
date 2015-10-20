@@ -253,6 +253,24 @@ class ProductRepository extends \Doctrine\ORM\EntityRepository
     }
 
 
+    public function lastComments($id)
+    {
+
+
+        $query=$this->createQueryBuilder("prod")
+            ->select('prod, coms')
+            ->join('prod.comments','coms')
+            ->where('prod.id = :id')
+            ->setParameter('id',$id)
+            ->orderBy('coms.dateCreated','desc')
+            ->setMaxResults(5)
+            ->getQuery();
+//        die(dump ($query->getSingleResult()));
+
+        return$query->getSingleResult();
+
+    }
+
 
 
 
