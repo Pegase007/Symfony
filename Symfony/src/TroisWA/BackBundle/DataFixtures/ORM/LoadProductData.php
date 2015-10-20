@@ -31,7 +31,7 @@ class LoadProductData extends AbstractFixture implements OrderedFixtureInterface
             $product->setTitle($faker->word);
             $product->setDescription($faker->paragraph(3));
             $product->setQuantity($faker->randomDigitNotNull);
-            $product->setPrice($faker->randomFloat(2,0,1000));
+            $product->setPrice($faker->randomFloat(2,0,500));
             $product->setReference($faker->numerify('REF-######'));
             $product->setActivate($faker->numberBetween(0,1));
 

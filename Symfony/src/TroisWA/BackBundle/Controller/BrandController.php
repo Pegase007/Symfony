@@ -44,7 +44,7 @@ class BrandController extends Controller
             $em->persist($entity);
             $em->flush();
 
-            return $this->redirect($this->generateUrl('brand_show', array('id' => $entity->getId())));
+            return $this->redirect($this->generateUrl('brand_show', array('id' => $entity->getSlug())));
         }
 
         return $this->render('TroisWABackBundle:Brand:new.html.twig', array(
@@ -95,13 +95,13 @@ class BrandController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
-        $entity = $em->getRepository('TroisWABackBundle:Brand')->find($id);
+        $entity = $em->getRepository('TroisWABackBundle:Brand')->findOneBy(['slug'=>$id]);
 
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find Brand entity.');
         }
 
-        $deleteForm = $this->createDeleteForm($id);
+        $deleteForm = $this->createDeleteForm($entity->getId());
 
         return $this->render('TroisWABackBundle:Brand:show.html.twig', array(
             'entity'      => $entity,

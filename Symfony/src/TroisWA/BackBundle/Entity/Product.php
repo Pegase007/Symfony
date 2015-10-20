@@ -121,21 +121,18 @@ class Product
      */
     private $brand;
 
+    /**
+     * @ORM\OneToMany(targetEntity="Comments", mappedBy="product", cascade={"remove"})
+     */
+    private $comments;
 
-
-
-
-
+    /**
+     * Constructor
+     */
     public function __construct()
     {
-
-        $this->dateCreated= new \DateTime("now");
-        $this->quantity= 1;
-
+        $this->comments = new \Doctrine\Common\Collections\ArrayCollection();
     }
-
-
-
 
     /**
      * Get id
@@ -339,13 +336,6 @@ class Product
         return $this->category;
     }
 
-    public function __toString()
-    {
-
-        return $this->title;
-    }
-
-
     /**
      * Set brand
      *
@@ -368,5 +358,39 @@ class Product
     public function getBrand()
     {
         return $this->brand;
+    }
+
+    /**
+     * Add comment
+     *
+     * @param \TroisWA\BackBundle\Entity\Comments $comment
+     *
+     * @return Product
+     */
+    public function addComment(\TroisWA\BackBundle\Entity\Comments $comment)
+    {
+        $this->comments[] = $comment;
+
+        return $this;
+    }
+
+    /**
+     * Remove comment
+     *
+     * @param \TroisWA\BackBundle\Entity\Comments $comment
+     */
+    public function removeComment(\TroisWA\BackBundle\Entity\Comments $comment)
+    {
+        $this->comments->removeElement($comment);
+    }
+
+    /**
+     * Get comments
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getComments()
+    {
+        return $this->comments;
     }
 }

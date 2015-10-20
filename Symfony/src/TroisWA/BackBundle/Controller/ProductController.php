@@ -18,7 +18,8 @@ use TroisWA\BackBundle\Form\ProductType;
 class ProductController extends Controller
 {
 
-    public function productAction(Product $products,Request $request,$id)
+//    public function productAction(Product $products,Request $request,$id)
+    public function productAction(Request $request,$id)
     {
 //          UTILISATION DU PARAMCONVERTER AU NIVEAU DE LA METHODE
 
@@ -34,17 +35,29 @@ class ProductController extends Controller
 //
 ////        return $this->render("TroisWABackBundle:Product:product.html.twig",["product"=>$products,"formDelete"=>$formProductDelete->createView()]);
 
+
+
+
+
+
+//        REQUETE POUR RECUPERER LES COMMENTAIRES
         $em=$this->getDoctrine()
             ->getManager();
 
+        /*
         $lastComments=$em->getRepository("TroisWABackBundle:Comments")
             ->lastComments($products);
+        */
+        $lastComments = [];
 
-//dump($products->getId());
+        $products = $em->getRepository("TroisWABackBundle:Product")
+            ->lastComments($id);
 //
-// dump($lastComments);
-//        die();
-
+////dump($products->getId());
+////
+//// dump($lastComments);
+////        die();
+//
         $comments = new Comments();
 
         $comments->setProduct($products);
@@ -73,15 +86,10 @@ class ProductController extends Controller
         }
 
 
-
-
-
-
-
         return $this->render("TroisWABackBundle:Product:product.html.twig",
             ["product"=>$products,
             "formComments" => $formComments->createView(),
-            "lastComments"=>$lastComments,
+//            "lastComments"=>$lastComments,
             ]);
 
 //    }
