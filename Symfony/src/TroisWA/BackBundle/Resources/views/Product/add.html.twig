@@ -211,7 +211,7 @@
                          <div class="col-md-12"><br></div>
 
                          <div class="form-group">
-                             <span title="" data-toggle="tooltip" class="label-tooltip" data-original-title="Appears in the body of product detail."> {{ form_label(formProduct.description,"Description",{ label_attr:{ class:"control-label col-lg-3 required"}}) }}  </span> </label>
+                             <span title="" data-toggle="tooltip" class="label-tooltip" data-original-title="Appears in the body of product detail."> {{ form_label(formProduct.description,"Description",{ label_attr:{ class:"control-label col-lg-3 required"}}) }}  </span>
                              <div class="col-lg-8 mgbt-xs-10 mgbt-lg-0">
                                  {{ form_widget(formProduct.description) }}
                              </div>
@@ -232,29 +232,28 @@
                          </div>
                          {{ form_errors(formProduct.description) }}
                          <!-- form-group -->
+                <div class="col-md-12"></div>
+                        <div class="form-group">
+                            <span title="" data-toggle="tooltip" class="label-tooltip" data-original-title="Appears in the body of product detail."> {{ form_label(formProduct.quantity,"Quantity",{ label_attr:{ class:"control-label col-lg-3 required"}}) }}  </span>
+                            <div class="col-lg-8 mgbt-xs-10 mgbt-lg-0">
+                                {{ form_widget(formProduct.quantity) }}
+                            </div>
+
+                        </div>
+                        {{ form_errors(formProduct.quantity) }}
 
                          <div class="col-md-12"><br></div>
                          <div class="form-group">
-                             <label for="tags_1" class="control-label col-lg-3"> <span title="" data-toggle="tooltip" class="label-tooltip" data-original-title="Each tag has to be followed by a comma. The following characters are forbidden: !&lt;;&gt;;?=+#&quot;°{}_$%"> Tags </span> </label>
+                             <label for="tags_1" class="control-label col-lg-3"> <span title="" data-toggle="tooltip" class="label-tooltip" data-original-title="">  {{ form_label(formProduct.tags,"Tags",{ label_attr:{ class:"control-label col-lg-3 required"}}) }} </span> </label>
                              <div class="col-lg-8 mgbt-xs-10 mgbt-lg-0">
                                  <div class="row">
                                      <div class="col-lg-9 mgbt-xs-10 mgbt-lg-0">
-                                         <input type="text" value="" name="tags_1"  id="tags_1" data-rel="tags-input">
+
+                                         {#{{ form_widget(formProduct.tags,{type: "text", attr:{  placeholder:'Date', name:'tags_1', "data-rel":"tags-input"}, id:"tags_1" }) }}#}
+                                         {{ form_widget(formProduct.tags) }}
+
                                      </div>
-                                     <div class="col-lg-2">
-                                         <button data-toggle="dropdown" class="btn btn-xs btn-default dropdown-toggle" type="button"> en <span class="caret"></span> </button>
-                                         <ul class="dropdown-menu">
-                                             <li> <a href="#">English (English)</a> </li>
-                                             <li> <a href="#">Español (Spanish)</a> </li>
-                                             <li> <a href="#">Français (French)</a> </li>
-                                             <li> <a href="#">Italiano (Italian)</a> </li>
-                                             <li> <a href="#">Deutsch (German)</a> </li>
-                                             <li> <a href="#">Dutch</a> </li>
-                                             <li> <a href="#">Polish</a> </li>
-                                             <li> <a href="#">Russian</a> </li>
-                                             <li> <a href="#">Portuguese</a> </li>
-                                         </ul>
-                                     </div>
+
                                  </div>
                              </div>
                          </div>

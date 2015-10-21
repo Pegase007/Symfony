@@ -8,6 +8,7 @@ use Carbon\Carbon;
 use Doctrine\ORM\Mapping\Entity;
 use MetzWeb\Instagram\Instagram;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Validator\Mapping\ClassMetadata;
@@ -58,12 +59,12 @@ class MainController extends Controller
             ->getProductCategoryAccueil();
 
 
-         $getProductNoCat=$em->getRepository("TroisWABackBundle:Product")
-                    ->getProductNoCat();
+        $getProductNoCat=$em->getRepository("TroisWABackBundle:Product")
+            ->getProductNoCat();
 
 
         $getProductNoCatBrand=$em->getRepository("TroisWABackBundle:Product")
-                    ->getProductNoCatBrand();
+            ->getProductNoCatBrand();
 
         $getProdParCat=$em->getRepository("TroisWABackBundle:Product")
             -> getProdParCat();
@@ -74,17 +75,50 @@ class MainController extends Controller
 //
 
 
-//        die(dump($this->getParameter('client_id_instagram')));
-        $instagram = new Instagram(array(
-            'apiKey'      => $this->getParameter('client_id_instagram'),
-            'apiSecret'   => $this->getParameter('client_secret_instagram'),
-            'apiCallback' => $this->getParameter('callback_instagram')
-        ));
 
+
+
+
+
+
+        $file=__DIR__."/../../../../app/cache/cache_instagram.txt";
+        $timeCache= time() - (1*60);
+
+
+//       dump(date ("F d Y H:i:s.", filemtime($file)));
+//        dump(date ("F d Y H:i:s.", $timeCache));
+        //die();
+
+        $fs= new Filesystem();
+        clearstatcache();
+        if ($fs->exists($file) && ( filemtime($file) >  $timeCache ))
+        {
+
+//                dump(file_get_contents($file));
+//                die('Utilisation du cache');
+//                dump($mesImages);
+//                die();
+
+
+            //Recuperation du contenu du fichier cache instagram
+
+            $mesImages= unserialize(file_get_contents($file));
+//            die();
+
+        }
+        else
+        {
+
+            //        die(dump($this->getParameter('client_id_instagram')));
+            $instagram = new Instagram(array(
+                'apiKey'      => $this->getParameter('client_id_instagram'),
+                'apiSecret'   => $this->getParameter('client_secret_instagram'),
+                'apiCallback' => $this->getParameter('callback_instagram')
+            ));
 //        ToGENERATE token adress => die(dump($instagram->getLoginUrl()));
 
 
-        $instagram->setAccessToken($this->getParameter('token_instagram'));
+            $instagram->setAccessToken($this->getParameter('token_instagram'));
 //        die(dump($instagram->getPopularMedia()));
 
 //        foreach($instagram->getPopularMedia()->data as $media)
@@ -93,19 +127,23 @@ class MainController extends Controller
 //            echo "<img src='".$media->images->thumbnail->url."'>";
 //            die;
 //        }
-
-
-        $mesImages = $instagram->getUserMedia($this->getParameter('id_instagram'))->data;
+            $mesImages = $instagram->getUserMedia($this->getParameter('id_instagram'))->data;
 //        die(dump($mesImages));
 
-        foreach($mesImages as $img ){
-            $img ->created_time = Carbon::createFromTimeStamp($img ->created_time)->diffForHumans();
+            foreach($mesImages as $img )
+            {
+                $img ->created_time = Carbon::createFromTimeStamp($img ->created_time)->diffForHumans();
 //           die( dump($timeImage));
 
+            }
+
+            //creer le fichier
+            $fs->touch($file);
+            //insertion dans le
+            $fs->dumpFile($file, serialize($mesImages));
+//                die('insta');
+
         }
-
-
-
 
 
 
@@ -299,29 +337,29 @@ class MainController extends Controller
             ->add("email","email",[
                 "constraints"=>[
                     new Assert\NotBlank(),
-                     new Assert\Email(array(
-                         'message' => 'The email "{{ value }}" is not a valid email.',
-                         'checkMX' => true,
-        ))
-    ],
+                    new Assert\Email(array(
+                        'message' => 'The email "{{ value }}" is not a valid email.',
+                        'checkMX' => true,
+                    ))
+                ],
 //                    "required"=>false //désactive le html5 pour un champ ciblé
             ])
             ->add("date", 'date', [
-            'input'  => 'datetime',
-            'widget' => 'choice',
-            'years' => range(date('Y') -1, date('Y')),
-            "constraints"=>[
-                new Assert\NotBlank(),
-                new Assert\Date()
+                    'input'  => 'datetime',
+                    'widget' => 'choice',
+                    'years' => range(date('Y') -1, date('Y')),
+                    "constraints"=>[
+                        new Assert\NotBlank(),
+                        new Assert\Date()
 
-            ]
+                    ]
 
-        ]
-    )
+                ]
+            )
 
 
 //            ->add("send","submit")
-        ->getForm();
+            ->getForm();
 
 
         if("POST"==$request->getMethod())
@@ -425,7 +463,7 @@ class MainController extends Controller
 
         $productAll=$em->getRepository("TroisWABackBundle:Product")
             //->findAll()
-                //On doit appeler la methode avec la requete en question
+            //On doit appeler la methode avec la requete en question
             ->findPerso(1);
 
         dump($productAll);

@@ -11,6 +11,7 @@ use Symfony\Component\HttpFoundation\Response;
 use TroisWA\BackBundle\Entity\Category;
 use TroisWA\BackBundle\Entity\Comments;
 use TroisWA\BackBundle\Form\CommentsType;
+use TroisWA\BackBundle\Repository\BrandRepository;
 use TroisWA\BackBundle\Repository\CategoryRepository;
 use TroisWA\BackBundle\Entity\Product;
 use TroisWA\BackBundle\Form\ProductType;
@@ -105,7 +106,7 @@ class ProductController extends Controller
 
         return $this->render("TroisWABackBundle:Product:product.html.twig",
             ["product"=>$products,
-            "formComments" => $formComments->createView(),
+                "formComments" => $formComments->createView(),
 //            "lastComments"=>$lastComments,
             ]);
 
@@ -163,31 +164,46 @@ class ProductController extends Controller
 
 //        Donner une valeur
 //        $product->setTitle("hello");
-
         $formProduct = $this->createFormBuilder($product)
-                                ->add("title","text")
-                                ->add("description","textarea")
-                                ->add("reference","text")
-                                ->add("activate","checkbox")
-                                ->add("price","number")
-                                ->add('dateCreated',"date",[
-                                    "widget"=>"single_text"
-                                ])
+            ->add("title","text")
+            ->add("description","textarea")
+            ->add("reference","text")
+            ->add("quantity")
+            ->add("activate","checkbox")
+            ->add("price","number")
+            ->add('dateCreated',"date",[
+                "widget"=>"single_text"
+            ])
 
-                                ->add('category', 'entity',[
-                                    "expanded"=>true,
-                                    'class' => 'TroisWABackBundle:Category',
-                                    'choice_label' => 'title',
-                                    'query_builder'=>function(CategoryRepository $er){
+            ->add('category', 'entity',[
+                "expanded"=>true,
+                'class' => 'TroisWABackBundle:Category',
+                'choice_label' => 'title',
+                'query_builder'=>function(CategoryRepository $er){
 
 
-                                    return $er->builderCategoryOrderPosition();
-                                    }
 
-                                ])
-                                ->add('brand')
+                    return $er->builderCategoryOrderPosition();
+                }
+
+            ])
+            ->add('tags','entity', array(
+                "multiple"=>true,
+                'class' => 'TroisWABackBundle:Tags',
+                'choice_label' => 'title',
+            ))
+
+
+            ->add('brand','entity', array(
+                'class' => 'TroisWABackBundle:Brand',
+                'choice_label' => 'title',
+            ))
+//
 //                                ->add("submit","submit")
-                                ->getForm();
+            ->getForm();
+
+
+
 
 
 
@@ -196,7 +212,7 @@ class ProductController extends Controller
         if($formProduct->isValid())
         {
 
-        $em=$this->getDoctrine()->getManager();
+            $em=$this->getDoctrine()->getManager();
             $em->persist($product);
             $em->flush();
 
@@ -208,6 +224,14 @@ class ProductController extends Controller
             return $this->redirectToRoute("trois_wa_back_product_add");
 
         }
+        /*
+        else
+        {
+            $validator = $this->get('validator');
+            $errors = $validator->validate($formProduct);
+            die(dump($errors));
+        }
+        */
 
 
 
@@ -241,7 +265,7 @@ class ProductController extends Controller
 //        FAIT APPEL AU FORMULAIRE PRODUCT TYPE
         $editForm= $this->createForm(new ProductType(),$product)
 
-                 ->add("submit","submit");
+            ->add("submit","submit");
 
 
         $editForm->handleRequest($request);
@@ -298,12 +322,12 @@ class ProductController extends Controller
         $product = $em->getRepository('TroisWABackBundle:Product')->find($id);
 
         if (!$product) {
-                throw $this->createNotFoundException('Unable to find Product to delete.');
-            }
+            throw $this->createNotFoundException('Unable to find Product to delete.');
+        }
 //         Code de la suppression
-            $em->remove($product);
-            $em->flush();
-            // Fin code de la suppression
+        $em->remove($product);
+        $em->flush();
+        // Fin code de la suppression
 
         if($request->isXmlHttpRequest())
         {
@@ -311,7 +335,7 @@ class ProductController extends Controller
             return new JsonResponse();
 
         }
-            return $this->redirect($this->generateUrl("trois_wa_back_product_index"));
+        return $this->redirect($this->generateUrl("trois_wa_back_product_index"));
 
     }
 

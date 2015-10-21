@@ -126,11 +126,32 @@ class Product
      */
     private $comments;
 
+
+    /**
+     * @ORM\ManyToMany(targetEntity="Tags")
+     * @ORM\JoinTable(name="product_tags",
+     *          joinColumns={
+     *               @ORM\JoinColumn(name="product_id",referencedColumnName="id")
+     *          },
+     *          inverseJoinColumns={
+     *              @ORM\JoinColumn(name="tags_id",referencedColumnName="id")
+     *          }
+     * )
+     *
+     *
+     */
+    private $tags;
+
+
+
     /**
      * Constructor
      */
     public function __construct()
     {
+
+        $this->dateCreated= new \DateTime("now");
+
         $this->comments = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
@@ -392,5 +413,39 @@ class Product
     public function getComments()
     {
         return $this->comments;
+    }
+
+    /**
+     * Add tag
+     *
+     * @param \TroisWA\BackBundle\Entity\tags $tag
+     *
+     * @return Product
+     */
+    public function addTag(\TroisWA\BackBundle\Entity\tags $tag)
+    {
+        $this->tags[] = $tag;
+
+        return $this;
+    }
+
+    /**
+     * Remove tag
+     *
+     * @param \TroisWA\BackBundle\Entity\tags $tag
+     */
+    public function removeTag(\TroisWA\BackBundle\Entity\tags $tag)
+    {
+        $this->tags->removeElement($tag);
+    }
+
+    /**
+     * Get tags
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getTags()
+    {
+        return $this->tags;
     }
 }

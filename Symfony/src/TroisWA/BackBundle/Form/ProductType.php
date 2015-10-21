@@ -6,6 +6,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use TroisWA\BackBundle\Repository\CategoryRepository;
+use TroisWA\BackBundle\Repository\TagsRepository;
 
 class ProductType extends AbstractType
 {
@@ -33,7 +34,18 @@ class ProductType extends AbstractType
 
                     return $er->builderCategoryOrderPosition();
                 }])
-            ->add('brand');
+
+            ->add('tags','entity', array(
+                "multiple"=>true,
+                'class' => 'TroisWABackBundle:Tags',
+                'choice_label' => 'title',
+            ))
+
+
+            ->add('brand','entity', array(
+                'class' => 'TroisWABackBundle:Brand',
+                'choice_label' => 'title',
+            ));
     }
     
 //   DEPRECIE!!!
