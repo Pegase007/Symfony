@@ -4,14 +4,17 @@ namespace TroisWA\BackBundle\Controller;
 
 
 
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+//use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use TroisWA\BackBundle\Entity\Category;
 use TroisWA\BackBundle\Form\CategoryType;
 use TroisWA\BackBundle\Form\ProductType;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 
-class CategoryController extends Controller
+
+class CategoryController extends BaseController
 {
 
 
@@ -19,6 +22,40 @@ class CategoryController extends Controller
 
     public function indexAction(){
 //
+//        $breadcrumbs = $this->get("white_october_breadcrumbs");
+//// Simple example
+//        $breadcrumbs->addItem("Home ", $this->generateUrl("trois_wa_back_admin"));
+//        $breadcrumbs->addItem("Category ", $this->generateUrl("trois_wa_back_categories"));
+
+        $this->breadcrumbs(
+            [
+                'Category' => $this->generateUrl("trois_wa_back_categories"),
+//                $marque->getTitle() => $this->generateUrl("troiswa_back_marque_show", ['id' => $marque->getSlug()],
+//                    'du simple text' => ''
+				]
+    );
+//
+
+
+
+//        $breadcrumbs = $this->get("white_october_breadcrumbs");
+//// Simple example without parameter
+//        $breadcrumbs->addItem("Home", "http://www.google.fr");
+//        $breadcrumbs->addItem("Home", $this->get("router")->generate("troiswa_back_page_bo"));
+//
+//// Simple example with parameter
+//        $breadcrumbs->addItem("Home", $this->get("router")->generate("troiswa_back_page_bo", ['id' => 1]));
+//        $breadcrumbs->addItem("Home", $this->generateUrl("troiswa_back_page_bo", ['id' => 1]));
+//
+//// Simple example with parameter
+//        $breadcrumbs->addRouteItem("Home", "troiswa_back_page_bo");
+//        $breadcrumbs->addRouteItem("Hello", "troiswa_back_page_bo", [
+//            'id' => 1,
+//        ]);
+
+
+
+
 //        $categories = [
 //            1 => [
 //                "id" => 1,
@@ -56,9 +93,23 @@ class CategoryController extends Controller
 
     }
 
-    public function catAction($id){
 
-//        $categories = [
+
+//    /**
+//     * @param Request $request
+//     * @param $id
+//     * @return \Symfony\Component\HttpFoundation\RedirectResponse|Response
+//     *
+//     *
+//     *
+//     */
+    /**
+     * @ParamConverter("categories", options={"repository_method" = "catImage"})
+     */
+    public function catAction($id, Category $categories){
+
+
+//         $categories = [
 //            1 => [
 //                "id" => 1,
 //                "title" => "Homme",
@@ -95,10 +146,26 @@ class CategoryController extends Controller
 //            throw $this->createNotFoundException("La categorie n'existe pas");
 //        }
 
-        $em=$this->getDoctrine()->getManager();
-        $categories=$em->getRepository("TroisWABackBundle:Category")->find($id);
+        //$em=$this->getDoctrine()->getManager();
+        //$categories=$em->getRepository("TroisWABackBundle:Category")->find($id);
 
 
+//        $breadcrumbs = $this->get("white_october_breadcrumbs");
+//// Simple example
+//        $breadcrumbs->addItem("Home ", $this->generateUrl("trois_wa_back_admin"));
+//
+//        $breadcrumbs->addItem("Category ", $this->generateUrl("trois_wa_back_categories"));
+////        $breadcrumbs->addRouteItem("Home", $this->generateUrl("troiswa_back_page_bo"));
+//        $breadcrumbs->addItem($categories->getTitle(), $this->generateUrl("trois_wa_back_category", ['id' => $id]));
+////
+
+        $this->breadcrumbs(
+            [
+                'Category' => $this->generateUrl("trois_wa_back_categories"),
+                $categories->getTitle() => $this->generateUrl("trois_wa_back_category", ['id' => $id]),
+            ]
+        );
+//
 
 
 

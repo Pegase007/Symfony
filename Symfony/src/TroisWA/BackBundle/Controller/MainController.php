@@ -4,7 +4,9 @@ namespace TroisWA\BackBundle\Controller;
 
 
 
+use Carbon\Carbon;
 use Doctrine\ORM\Mapping\Entity;
+use MetzWeb\Instagram\Instagram;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -72,7 +74,35 @@ class MainController extends Controller
 //
 
 
+//        die(dump($this->getParameter('client_id_instagram')));
+        $instagram = new Instagram(array(
+            'apiKey'      => $this->getParameter('client_id_instagram'),
+            'apiSecret'   => $this->getParameter('client_secret_instagram'),
+            'apiCallback' => $this->getParameter('callback_instagram')
+        ));
 
+//        ToGENERATE token adress => die(dump($instagram->getLoginUrl()));
+
+
+        $instagram->setAccessToken($this->getParameter('token_instagram'));
+//        die(dump($instagram->getPopularMedia()));
+
+//        foreach($instagram->getPopularMedia()->data as $media)
+//        {
+//            die(dump($media));
+//            echo "<img src='".$media->images->thumbnail->url."'>";
+//            die;
+//        }
+
+
+        $mesImages = $instagram->getUserMedia($this->getParameter('id_instagram'))->data;
+//        die(dump($mesImages));
+
+        foreach($mesImages as $img ){
+            $img ->created_time = Carbon::createFromTimeStamp($img ->created_time)->diffForHumans();
+//           die( dump($timeImage));
+
+        }
 
 
 
@@ -92,6 +122,8 @@ class MainController extends Controller
             'sumPrice'=>$sumPrice,
             'getProdParCat'=>$getProdParCat,
 //            'latestCat'=>$latestCat
+            'mesimages'=>$mesImages,
+//            'timeImage'=>$timeImage
 
 
         ]);

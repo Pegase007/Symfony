@@ -180,7 +180,7 @@
                             <li class="active">
                                 <a data-toggle="tab" href="#home-tab">
                                     <span class="menu-icon"><i class="fa fa-comments"></i></span>
-                                    Last Category
+                                    API instagram
                                     <span class="menu-active"><i class="fa fa-caret-up"></i></span>
                                 </a></li>
                             <li>
@@ -201,17 +201,18 @@
                                 <div class="content-list content-image menu-action-right">
                                     <div  data-rel="scroll" data-scrollheight="550">
                                         <ul class="list-wrapper pd-lr-15">
+
+                                            {% for img in mesimages %}
                                             <li>
-                                                <div class="menu-icon"><a href="#"><img alt="example image" src="img/avatar/avatar.jpg"></a></div>
+                                                <div class="menu-icon"><a href="#"><img alt="example image" src="{{ img.images.thumbnail.url }}"></a></div>
                                                 <div class="menu-text">
-                                                    This product is so good that i manage to buy it 1 for me and 3 for my families. Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incidtation ullamco laboris nisi ut aliquip ex tris.
+                                                   {{ img.caption.text }}
                                                 </div>
                                                 <div class="menu-text">
                                                     <div class="menu-info">
-                                                        in <a href="#">Samsung Galaxy S4</a> -
+                                                        From <a href="#">{{ img.user.username }}</a> -
 
-                                                        <span class="menu-date">12 Minutes Ago </span> -
-                                                        <span class="menu-rating vd_yellow"><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i></span>
+                                                        <span class="menu-date">{{ img.created_time }} </span>
 
                                                     </div>
                                                 </div>
@@ -224,7 +225,8 @@
                                                     </div>
                                                 </div>
                                             </li>
-                                      /li>
+
+                                            {% endfor %}
                                         </ul>
                                     </div>
                                     <div class="closing text-center">

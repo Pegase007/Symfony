@@ -63,4 +63,16 @@ class CategoryRepository extends \Doctrine\ORM\EntityRepository
 
     }
 
+    public function catImage($id)
+    {
+        $query = $this->createQueryBuilder("cat")
+            ->select('cat,img')
+            ->join('cat.image', 'img')
+            ->where('cat.id = :id')
+            ->setParameter('id',$id)
+            ->getQuery();
+        return$query->getSingleResult();
+
+    }
+
 }
