@@ -1,5 +1,0 @@
-_assetic:
-    resource: .
-    type: assetic
-_app:
-    resource: /home/wap20/sites/Symfony/app/config/routing_dev.yml
