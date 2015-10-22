@@ -78,7 +78,7 @@ class MainController extends Controller
 
 
 
-
+/*
 
 
         $file=__DIR__."/../../../../app/cache/cache_instagram.txt";
@@ -143,7 +143,7 @@ class MainController extends Controller
             $fs->dumpFile($file, serialize($mesImages));
 //                die('insta');
 
-        }
+        }*/
 
 
 
@@ -160,7 +160,7 @@ class MainController extends Controller
             'sumPrice'=>$sumPrice,
             'getProdParCat'=>$getProdParCat,
 //            'latestCat'=>$latestCat
-            'mesimages'=>$mesImages,
+       //     'mesimages'=>$mesImages,
 //            'timeImage'=>$timeImage
 
 
