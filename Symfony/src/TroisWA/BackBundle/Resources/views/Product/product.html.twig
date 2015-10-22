@@ -61,14 +61,16 @@
                     <hr>
 
                     <div class="product-size-filter-container">
-                        <span>Select Size:</span>
+                        <span>Available Tags:</span>
                         <div class="xs-margin"></div>
                         <ul class="filter-size-list clearfix">
-                            <li><a href="#">XS</a></li>
-                            <li><a href="#">S</a></li>
-                            <li><a href="#">M</a></li>
-                            <li><a href="#">L</a></li>
-                            <li><a href="#">XL</a></li>
+                        {% for tag in product.tags %}
+                            <li><a href="#">{{ tag.title }}</a></li>
+                        {% endfor %}
+                            {#<li><a href="#">S</a></li>#}
+                            {#<li><a href="#">M</a></li>#}
+                            {#<li><a href="#">L</a></li>#}
+                            {#<li><a href="#">XL</a></li>#}
                         </ul>
                     </div><!-- End .product-size-filter-container-->
                     <hr>

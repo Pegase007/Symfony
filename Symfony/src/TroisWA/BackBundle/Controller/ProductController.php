@@ -11,6 +11,8 @@ use Symfony\Component\HttpFoundation\Response;
 use TroisWA\BackBundle\Entity\Category;
 use TroisWA\BackBundle\Entity\Comments;
 use TroisWA\BackBundle\Form\CommentsType;
+use TroisWA\BackBundle\Form\DataTransformer\TagTransformer;
+use TroisWA\BackBundle\Form\TagsWithoutProductType;
 use TroisWA\BackBundle\Repository\BrandRepository;
 use TroisWA\BackBundle\Repository\CategoryRepository;
 use TroisWA\BackBundle\Entity\Product;
@@ -73,6 +75,7 @@ class ProductController extends Controller
 //// dump($lastComments);
 ////        die();
 //
+
 
 
 
@@ -164,46 +167,53 @@ class ProductController extends Controller
 
 //        Donner une valeur
 //        $product->setTitle("hello");
-        $formProduct = $this->createFormBuilder($product)
-            ->add("title","text")
-            ->add("description","textarea")
-            ->add("reference","text")
-            ->add("quantity")
-            ->add("activate","checkbox")
-            ->add("price","number")
-            ->add('dateCreated',"date",[
-                "widget"=>"single_text"
-            ])
-
-            ->add('category', 'entity',[
-                "expanded"=>true,
-                'class' => 'TroisWABackBundle:Category',
-                'choice_label' => 'title',
-                'query_builder'=>function(CategoryRepository $er){
-
-
-
-                    return $er->builderCategoryOrderPosition();
-                }
-
-            ])
-            ->add('tags','entity', array(
-                "multiple"=>true,
-                'class' => 'TroisWABackBundle:Tags',
-                'choice_label' => 'title',
-            ))
-
-
-            ->add('brand','entity', array(
-                'class' => 'TroisWABackBundle:Brand',
-                'choice_label' => 'title',
-            ))
+//        $formProduct = $this->createFormBuilder($product)
+//            ->add("title","text")
+//            ->add("description","textarea")
+//            ->add("reference","text")
+//            ->add("quantity")
+//            ->add("activate","checkbox")
+//            ->add("price","number")
+//            ->add('dateCreated',"date",[
+//                "widget"=>"single_text"
+//            ])
 //
-//                                ->add("submit","submit")
-            ->getForm();
+//            ->add('category', 'entity',[
+//                "expanded"=>true,
+//                'class' => 'TroisWABackBundle:Category',
+//                'choice_label' => 'title',
+//                'query_builder'=>function(CategoryRepository $er){
+//
+//
+//
+//                    return $er->builderCategoryOrderPosition();
+//                }
+//
+//            ])
+//            ->add('tags','entity', array(
+//                "multiple"=>true,
+//                'class' => 'TroisWABackBundle:Tags',
+//                'choice_label' => 'title',
+//            ))
+//
+//                        ->add('brand','entity', array(
+//                'class' => 'TroisWABackBundle:Brand',
+//                'choice_label' => 'title',
+//            ))
+//
+//
+//
+//
+////
+////                                ->add("submit","submit")
+//            ->getForm();
 
 
+        $em=$this->getDoctrine()->getManager();
 
+        $formProduct=$this->createForm(new ProductType($em),$product)
+
+        ->add("submit","submit");
 
 
 
@@ -212,7 +222,7 @@ class ProductController extends Controller
         if($formProduct->isValid())
         {
 
-            $em=$this->getDoctrine()->getManager();
+
             $em->persist($product);
             $em->flush();
 
@@ -240,6 +250,10 @@ class ProductController extends Controller
         return $this->render("TroisWABackBundle:Product:add.html.twig",["formProduct"=> $formProduct->createView()]);
 
     }
+
+
+
+
 
     public function editAction($id, Request $request)
     {

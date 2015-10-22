@@ -228,110 +228,10 @@
                                                 </div>
                                             </div>
                                             <div class="content-list content-image">
-                                                <div data-rel="scroll">
-                                                    <ul class="list-wrapper pd-lr-10">
-                                                        <li> <a href="#">
-                                                                <div class="menu-icon vd_blue"><i class="fa fa-bolt"></i></div>
-                                                                <div class="menu-text"> Electricity Problem
-                                                                    <div class="menu-info">
-                                                                        <div class="progress progress-sm">
-                                                                            <div style="width:85%" class="progress-bar progress-bar-info">
-                                                                                85%
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            </a> </li>
-                                                        <li> <a href="#">
-                                                                <div class="menu-icon vd_yellow"><i class="fa fa-code"></i></div>
-                                                                <div class="menu-text">  Finish coding jquery plugin
-                                                                    <div class="menu-info">
-                                                                        <div class="progress progress-sm">
-                                                                            <div style="width:20%" class="progress-bar progress-bar-danger">
-                                                                                20%
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            </a> </li>
-                                                        <li> <a>
-                                                                <div class="menu-icon"><img alt="example image" src="img/avatar/avatar-3.jpg"></div>
-                                                                <div class="menu-text"> Client: Zoe Project
-                                                                    <div class="menu-info">
-                                                                        <span class="menu-date">Make a call</span>
-                                    <span class="menu-action">
-                                        <span class="menu-action-icon" data-original-title="Call" data-toggle="tooltip" data-placement="bottom">
-                                            <i class="fa fa-phone"></i>
-                                        </span>
-                                    </span>
-                                                                    </div>
-                                                                </div>
-                                                            </a> </li>
-                                                        <li> <a href="#">
-                                                                <div class="menu-icon"><i class=" fa fa-magic"></i></div>
-                                                                <div class="menu-text">  Final error check on new templates
-                                                                    <div class="menu-info">
-                                                                        <div class="progress progress-sm">
-                                                                            <div style="width:95%" class="progress-bar progress-bar-success">
-                                                                                95%
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            </a> </li>
-                                                        <li> <a href="#">
-                                                                <div class="menu-icon vd_green"><i class=" fa fa-camera"></i></div>
-                                                                <div class="menu-text">  Update product image
-                                                                    <div class="menu-info">
-                                                                        <div class="progress progress-sm">
-                                                                            <div style="width:50%" class="progress-bar progress-bar-warning">
-                                                                                50%
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            </a> </li>
-                                                        <li> <a href="#">
-                                                                <div class="menu-icon vd_blue"><i class="fa fa-bolt"></i></div>
-                                                                <div class="menu-text"> Electricity Problem
-                                                                    <div class="menu-info">
-                                                                        <div class="progress progress-sm">
-                                                                            <div style="width:85%" class="progress-bar progress-bar-info">
-                                                                                85%
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            </a> </li>
-                                                        <li> <a href="#">
-                                                                <div class="menu-icon vd_yellow"><i class=" fa fa-code"></i></div>
-                                                                <div class="menu-text">  Finish coding jquery plugin
-                                                                    <div class="menu-info">
-                                                                        <div class="progress progress-sm">
-                                                                            <div style="width:20%" class="progress-bar progress-bar-danger">
-                                                                                20%
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            </a> </li>
-                                                        <li> <a>
-                                                                <div class="menu-icon"><img alt="example image" src="img/avatar/avatar-3.jpg"></div>
-                                                                <div class="menu-text"> Client: Zoe Project
-                                                                    <div class="menu-info">
-                                                                        <span class="menu-date">Make a call</span>
-                                    <span class="menu-action">
-                                        <span class="menu-action-icon" data-original-title="Call" data-toggle="tooltip" data-placement="bottom">
-                                            <i class="fa fa-phone"></i>
-                                        </span>
-                                    </span>
-                                                                    </div>
-                                                                </div>
-                                                            </a> </li>
+                                                {{ render(controller("TroisWABackBundle:Tags:renderAllTags")) }}
 
 
-                                                    </ul>
-                                                </div>
+
                                                 <div class="closing text-center" style="">
                                                     <a href="#">See All Tasks <i class="fa fa-angle-double-right"></i></a>
                                                 </div>
@@ -540,6 +440,28 @@
                                     </li>
                                     <li>
                                         <a href="">
+                                            <span class="menu-text">Add</span>
+                                        </a>
+                                    </li>
+
+                                </ul>
+                            </div>
+                        </li>
+                        <li>
+                            <a href="javascript:void(0);" data-action="click-trigger">
+                                <span class="menu-icon"><i class="fa fa-th-list"></i></span>
+                                <span class="menu-text">Tags</span>
+                                <span class="menu-badge"><span class="badge vd_bg-black-30"><i class="fa fa-angle-down"></i></span></span>
+                            </a>
+                            <div class="child-menu"  data-action="click-target">
+                                <ul>
+                                    <li>
+                                        <a href="{{ path("trois_wa_back_tags_index") }}">
+                                            <span class="menu-text">See</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="{{ path("trois_wa_back_tags_add") }}">
                                             <span class="menu-text">Add</span>
                                         </a>
                                     </li>

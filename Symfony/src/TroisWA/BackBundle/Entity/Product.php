@@ -128,15 +128,8 @@ class Product
 
 
     /**
-     * @ORM\ManyToMany(targetEntity="Tags")
-     * @ORM\JoinTable(name="product_tags",
-     *          joinColumns={
-     *               @ORM\JoinColumn(name="product_id",referencedColumnName="id")
-     *          },
-     *          inverseJoinColumns={
-     *              @ORM\JoinColumn(name="tags_id",referencedColumnName="id")
-     *          }
-     * )
+     * @ORM\ManyToMany(targetEntity="Tags", inversedBy="products",cascade={"persist"})
+     * @ORM\JoinTable(name="product_tags")
      *
      *
      */

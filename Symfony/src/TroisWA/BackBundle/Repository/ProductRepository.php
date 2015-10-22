@@ -258,8 +258,9 @@ class ProductRepository extends \Doctrine\ORM\EntityRepository
 
 
         $query=$this->createQueryBuilder("prod")
-            ->select('prod, coms')
+            ->select('prod, coms, tags')
             ->leftJoin('prod.comments','coms')
+            ->leftJoin('prod.tags','tags')
             ->where('prod.id = :id')
             ->setParameter('id',$id)
             ->orderBy('coms.dateCreated','desc')
@@ -270,6 +271,7 @@ class ProductRepository extends \Doctrine\ORM\EntityRepository
         return$query->getSingleResult();
 
     }
+
 
 
 

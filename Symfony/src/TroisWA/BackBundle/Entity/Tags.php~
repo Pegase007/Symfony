@@ -33,7 +33,7 @@ class Tags
 
     /**
      *
-     * @ORM\ManyToMany(targetEntity="Product", mappedBy="tags")
+     * @ORM\ManyToMany(targetEntity="Product", inversedBy="tags")
      * @ORM\JoinTable(name="product_tags")
      */
     private $product;
@@ -88,9 +88,7 @@ class Tags
      */
     public function addProduct(\TroisWA\BackBundle\Entity\Product $product)
     {
-//        die('blob');
         $this->product[] = $product;
-        $product->addTag($this);
 
         return $this;
     }
