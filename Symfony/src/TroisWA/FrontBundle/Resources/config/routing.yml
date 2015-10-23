@@ -1,0 +1,15 @@
+trois_wa_front_main:
+  path: /
+  defaults: { _controller: "TroisWAFrontBundle:Home:index" }
+
+trois_wa_front_cart:
+  path: /cart
+  defaults: { _controller: "TroisWAFrontBundle:Cart:index" }
+
+trois_wa_front_cart_add:
+  path: /cart/add/{id}
+  defaults: { _controller: "TroisWAFrontBundle:Cart:add" }
+
+trois_wa_front_cart_delete:
+  path: /cart/delete/{id}
+  defaults: { _controller: "TroisWAFrontBundle:Cart:delete" }

@@ -77,8 +77,14 @@ class MainController extends Controller
 
 
 
-
-
+//        $utility = $this->get('trois_wa_back.util');
+//        echo $utility->slugify('salut ludo');
+//        echo '<br>';
+//        echo $utility->getText();
+//
+//        dump($utility);
+//        die;
+//
 
 
         $file=__DIR__."/../../../../app/cache/cache_instagram.txt";

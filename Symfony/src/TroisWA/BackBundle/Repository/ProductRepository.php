@@ -272,7 +272,50 @@ class ProductRepository extends \Doctrine\ORM\EntityRepository
 
     }
 
+    public function findSixProducts()
+    {
+//
+        $query = $this->createQueryBuilder("prod")
+            ->setMaxResults(6)
+            ->getQuery();
 
+//                die(dump($query->getResult()));
+        return $query->getResult();
+    }
+
+    public function findProducts($idsProduct)
+    {
+
+        $query = $this->createQueryBuilder("prod")
+            ->select('prod, brands, cat')
+            ->leftJoin('prod.brand','brands')
+            ->leftJoin('prod.category','cat')
+            ->andWhere('prod.id IN (:ids)')
+            ->setParameter('ids',$idsProduct)
+            ->getQuery();
+
+
+        //die(dump($query->getResult()));
+
+            return $query->getResult();
+
+    }
+
+
+    public function allProducts($id)
+    {
+        $query=$this->createQueryBuilder("prod")
+            ->select('prod, brands, cat')
+            ->leftJoin('prod.brand','brands')
+            ->leftJoin('prod.category','cat')
+            ->where('prod.id = :id')
+            ->setParameter('id',$id)
+            ->getQuery();
+//        die(dump ($query->getSingleResult()));
+
+        return$query->getSingleResult();
+
+    }
 
 
 

@@ -1,5 +1,9 @@
+trois_wa_front:
+    resource: "@TroisWAFrontBundle/Resources/config/routing.yml"
+    prefix:   /
+
 trois_wa_back:
     resource: "@TroisWABackBundle/Resources/config/routing.yml"
-    prefix:   /
+    prefix:   /back
 
 

@@ -1,0 +1,32 @@
+{#<!DOCTYPE html>#}
+{#<html>#}
+    {#<head>#}
+        {#<meta charset="{{ _charset }}" />#}
+        {#<title>An Error Occurred: {{ status_text }}</title>#}
+    {#</head>#}
+    {#<body>#}
+        {#<h1>YAY! An Error Occurred</h1>#}
+        {#<h2>The server returned a "{{ status_code }} {{ status_text }}".</h2>#}
+
+        {#<div>#}
+            {#Something is broken. Please let us know what you were doing when this error occurred.#}
+            {#We will fix it as soon as possible. Sorry for any inconvenience caused.#}
+        {#</div>#}
+    {#</body>#}
+{#</html>#}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>You've ripped a hole in the fabric of the internet.</title>
+</head>
+
+<body>
+
+<img src="{{ asset("img/error.jpg") }}" alt="Page Not Found (404)." style="position: absolute; left: 50%; top: 50%; margin-left: -285px; margin-top: -190px;">
+
+</body>
+
+</html>
