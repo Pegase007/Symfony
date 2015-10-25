@@ -45,10 +45,10 @@ class Image
      *
      *
      * @Assert\Image(
-     *     allowLandscape = false,
+     *     allowLandscape = true,
      *     allowPortrait = true,
      *
-     *     maxSize = "500k",
+     *     maxSize = "2000k",
      *     mimeTypes = {"image/jpeg", "image/png","image/gif"},
      *     mimeTypesMessage = "Please upload a valid image jpeg,png or gif format"
 
@@ -179,6 +179,12 @@ class Image
             {
             return $this->getRootWebDir()."/".$size."-".$this->path;
             }
+            elseif( file_exists($this->getRootObjWebDir()."/".$size."-".$this->path))
+            {
+                return $this->getRootObjWebDir()."/".$size."-".$this->path;
+
+
+            }
             else{
                 return" http://placehold.it/100x100";
             }
@@ -192,6 +198,12 @@ class Image
     private function getRootWebDir()
     {
         return "uploads/categories";
+
+    }
+
+    private function getRootObjWebDir()
+    {
+        return "uploads/products";
 
     }
 

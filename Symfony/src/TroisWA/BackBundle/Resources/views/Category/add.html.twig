@@ -167,29 +167,26 @@
 
                 <div class="col-md-12">
 
-
                         <h3 class="mgtp-15 mgbt-xs-20"> Images</h3>
                         <div class="form-group">
-                            <label class="control-label col-lg-3 file_upload_label"> <span title="" data-toggle="tooltip" class="label-tooltip" data-original-title="Format JPG, GIF, PNG. Filesize 8.00 MB max."> Add a new image to this category </span> </label>
+                            <label class="control-label col-lg-3 file_upload_label"> <span title="" data-toggle="tooltip" class="label-tooltip" data-original-title="Format JPG, GIF, PNG. Filesize 8.00 MB max."> Add a new image </span> </label>
                             <div class="col-lg-9">
                                <!-- The file input field used as target for the file upload widget -->
 
-                                    {{ form_widget(formCategory.image,{attr:{class:"btn vd_btn vd_bg-green fileinput-button"},id:"fileupload"}) }}
+                                    {{ form_widget(formCategory.image.file) }}
                                     {#<input type="file" multiple name="files[]" id="fileupload">#}
-                                <br>
-                                <br>
+
                                 <!-- The container for the uploaded files -->
                                 <div id="files" class="files"></div>
                                 <br>
                             </div>
                         </div>
                         <div class="form-group">
-                            <label class="control-label col-lg-3"> <span title="" data-toggle="tooltip" class="label-tooltip" data-original-title="Invalid characters &lt;&gt;;=#{}"> Caption </span> </label>
+                            <label class="control-label col-lg-3"> <span title="" data-toggle="tooltip" class="label-tooltip" data-original-title="Invalid characters &lt;&gt;;=#{}"> {{ form_label(formCategory.image.children.caption) }} </span> </label>
                             <div class="col-lg-9">
                                 <div class="translatable-field row lang-1">
                                     <div class="col-lg-6">
-                                        <input type="text" value="Faded Short Sleeve T-shirts" name="legend_1" id="legend_1">
-                                    </div>
+                                        {{ form_widget(formCategory.image.children.caption) }}</div>
                                     <div class="col-lg-2">
                                         <button tabindex="-1" data-toggle="dropdown" class="btn btn-default btn-xs dropdown-toggle" type="button"> en <span class="caret"></span> </button>
                                         <ul class="dropdown-menu">

@@ -21,6 +21,21 @@ class CategoryRepository extends \Doctrine\ORM\EntityRepository
 //    }
 
 
+
+    public function catProducts()
+    {
+
+
+        $query = $this->createQueryBuilder("cat")
+            ->select('cat,prod')
+            ->leftJoin('cat.product','prod')
+            ->getQuery();
+
+        return $query->getResult();
+
+
+    }
+
     public function CatQuantity()
     {
 

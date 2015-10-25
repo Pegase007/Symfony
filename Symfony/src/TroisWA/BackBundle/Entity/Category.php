@@ -38,7 +38,6 @@ class Category
     /**
      * @var string
      *
-     * @Assert\Regex("/^(?!.*category).*$/")
      *
      * @ORM\Column(name="description", type="text")
      *
@@ -70,6 +69,11 @@ class Category
      */
     private $image;
 
+
+    /**
+     * @ORM\OneToMany(targetEntity="Product", mappedBy="category")
+     */
+    private $product;
 
 
 
@@ -198,24 +202,24 @@ class Category
         }
     }
 
-        /**
-         * @Assert\True (message="La position est 1 alors le titre dois etre egal à Accueil")
-         */
-
-        public function isContentValide()
-        {
-
-            if ($this->getPosition()===1 && $this->getTitle()!="Accueil"){
-
-                return false;
-
-            } else{
-
-                return true;
-
-
-            }
-        }
+//        /**
+//         * @Assert\True (message="La position est 1 alors le titre dois etre egal à Accueil")
+//         */
+//
+//        public function isContentValide()
+//        {
+//
+//            if ($this->getPosition()===1 && $this->getTitle()!="Accueil"){
+//
+//                return false;
+//
+//            } else{
+//
+//                return true;
+//
+//
+//            }
+//        }
 
 
 //        public function __toString()
@@ -263,5 +267,46 @@ class Category
     public function getImage()
     {
         return $this->image;
+    }
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->product = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Add product
+     *
+     * @param \TroisWA\BackBundle\Entity\Product $product
+     *
+     * @return Category
+     */
+    public function addProduct(\TroisWA\BackBundle\Entity\Product $product)
+    {
+        $this->product[] = $product;
+
+        return $this;
+    }
+
+    /**
+     * Remove product
+     *
+     * @param \TroisWA\BackBundle\Entity\Product $product
+     */
+    public function removeProduct(\TroisWA\BackBundle\Entity\Product $product)
+    {
+        $this->product->removeElement($product);
+    }
+
+    /**
+     * Get product
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getProduct()
+    {
+        return $this->product;
     }
 }

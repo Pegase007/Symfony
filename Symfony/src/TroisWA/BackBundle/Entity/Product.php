@@ -63,6 +63,18 @@ class Product
      */
     private $price;
 
+
+    /**
+     * @var float
+     *
+     *
+     * @ORM\Column(name="salePrice", type="float")
+     */
+    private $salePrice;
+
+
+
+
     /**
      * @var \DateTime
      *
@@ -134,6 +146,14 @@ class Product
      *
      */
     private $tags;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="Image")
+     * @ORM\JoinColumn(name="image_id",referencedColumnName="id", nullable=false)
+     * @Assert\NotBlank() (message="Must not be empty")
+     *
+     */
+    private $image;
 
 
 
@@ -440,5 +460,53 @@ class Product
     public function getTags()
     {
         return $this->tags;
+    }
+
+    /**
+     * Set image
+     *
+     * @param \TroisWA\BackBundle\Entity\Image $image
+     *
+     * @return Product
+     */
+    public function setImage(\TroisWA\BackBundle\Entity\Image $image)
+    {
+        $this->image = $image;
+
+        return $this;
+    }
+
+    /**
+     * Get image
+     *
+     * @return \TroisWA\BackBundle\Entity\Image
+     */
+    public function getImage()
+    {
+        return $this->image;
+    }
+
+    /**
+     * Set salePrice
+     *
+     * @param float $salePrice
+     *
+     * @return Product
+     */
+    public function setSalePrice($salePrice)
+    {
+        $this->salePrice = $salePrice;
+
+        return $this;
+    }
+
+    /**
+     * Get salePrice
+     *
+     * @return float
+     */
+    public function getSalePrice()
+    {
+        return $this->salePrice;
     }
 }

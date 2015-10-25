@@ -65,7 +65,9 @@
                         {% for product in products %}
                             <tr>
                                 <td>{{ product.id }}</td>
-                                <td></td>
+                                {% if product.image %}
+                                    <td><img src="{{ asset(product.image.webpath("thumb-small")) }}"></td>
+                                {% endif %}
                                 <td>{{ product.title }}</td>
                                 <td> {% if product.category %}{{product.category.title }}{% endif %}
                                 </td>

@@ -2,6 +2,22 @@ trois_wa_front_main:
   path: /
   defaults: { _controller: "TroisWAFrontBundle:Home:index" }
 
+trois_wa_front_register:
+  path: /register
+  defaults: { _controller: "TroisWAFrontBundle:Home:register" }
+
+trois_wa_front_about:
+  path: /about
+  defaults: { _controller: "TroisWAFrontBundle:Home:about" }
+
+trois_wa_front_contact:
+  path: /contact
+  defaults: { _controller: "TroisWAFrontBundle:Home:contact" }
+
+
+
+
+
 trois_wa_front_cart:
   path: /cart
   defaults: { _controller: "TroisWAFrontBundle:Cart:index" }
@@ -13,3 +29,16 @@ trois_wa_front_cart_add:
 trois_wa_front_cart_delete:
   path: /cart/delete/{id}
   defaults: { _controller: "TroisWAFrontBundle:Cart:delete" }
+
+trois_wa_front_cart_remove:
+  path: /cart/remove/{id}
+  defaults: { _controller: "TroisWAFrontBundle:Cart:remove" }
+
+trois_wa_front_category:
+  path: /category/{id}
+  defaults: { _controller: "TroisWAFrontBundle:Category:index" }
+
+trois_wa_front_product:
+  path: /product/{id}
+  defaults: { _controller: "TroisWAFrontBundle:Product:index" }
+

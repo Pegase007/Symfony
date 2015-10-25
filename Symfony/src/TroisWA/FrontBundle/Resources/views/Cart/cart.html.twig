@@ -33,11 +33,11 @@
                             </tr>
                             </thead>
                             <tbody>
-                            {% set totalPrice = 0 %}
+                            {#{% set totalPrice = 0 %}#}
 
                            {% if allProduct %}
                             {% for prod in allProduct %}
-                                {% set totalPrice = totalPrice + prod.product.price %}
+                                {#{% set totalPrice = totalPrice + prod.product.price %}#}
                             <tr>
                                 <td class="item-name-col">
                                     <figure>
@@ -55,7 +55,7 @@
                                     <div class="custom-quantity-input">
                                         <input type="text" name="quantity" value="{{ prod.quantity }}">
                                         <a href="{{ path("trois_wa_front_cart_add",{'id':prod.product.id}) }}" class="quantity-btn quantity-input-up"><i class="fa fa-angle-up"></i></a>
-                                        <a href="#" class="quantity-btn quantity-input-down"><i class="fa fa-angle-down"></i></a>
+                                        <a href="{{ path("trois_wa_front_cart_remove",{'id':prod.product.id}) }}" class="quantity-btn quantity-input-down"><i class="fa fa-angle-down"></i></a>
                                     </div>
                                 </td>
                                 <td class="item-total-col"><span class="item-price-special">{{ prod.quantity * prod.product.price }}</span>
@@ -166,7 +166,7 @@
                             <tbody>
                             <tr>
                                 <td class="total-table-title">Subtotal:</td>
-                                <td>$434.50</td>
+                                <td>{{ subTotal }}</td>
                             </tr>
                             <tr>
                                 <td class="total-table-title">Shipping:</td>

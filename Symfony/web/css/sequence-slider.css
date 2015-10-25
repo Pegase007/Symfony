@@ -104,7 +104,7 @@
 .sequence-next,
 .sequence-prev {
 	background-color: #fafafa;
-	background-image: url('../images/sprites/homeslidernav.png');
+	background-image: url('../img/sprites/homeslidernav.png');
 	background-repeat: no-repeat;
 	cursor: pointer;
 	position: absolute;

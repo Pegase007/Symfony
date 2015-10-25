@@ -58,7 +58,9 @@ class ProductType extends AbstractType
                         ->add('brand','entity', array(
                 'class' => 'TroisWABackBundle:Brand',
                 'choice_label' => 'title',
-            ));
+            ))
+
+            ->add("image",new ImageType());
 //        On est obligé de fermer le builder pour pouvoir utiliser le tagtransformer
 
         $builder->add(

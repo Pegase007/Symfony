@@ -301,22 +301,20 @@ class ProductRepository extends \Doctrine\ORM\EntityRepository
 
     }
 
-
-    public function allProducts($id)
+    public function latestProducts()
     {
-        $query=$this->createQueryBuilder("prod")
-            ->select('prod, brands, cat')
-            ->leftJoin('prod.brand','brands')
-            ->leftJoin('prod.category','cat')
-            ->where('prod.id = :id')
-            ->setParameter('id',$id)
-            ->getQuery();
-//        die(dump ($query->getSingleResult()));
 
-        return$query->getSingleResult();
+        $query = $this->createQueryBuilder("prod")
+            ->orderBy("prod.dateCreated","desc")
+            ->setMaxResults(5)
+            ->getQuery();
+
+
+        //die(dump($query->getResult()));
+
+        return $query->getResult();
 
     }
-
 
 
 

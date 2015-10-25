@@ -17,8 +17,3 @@ parameters:
 
     # A secret key that's used to generate certain security-related tokens
     secret:            ThisTokenIsNotSoSecretChangeIt
-    client_id_instagram: 13418a30fd0c4a44addd8c711ae9e949
-    client_secret_instagram: mettre la clef secrete
-    callback_instagram:bob
-    token_instagram:bobinette
-    id_instagram:blob

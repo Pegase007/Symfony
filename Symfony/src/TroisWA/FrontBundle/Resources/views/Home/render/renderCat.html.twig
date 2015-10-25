@@ -1,0 +1,17 @@
+
+
+    {% for cat in categories %}
+<div class="col-5">
+        <a href="{{ path("trois_wa_front_category",{id:cat.id}) }}" class="mega-menu-title">{{ cat.title }}</a><!-- End .mega-menu-title -->
+
+        <ul class="mega-menu-list clearfix">
+            {% for prod in cat.product if prod.activate == "1" %}
+
+                <li><a href="{{ path("trois_wa_front_product",{ id:prod.id}) }}">{{ prod.title }}</a></li>
+
+            {% endfor %}
+
+        </ul>
+</div>
+
+{% endfor %}

@@ -24,5 +24,15 @@ class CommentsRepository extends \Doctrine\ORM\EntityRepository
         return $query->getResult();
     }
 
+    public function lastComs()
+    {
+        $query = $this->createQueryBuilder("com")
+            ->orderBy('com.dateCreated','desc')
+            ->setMaxResults(10)
+            ->getQuery();
+
+        return $query->getResult();
+    }
+
 
 }

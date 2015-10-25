@@ -23,6 +23,9 @@ class CartController extends Controller
 
         $session=$request->getSession();
         $allProduct = [];
+        $subTotal=0;
+        $totalPrice=0;
+        $countProd=0;
 
         if($session->has('cart')) {
 
@@ -31,6 +34,9 @@ class CartController extends Controller
             $productsResult = $em->getRepository('TroisWABackBundle:Product')->findProducts(array_keys($session->get('cart')));
             foreach($productsResult as $prod)
             {
+                $subTotal=$subTotal+$prod->getSalePrice();
+                $totalPrice=$totalPrice + $prod->getPrice();
+                $countProd=$countProd + 1;
                 array_push($allProduct,[
                    'product' => $prod,
                     'quantity' => $session->get('cart')[$prod->getId()]
@@ -42,7 +48,7 @@ class CartController extends Controller
 //        die();
 
 
-        return $this->render("TroisWAFrontBundle:Cart:cart.html.twig",['allProduct'=>$allProduct]);
+        return $this->render("TroisWAFrontBundle:Cart:cart.html.twig",['allProduct'=>$allProduct,'totalPrice'=>$totalPrice, 'countProd'=>$countProd, 'subTotal'=>$subTotal]);
 
 
     }
@@ -61,10 +67,25 @@ class CartController extends Controller
 
             if (array_key_exists($product->getId(), $allProduct)) {
 
+
+
+
+                if($allProduct[$product->getId()] == $product->getQuantity())
+                {
+
+                    $allProduct[$product->getId()]= $product->getQuantity() ;
+
+                }else
+
+                {
                 $qty = $allProduct[$product->getId()] + 1;
 
-
                 $allProduct[$product->getId()]= $qty;
+
+                }
+
+
+
 
             }else{
 
@@ -81,6 +102,45 @@ class CartController extends Controller
 
 
         }
+
+//        dump($session->get('cart'));
+//
+//        die();
+
+        return $this->redirectToRoute("trois_wa_front_cart");
+
+
+    }
+
+    public function removeAction(Product $product, Request $request)
+
+    {
+
+        $session=$request->getSession();
+
+            $allProduct = $session->get('cart');
+
+
+            if (array_key_exists($product->getId(), $allProduct)) {
+
+                $qty = $allProduct[$product->getId()] - 1;
+
+
+                $allProduct[$product->getId()]= $qty;
+
+                if($qty==0)
+                {
+
+                    unset($allProduct[$product->getId()]);
+
+                }
+
+            }
+
+            $session->set('cart',$allProduct);
+
+
+
 
 //        dump($session->get('cart'));
 //
