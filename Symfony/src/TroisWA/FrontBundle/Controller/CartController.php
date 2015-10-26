@@ -21,34 +21,50 @@ class CartController extends Controller
 
     {
 
+//        $session=$request->getSession();
+//        $allProduct = [];
+//        $subTotal=0;
+//        $totalPrice=0;
+//        $countProd=0;
+//
+//        if($session->has('cart')) {
+//
+//            $em = $this->getDoctrine()->getManager();
+//
+//            $productsResult = $em->getRepository('TroisWABackBundle:Product')->findProducts(array_keys($session->get('cart')));
+//            foreach($productsResult as $prod)
+//            {
+//                $subTotal=$subTotal+$prod->getSalePrice();
+//                $totalPrice=$totalPrice + $prod->getPrice();
+//                $countProd=$countProd + 1;
+//                array_push($allProduct,[
+//                   'product' => $prod,
+//                    'quantity' => $session->get('cart')[$prod->getId()]
+//                ]);
+//            }
+//
+//        }
+
+
+        //die(dump($panier));
+
         $session=$request->getSession();
-        $allProduct = [];
-        $subTotal=0;
-        $totalPrice=0;
-        $countProd=0;
 
-        if($session->has('cart')) {
+            $cartFinal = $session->get('cartFinal');
+            $cartProd = $session->get('cartProd');
+//
 
-            $em = $this->getDoctrine()->getManager();
 
-            $productsResult = $em->getRepository('TroisWABackBundle:Product')->findProducts(array_keys($session->get('cart')));
-            foreach($productsResult as $prod)
-            {
-                $subTotal=$subTotal+$prod->getSalePrice();
-                $totalPrice=$totalPrice + $prod->getPrice();
-                $countProd=$countProd + 1;
-                array_push($allProduct,[
-                   'product' => $prod,
-                    'quantity' => $session->get('cart')[$prod->getId()]
-                ]);
-            }
 
-        }
-//        dump($allProduct);
+
+//        dump($cartFinal);
+//        dump($allProducts);
+//
+//        dump($cartProd);
 //        die();
 
 
-        return $this->render("TroisWAFrontBundle:Cart:cart.html.twig",['allProduct'=>$allProduct,'totalPrice'=>$totalPrice, 'countProd'=>$countProd, 'subTotal'=>$subTotal]);
+        return $this->render("TroisWAFrontBundle:Cart:cart.html.twig",['allProduct'=>$cartProd,'totalPrice'=>$cartFinal['totalPrice'], 'countProd'=>$cartFinal['countProd'], 'subTotal'=>$cartFinal['subTotal']]);
 
 
     }
@@ -56,56 +72,61 @@ class CartController extends Controller
     public function addAction(Product $product, Request $request)
 
     {
-
-        $session=$request->getSession();
-        $allProduct=[];
-
-        if($session->has('cart')) {
-
-            $allProduct = $session->get('cart');
-
-
-            if (array_key_exists($product->getId(), $allProduct)) {
-
-
-
-
-                if($allProduct[$product->getId()] == $product->getQuantity())
-                {
-
-                    $allProduct[$product->getId()]= $product->getQuantity() ;
-
-                }else
-
-                {
-                $qty = $allProduct[$product->getId()] + 1;
-
-                $allProduct[$product->getId()]= $qty;
-
-                }
-
-
-
-
-            }else{
-
-                $allProduct[$product->getId()] = 1;
-
-            }
-
-            $session->set('cart',$allProduct);
-
-        }
-        else{
-
-            $session->set('cart',$allProduct);
-
-
-        }
-
-//        dump($session->get('cart'));
 //
-//        die();
+//        $session=$request->getSession();
+//        $allProduct=[];
+//
+//        if($session->has('cart')) {
+//
+//            $allProduct = $session->get('cart');
+//
+//
+//            if (array_key_exists($product->getId(), $allProduct)) {
+//
+//
+//
+//
+//                if($allProduct[$product->getId()] == $product->getQuantity())
+//                {
+//
+//                    $allProduct[$product->getId()]= $product->getQuantity() ;
+//
+//                }else
+//
+//                {
+//                $qty = $allProduct[$product->getId()] + 1;
+//
+//                $allProduct[$product->getId()]= $qty;
+//
+//                }
+//
+//
+//
+//
+//            }else{
+//
+//                $allProduct[$product->getId()] = 1;
+//
+//            }
+//
+//            $session->set('cart',$allProduct);
+//
+//        }
+//        else{
+//
+//            $session->set('cart',$allProduct);
+//
+//
+//        }
+//
+////        dump($session->get('cart'));
+////
+////        die();
+//
+
+        $panier = $this->get('trois_wa_back.cart');
+        //die(dump($panier));
+        $panier->add($product);
 
         return $this->redirectToRoute("trois_wa_front_cart");
 

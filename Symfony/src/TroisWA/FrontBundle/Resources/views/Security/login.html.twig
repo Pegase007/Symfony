@@ -1,0 +1,99 @@
+{% extends "TroisWAFrontBundle::layout.html.twig" %}
+
+{% block content %}
+    {% if error %}
+        <div>{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+    {% endif %}
+
+    {#<form action="{{ path('trois_wa_back_login_check') }}" method="post">#}
+        {#<label for="username">Username:</label>#}
+        {#<input type="text" id="username" name="_username" value="{{ last_username }}" />#}
+
+        {#<label for="password">Password:</label>#}
+        {#<input type="password" id="password" name="_password" />#}
+
+        {#<input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">#}
+
+        {#<button type="submit">login</button>#}
+    {#</form>#}
+
+
+    <section id="content">
+        <div id="breadcrumb-container">
+            <div class="container">
+                <ul class="breadcrumb">
+                    <li><a href="index-2.html">Home</a></li>
+                    <li class="active">Register Account</li>
+                </ul>
+            </div>
+        </div>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <header class="content-title">
+                        <h1 class="title">Login</h1>
+                        <p class="title-desc">If you do not have an account, please register at <a href="#">register page</a>.</p>
+                    </header>
+                    <div class="xs-margin"></div><!-- space -->
+
+
+                    <form action="{{ path('trois_wa_back_login_check') }}" method="post">
+                        <div class="row">
+
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+
+
+                                <fieldset>
+                                    <div class="input-group">
+                                        <span class="input-group-addon"><span class="input-icon input-icon-user"></span><span class="input-text">User Name;</span></span>
+
+                                        <input type="text" required class="form-control input-lg" placeholder="User Name" id="username" name="_username"value="{{ last_username }}">
+                                    </div><!-- End .input-group -->
+
+                                </fieldset>
+
+
+
+
+                            </div><!-- End .col-md-6 -->
+
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                <fieldset>
+                                    <div class="input-group">
+
+                                        <span class="input-group-addon"><span class="input-icon input-icon-password"></span><span class="input-text">Password&#42;</span></span>
+                                        <input type="password" required class="form-control input-lg" placeholder="Your Password" id="password" name="_password">
+                                    </div><!-- End .input-group -->
+
+                                </fieldset>
+
+                            </div><!-- End .col-md-6 -->
+
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                <fieldset class="half-margin">
+
+                                    <div class="input-group custom-checkbox">
+                                        <input type="checkbox" name="_remember_me"> <span class="checbox-container">
+									 <i class="fa fa-check"></i>
+									 </span>
+                                        Remember me.
+
+                                    </div><!-- End .input-group -->
+                                </fieldset>
+
+                                <input type="submit"  class=" col-md-offset-5 btn btn-custom-2 btn-md md-margin">
+                            </div><!-- End .col-md-6 -->
+
+                        </div><!-- End .row -->
+
+                        <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+
+                    </form>
+                </div><!-- End .col-md-12 -->
+            </div><!-- End .row -->
+        </div><!-- End .container -->
+
+    </section><!-- End #content -->
+
+{% endblock %}
+

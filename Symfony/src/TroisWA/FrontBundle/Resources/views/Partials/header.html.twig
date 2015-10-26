@@ -88,7 +88,7 @@
                                 <li class="mega-menu-container"><a href="#">SHOP</a>
                                     <div class="mega-menu clearfix">
 
-                                            {{ render(controller("TroisWAFrontBundle:Home:renderAllCategory")) }}
+                                        {{ render(controller("TroisWAFrontBundle:Home:renderAllCategory")) }}
 
 
                                     </div><!-- End .mega-menu -->
@@ -107,52 +107,45 @@
                                 <div class="btn-group dropdown-cart">
                                     <button type="button" class="btn btn-custom dropdown-toggle" data-toggle="dropdown">
                                         <span class="cart-menu-icon"></span>
-                                        0 item(s) <span class="drop-price">- $0.00</span>
+                                        {% if app.session.get('cartFinal') %} {{ app.session.get('cartFinal').countProd }} {% else %} 0 {% endif %}item(s) <span class="drop-price">- ${% if app.session.get('cartFinal') %} {{ app.session.get('cartFinal').totalPrice }}{% else %}0.00 {% endif %}</span>
                                     </button>
 
                                     <div class="dropdown-menu dropdown-cart-menu pull-right clearfix" role="menu">
                                         <p class="dropdown-cart-description">Recently added item(s).</p>
                                         <ul class="dropdown-cart-product-list">
+                                            {% if app.session.get('cartProd') %}
+                                            {% for prod in app.session.get('cartProd') %}
                                             <li class="item clearfix">
                                                 <a href="#" title="Delete item" class="delete-item"><i class="fa fa-times"></i></a>
                                                 <a href="#" title="Edit item" class="edit-item"><i class="fa fa-pencil"></i></a>
                                                 <figure>
-                                                    <a href="product.html"><img src="images/products/thumbnails/phone4.jpg" alt="phone 4"></a>
+                                                    <a href="{{ path("trois_wa_front_product",{'id':prod.product.id }) }}">
+
+                                                        {% if prod.product.image %}
+                                                            <img src="{{ asset(prod.product.image.webpath("thumb-small")) }}" alt="{{ prod.product.title }}">
+                                                        {% endif %}
+                                                        </a>
                                                 </figure>
                                                 <div class="dropdown-cart-details">
                                                     <p class="item-name">
-                                                        <a href="product.html">Cam Optia AF Webcam </a>
+                                                        <a href="{{ path("trois_wa_front_product",{'id':prod.product.id }) }}">{{ prod.product.title }}</a>
                                                     </p>
                                                     <p>
-                                                        1x
-                                                        <span class="item-price">$499</span>
+                                                        {{ prod.quantity }}x
+                                                        <span class="item-price">{{ prod.product.price }}</span>
                                                     </p>
                                                 </div><!-- End .dropdown-cart-details -->
                                             </li>
-                                            <li class="item clearfix">
-                                                <a href="#" title="Delete item" class="delete-item"><i class="fa fa-times"></i></a>
-                                                <a href="#" title="Edit item" class="edit-item"><i class="fa fa-pencil"></i></a>
-                                                <figure>
-                                                    <a href="product.html"><img src="images/products/thumbnails/phone2.jpg" alt="phone 2"></a>
-                                                </figure>
-                                                <div class="dropdown-cart-details">
-                                                    <p class="item-name">
-                                                        <a href="product.html">Iphone Case Cover Original</a>
-                                                    </p>
-                                                    <p>
-                                                        1x
-                                                        <span class="item-price">$499<span class="sub-price">.99</span></span>
-                                                    </p>
-                                                </div><!-- End .dropdown-cart-details -->
-                                            </li>
+                                            {% endfor %}
+                                            {% endif %}
                                         </ul>
 
                                         <ul class="dropdown-cart-total">
-                                            <li><span class="dropdown-cart-total-title">Shipping:</span>$7</li>
-                                            <li><span class="dropdown-cart-total-title">Total:</span>$1005<span class="sub-price">.99</span></li>
+                                            <li><span class="dropdown-cart-total-title">Total:</span>${% if app.session.get('cartFinal') %}{{  app.session.get('cartFinal').subTotal }}{% else %} 0.00 {% endif %}</li>
+                                            <li><span class="dropdown-cart-total-title">Total with Discount:</span>${% if app.session.get('cartFinal') %} {{  app.session.get('cartFinal').totalPrice  }}{% else %} 0.00 {% endif %}<span class="sub-price">.99</span></li>
                                         </ul><!-- .dropdown-cart-total -->
                                         <div class="dropdown-cart-action">
-                                            <p><a href="cart.html" class="btn btn-custom-2 btn-block">Cart</a></p>
+                                            <p><a href="{{ path("trois_wa_front_cart") }}" class="btn btn-custom-2 btn-block">Cart</a></p>
                                             <p><a href="checkout.html" class="btn btn-custom btn-block">Checkout</a></p>
                                         </div><!-- End .dropdown-cart-action -->
 
@@ -165,7 +158,7 @@
                                 <div class="form-group">
                                     <input type="text" class="form-control" placeholder="Search here">
                                 </div><!-- End .form-inline -->
-                                <button type="submit" id="quick-search" class="btn btn-custom"><i class="fa fa-search"></i></button>
+                                <button type="submit" id="quick-search" class="btn btn-custom"></button>
                             </form>
                         </div><!-- End #quick-access -->
                     </div><!-- End .col-md-12 -->
