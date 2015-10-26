@@ -2,10 +2,6 @@ trois_wa_front_main:
   path: /
   defaults: { _controller: "TroisWAFrontBundle:Home:index" }
 
-trois_wa_front_register:
-  path: /register
-  defaults: { _controller: "TroisWAFrontBundle:Home:register" }
-
 trois_wa_front_about:
   path: /about
   defaults: { _controller: "TroisWAFrontBundle:Home:about" }

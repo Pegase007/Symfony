@@ -41,7 +41,11 @@
                             <tr>
                                 <td class="item-name-col">
                                     <figure>
-                                        <a href="#"><img src="http://www.thetoyshop.com/medias/Minion-Characters-background.png?context=bWFzdGVyfHJvb3R8MjAyOTQ1fGltYWdlL3BuZ3xoYTgvaGFhLzg5NTAzMzE5NjU0NzAucG5nfGQ0YWYzMDNlYTJjNjlkN2RjNGE1MGNiN2JjZTU2MGJhODViZTllYmJkOTJkMTc0ZTJjZmYyNjVmOWQ5N2JkMTM" alt="Lowlands Lace Blouse"></a>
+                                        <a href="#">
+                                            {% if prod.product.image %}
+                                                <img src="{{ asset(prod.product.image.webpath("thumb-small")) }}" alt="{{ prod.product.title }}">
+                                            {% endif %}
+                                        </a>
                                     </figure>
                                     <header class="item-name"><a href="#">{{ prod.product.title }}</a></header>
                                     <ul>
@@ -204,20 +208,29 @@
                         <div id="similiar-items-slider-next" class="carousel-btn carousel-btn-next carousel-space"></div><!-- End .carousel-next -->
                     </div><!-- End .carousel-controls -->
                     <div class="similiar-items-slider owl-carousel">
+
+                        {% for last in latestProducts %}
+
+
+
                         <div class="item">
 
                             <div class="item-image-container">
                                 <figure>
-                                    <a href="product.html">
-                                        <img src="images/products/item3.jpg" alt="item3" class="item-image">
-                                        <img src="images/products/item3-hover.jpg" alt="item3 Hover" class="item-image-hover">
+                                    <a href="{{ path('trois_wa_front_product',{id:last.id}) }}">
+                                        {% if last.image %}
+                                            <img src="{{ asset(last.image.webpath("thumb-small")) }}" alt="{{ last.title }}" class="item-image">
+                                        {% endif %}
+
+                                        {% if last.image %}
+                                            <img src="{{ asset(last.image.webpath("thumb-small")) }}" alt="{{ last.title }} Hover" class="item-image-hover">
+                                        {% endif %}
                                     </a>
                                 </figure>
                                 <div class="item-price-container">
-                                    <span class="item-price">$160<span class="sub-price">.99</span></span>
+                                    <span class="item-price">${{ last.price }}</span>
                                 </div>
-                                <span class="new-rect">New</span>
-                                <span class="discount-rect">-10%</span>
+                                <span class="discount-rect">  - {{ (last.price * 100 / last.salePrice)|number_format }}%</span>
                             </div><!-- End .item-image -->
                             <div class="item-meta-container">
                                 <div class="ratings-container">
@@ -225,191 +238,25 @@
                                         <div class="ratings-result" data-result="95"></div>
                                     </div><!-- End .ratings -->
                                                     <span class="ratings-amount">
-                                                        1 Reviews
+                                                         {{ last.comments|length }}
                                                     </span>
                                 </div><!-- End .rating-container -->
-                                <h3 class="item-name"><a href="product.html">Lorem Ipsum Dolla</a></h3>
+                                <h3 class="item-name"><a href="product.html">{{ last.title }}</a></h3>
                                 <div class="item-action">
                                     <a href="#" class="item-add-btn">
                                         <span class="icon-cart-text">Add to Cart</span>
                                     </a>
                                     <div class="item-action-inner">
                                         <a href="#" class="icon-button icon-like">Favourite</a>
-                                        <a href="#" class="icon-button icon-compare">Checkout</a>
                                     </div><!-- End .item-action-inner -->
                                 </div><!-- End .item-action -->
                             </div><!-- End .item-meta-container -->
                         </div><!-- End .item -->
 
-                        <div class="item">
+                        {% endfor %}
 
-                            <div class="item-image-container">
-                                <figure>
-                                    <a href="product.html">
-                                        <img src="images/products/phone3.jpg" alt="Phone 3" class="item-image">
-                                        <img src="images/products/phone3-hover.jpg" alt="Phone 3 Hover" class="item-image-hover">
-                                    </a>
-                                </figure>
-                                <div class="item-price-container">
-                                    <span class="item-price">$99<span class="sub-price">.75</span></span>
-                                </div>
-                            </div><!-- End .item-image -->
-                            <div class="item-meta-container">
-                                <div class="ratings-container">
 
-                                </div><!-- End .rating-container -->
-                                <h3 class="item-name"><a href="product.html">Lorem Ipsum Dolla</a></h3>
-                                <div class="item-action">
-                                    <a href="#" class="item-add-btn">
-                                        <span class="icon-cart-text">Add to Cart</span>
-                                    </a>
-                                    <div class="item-action-inner">
-                                        <a href="#" class="icon-button icon-like">Favourite</a>
-                                        <a href="#" class="icon-button icon-compare">Checkout</a>
-                                    </div><!-- End .item-action-inner -->
-                                </div><!-- End .item-action -->
-                            </div><!-- End .item-meta-container -->
-                        </div><!-- End .item -->
-                        <div class="item">
 
-                            <div class="item-image-container">
-                                <figure>
-                                    <a href="product.html">
-                                        <img src="images/products/headphones1.jpg" alt="Headphones 1" class="item-image">
-                                        <img src="images/products/headphones1-hover.jpg" alt="Headphones 1 Hover" class="item-image-hover">
-                                    </a>
-                                </figure>
-                                <div class="item-price-container">
-                                    <span class="item-price">$79<span class="sub-price">.99</span></span>
-                                </div>
-                                <span class="new-rect">New</span>
-                            </div><!-- End .item-image -->
-                            <div class="item-meta-container">
-                                <div class="ratings-container">
-
-                                </div><!-- End .rating-container -->
-                                <h3 class="item-name"><a href="product.html">Lorem Ipsum Dolla</a></h3>
-                                <div class="item-action">
-                                    <a href="#" class="item-add-btn">
-                                        <span class="icon-cart-text">Add to Cart</span>
-                                    </a>
-                                    <div class="item-action-inner">
-                                        <a href="#" class="icon-button icon-like">Favourite</a>
-                                        <a href="#" class="icon-button icon-compare">Checkout</a>
-                                    </div><!-- End .item-action-inner -->
-                                </div><!-- End .item-action -->
-                            </div><!-- End .item-meta-container -->
-                        </div><!-- End .item -->
-
-                        <div class="item">
-
-                            <div class="item-image-container">
-                                <figure>
-                                    <a href="product.html">
-                                        <img src="images/products/phone5.jpg" alt="item3" class="item-image">
-                                        <img src="images/products/phone5-hover.jpg" alt="item3 Hover" class="item-image-hover">
-                                    </a>
-                                </figure>
-                                <div class="item-price-container">
-                                    <span class="old-price">$300</span>
-                                    <span class="item-price">$175</span>
-                                </div>
-                                <span class="new-rect">New</span>
-                                <span class="discount-rect">-35%</span>
-                            </div><!-- End .item-image -->
-                            <div class="item-meta-container">
-                                <div class="ratings-container">
-                                    <div class="ratings">
-                                        <div class="ratings-result" data-result="70"></div>
-                                    </div><!-- End .ratings -->
-                                                    <span class="ratings-amount">
-                                                        7 Reviews
-                                                    </span>
-                                </div><!-- End .rating-container -->
-                                <h3 class="item-name"><a href="product.html">Lorem Ipsum Dolla</a></h3>
-                                <div class="item-action">
-                                    <a href="#" class="item-add-btn">
-                                        <span class="icon-cart-text">Add to Cart</span>
-                                    </a>
-                                    <div class="item-action-inner">
-                                        <a href="#" class="icon-button icon-like">Favourite</a>
-                                        <a href="#" class="icon-button icon-compare">Checkout</a>
-                                    </div><!-- End .item-action-inner -->
-                                </div><!-- End .item-action -->
-                            </div><!-- End .item-meta-container -->
-                        </div><!-- End .item -->
-
-                        <div class="item">
-
-                            <div class="item-image-container">
-                                <figure>
-                                    <a href="product.html">
-                                        <img src="images/products/item4.jpg" alt="item3" class="item-image">
-                                        <img src="images/products/item4-hover.jpg" alt="item3 Hover" class="item-image-hover">
-                                    </a>
-                                </figure>
-                                <div class="item-price-container">
-                                    <span class="item-price">$180<span class="sub-price">.99</span></span>
-                                </div>
-                                <span class="new-rect">New</span>
-                            </div><!-- End .item-image -->
-                            <div class="item-meta-container">
-                                <div class="ratings-container">
-                                    <div class="ratings">
-                                        <div class="ratings-result" data-result="95"></div>
-                                    </div><!-- End .ratings -->
-                                                    <span class="ratings-amount">
-                                                        2 Reviews
-                                                    </span>
-                                </div><!-- End .rating-container -->
-                                <h3 class="item-name"><a href="product.html">Lorem Ipsum Dolla</a></h3>
-                                <div class="item-action">
-                                    <a href="#" class="item-add-btn">
-                                        <span class="icon-cart-text">Add to Cart</span>
-                                    </a>
-                                    <div class="item-action-inner">
-                                        <a href="#" class="icon-button icon-like">Favourite</a>
-                                        <a href="#" class="icon-button icon-compare">Checkout</a>
-                                    </div><!-- End .item-action-inner -->
-                                </div><!-- End .item-action -->
-                            </div><!-- End .item-meta-container -->
-                        </div><!-- End .item -->
-
-                        <div class="item">
-
-                            <div class="item-image-container">
-                                <figure>
-                                    <a href="product.html">
-                                        <img src="images/products/item2.jpg" alt="item3" class="item-image">
-                                        <img src="images/products/item2-hover.jpg" alt="item3 Hover" class="item-image-hover">
-                                    </a>
-                                </figure>
-                                <div class="item-price-container">
-                                    <span class="item-price">$89<span class="sub-price">.75</span></span>
-                                </div>
-                                <span class="new-rect">New</span>
-                            </div><!-- End .item-image -->
-                            <div class="item-meta-container">
-                                <div class="ratings-container">
-                                    <div class="ratings">
-                                        <div class="ratings-result" data-result="95"></div>
-                                    </div><!-- End .ratings -->
-                                                    <span class="ratings-amount">
-                                                        4 Reviews
-                                                    </span>
-                                </div><!-- End .rating-container -->
-                                <h3 class="item-name"><a href="product.html">Lorem Ipsum Dolla</a></h3>
-                                <div class="item-action">
-                                    <a href="#" class="item-add-btn">
-                                        <span class="icon-cart-text">Add to Cart</span>
-                                    </a>
-                                    <div class="item-action-inner">
-                                        <a href="#" class="icon-button icon-like">Favourite</a>
-                                        <a href="#" class="icon-button icon-compare">Checkout</a>
-                                    </div><!-- End .item-action-inner -->
-                                </div><!-- End .item-action -->
-                            </div><!-- End .item-meta-container -->
-                        </div><!-- End .item -->
 
                     </div><!--purchased-items-slider -->
                 </div><!-- End .purchased-items-container -->

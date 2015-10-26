@@ -48,6 +48,13 @@ class CartController extends Controller
 
         //die(dump($panier));
 
+        $em = $this->getDoctrine()->getManager();
+
+
+        $latestProducts=$em->getRepository("TroisWABackBundle:Product")
+            ->latestProducts();
+
+
         $session=$request->getSession();
 
             $cartFinal = $session->get('cartFinal');
@@ -64,7 +71,7 @@ class CartController extends Controller
 //        die();
 
 
-        return $this->render("TroisWAFrontBundle:Cart:cart.html.twig",['allProduct'=>$cartProd,'totalPrice'=>$cartFinal['totalPrice'], 'countProd'=>$cartFinal['countProd'], 'subTotal'=>$cartFinal['subTotal']]);
+        return $this->render("TroisWAFrontBundle:Cart:cart.html.twig",['allProduct'=>$cartProd,'totalPrice'=>$cartFinal['totalPrice'], 'countProd'=>$cartFinal['countProd'], 'subTotal'=>$cartFinal['subTotal'], 'latestProducts'=>$latestProducts]);
 
 
     }

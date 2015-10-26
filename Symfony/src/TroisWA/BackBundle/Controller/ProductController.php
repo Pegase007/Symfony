@@ -35,6 +35,8 @@ class ProductController extends Controller
      */
     public function productAction(Request $request, Product $products)
     {
+
+
 //          UTILISATION DU PARAMCONVERTER AU NIVEAU DE LA METHODE
 
 
@@ -130,6 +132,7 @@ class ProductController extends Controller
 
     public function indexAction(Request $request)
     {
+
 
 
         $em = $this->getDoctrine()->getManager();

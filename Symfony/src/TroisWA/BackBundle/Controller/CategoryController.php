@@ -109,6 +109,7 @@ class CategoryController extends BaseController
     public function catAction($id, Category $categories){
 
 
+
 //         $categories = [
 //            1 => [
 //                "id" => 1,
@@ -181,6 +182,12 @@ class CategoryController extends BaseController
     public function addAction(Request $request)
     {
 
+        $this->breadcrumbs(
+            [
+                'Category' => $this->generateUrl("trois_wa_back_categories"),
+                'Add'=>"Add"
+            ]
+        );
 
         $category = new Category();
 
@@ -224,6 +231,13 @@ class CategoryController extends BaseController
 
     public function editAction($id, Request $request)
     {
+
+        $this->breadcrumbs(
+            [
+                'Category' => $this->generateUrl("trois_wa_back_categories"),
+                'Edit'=>"Edit"
+            ]
+        );
 
         $em = $this->getDoctrine()->getEntityManager();
         $category = $em->getRepository('TroisWABackBundle:Category')->find($id);

@@ -287,9 +287,10 @@ class ProductRepository extends \Doctrine\ORM\EntityRepository
     {
 
         $query = $this->createQueryBuilder("prod")
-            ->select('prod, brands, cat')
+            ->select('prod, brands, cat, img')
             ->leftJoin('prod.brand','brands')
             ->leftJoin('prod.category','cat')
+            ->leftJoin('prod.image','img')
             ->andWhere('prod.id IN (:ids)')
             ->setParameter('ids',$idsProduct)
             ->getQuery();

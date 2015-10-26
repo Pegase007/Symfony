@@ -59,9 +59,11 @@ class Cart
         $countProd = 0;
         $cartProd=[];
 
-        $Products = $this->em->getRepository('TroisWABackBundle:Product')->findProducts(array_keys($this->session->get('cart')));
+        $products = $this->em->getRepository('TroisWABackBundle:Product')->findProducts(array_keys($this->session->get('cart')));
 
-        foreach ($Products as $prod)
+
+
+        foreach ($products as $prod)
         {
             $subTotal = $subTotal + $prod->getSalePrice();
             $totalPrice = $totalPrice + $prod->getPrice();
