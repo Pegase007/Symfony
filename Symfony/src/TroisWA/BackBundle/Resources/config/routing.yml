@@ -22,3 +22,7 @@ trois_wa_back_ressources_comments:
 trois_wa_back_ressources_tags:
     resource: "@TroisWABackBundle/Resources/config/routing/tags.yml"
     prefix: /tags
+
+trois_wa_back_security:
+    resource: "@TroisWABackBundle/Resources/config/routing/security.yml"
+    prefix: /

@@ -1,0 +1,11 @@
+trois_wa_back_login:
+    path:     /login
+    defaults: { _controller: TroisWABackBundle:Security:login }
+
+trois_wa_back_login_check:
+    path:     /login_check
+
+trois_wa_back_logout:
+    path:     /logout
+
+
