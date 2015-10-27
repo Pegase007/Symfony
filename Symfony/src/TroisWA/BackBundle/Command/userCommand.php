@@ -35,8 +35,15 @@ class userCommand extends ContainerAwareCommand
         $login = $input->getArgument('login');
         $password = $input->getArgument('password');
 
-        $faker = \Faker\Factory::create('fr_FR');
         $user= new User();
+
+        //On recupere tout ce qui est dans config encoders
+        $factory= $this->getContainer()->get('security.encoder_factory');
+        //Je récupère l'encoder de la class TroisWA\BackBundle\Entity\User
+        $encoder = $factory->getEncoder($user);
+        $newPassword = $encoder->encodePassword($password, $user->getSalt());
+
+        $faker = \Faker\Factory::create('fr_FR');
         $user->setFirstName($faker->firstName);
         $user->setLastName($faker->lastName );
         $user->setEmail($faker->email);
@@ -47,10 +54,11 @@ class userCommand extends ContainerAwareCommand
         $user->setPc($faker->postcode);
         $user->setCountry($faker->country);
         $user->setLogin($login);
-        $user->setPassword($password);
+        $user->setPassword($newPassword);
 
         $em->persist($user);
         $em->flush();
+
 
 
 

@@ -32,13 +32,7 @@ class HomeController extends Controller
 
     }
 
-    public function registerAction()
-    {
 
-        return $this->render("TroisWAFrontBundle:Home:register.html.twig");
-
-
-    }
 
     public function contactAction()
     {
@@ -66,6 +60,15 @@ class HomeController extends Controller
 
 
         return $this->render("TroisWAFrontBundle:Home/render:renderCat.html.twig",["categories"=>$categories]);
+
+    }
+
+    public function registerAction()
+    {
+
+
+        return $this->render("TroisWAFrontBundle:Security:register.html.twig");
+
 
     }
 

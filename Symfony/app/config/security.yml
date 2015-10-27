@@ -4,10 +4,22 @@ security:
 
   encoders:
     Symfony\Component\Security\Core\User\User: plaintext
-    TroisWA\BackBundle\Entity\User: plaintext
+#    TroisWA\BackBundle\Entity\User:
+#        algorithm: sha512
+#        encode_as_base64: true
+#        iterations: 1000
+
+    #autre type d'encodage
+    TroisWA\BackBundle\Entity\User:
+      algorithm: bcrypt
+      #cost=nb de caracteres
+      cost: 15
+
 
   # http://symfony.com/doc/current/book/security.html#where-do-users-come-from-user-providers
+# D'ou proviennent les utilisateurs
   providers:
+    #les fichiers sont crees dans ce fichier
     in_memory:
       memory:
         users:
@@ -19,9 +31,18 @@ security:
           gertrude: { password: azerty, roles: ROLE_SUPER_NANA }
 
     user_admin:
-      entity:
-        class: TroisWA\BackBundle\Entity\User
-        property: login
+#      entity:
+#        class: TroisWA\BackBundle\Entity\User
+#        property: login
+
+#      entity: { class: TroisWA\BackBundle\Entity\User, property: email } #connection avec l'email
+      entity: { class: TroisWA\BackBundle\Entity\User } #connection sans property, il ira chercher l'information dans le repository
+
+    mix:
+      chain:
+        provider: [in_memory, user_admin]
+
+
 
 
   role_hierarchy:
@@ -30,17 +51,21 @@ security:
     ROLE_SUPER_NANA: [ROLE_ADMIN, ROLE_ALLOWED_TO_SWITCH]
     ROLE_ADMIN: ROLE_COMMERCIAL
 
+
+  #authentification
   firewalls:
     # disables authentication for assets and the profiler, adapt it according to your needs
     dev:
       pattern: ^/(_(profiler|wdt)|css|images|js)/
       security: false
 
+    #
     loginfirewall:
       pattern: ^/back/login$
       security: false
 
 
+    #si je vais sur cette adresse je ne dois pas etre anonyme, pour se connecter -> form Login
     main:
       pattern: ^/back
       anonymous: false
@@ -50,7 +75,8 @@ security:
       #        realm: "Zone sécurisé administration"
       #        provider: in_memory
 
-      provider: user_admin
+      #provider: user_admin
+      provider: mix
 
 
 
@@ -64,6 +90,7 @@ security:
       #ou
       #switch_user: { role: ROLE_SUPER_NANA, parameter: _changement_de_compte }
 
+      #permet la connection pour ne plus etre anonymous
       form_login:
         login_path: trois_wa_back_login
         check_path: trois_wa_back_login_check
@@ -86,5 +113,7 @@ security:
       # form_login: ~
       # http://symfony.com/doc/current/cookbook/security/form_login_setup.html
 
+  #d'abord l'authentification puis l'authorisation
+  #l'authorisation qui demande au moins le rôle commercial
   access_control:
-    - { path: ^/back, role: ROLE_ADMIN }
+    - { path: ^/back, role: ROLE_COMMERCIAL }

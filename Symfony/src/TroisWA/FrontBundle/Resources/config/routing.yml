@@ -10,7 +10,9 @@ trois_wa_front_contact:
   path: /contact
   defaults: { _controller: "TroisWAFrontBundle:Home:contact" }
 
-
+trois_wa_front_register:
+  path: /register
+  defaults: { _controller: "TroisWAFrontBundle:Home:register" }
 
 
 

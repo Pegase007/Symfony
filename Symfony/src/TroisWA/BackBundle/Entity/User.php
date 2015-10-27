@@ -100,6 +100,29 @@ class User implements UserInterface
      */
     private $country;
 
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="salt", type="string", length=250)
+     */
+    private $salt;
+
+    /**
+     * @var
+     *
+     * @ORM\ManyToMany(targetEntity="Groupe", inversedBy="users")
+     * @ORM\JoinTable(name="user_groupe")
+     *
+     */
+    private $groupes;
+
+
+    public function __construct()
+    {
+        $this->salt = hash('sha512', (uniqid(null, true))); // création d'un salt pour chaque utilisateur
+        $this->groupes = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
 
     /**
      * Get id
@@ -377,13 +400,22 @@ class User implements UserInterface
 
     public function getRoles()
     {
-        return ["ROLE_ADMIN"];
+//        return ["ROLE_ADMIN"];
 
+        $roles = array();
+        foreach ($this->groupes as $role) {
+            $roles[] = $role->getRole();
+        }
+
+        return $roles;
+
+
+        //return $this->groupes->toArray();
     }
 
     public function getSalt()
     {
-        // TODO: Implement getSalt() method.
+        return $this->salt;
     }
 
     public function getUsername()
@@ -397,4 +429,62 @@ class User implements UserInterface
     }
 
 
+
+    /**
+     * Set salt
+     *
+     * @param string $salt
+     *
+     * @return User
+     */
+    public function setSalt($salt)
+    {
+        $this->salt = $salt;
+
+        return $this;
+    }
+
+    /**
+     * Add groupe
+     *
+     * @param \TroisWA\BackBundle\Entity\Groupe $groupe
+     *
+     * @return User
+     */
+    public function addGroupe(\TroisWA\BackBundle\Entity\Groupe $groupe)
+    {
+        $this->groupe[] = $groupe;
+
+        return $this;
+    }
+
+    /**
+     * Remove groupe
+     *
+     * @param \TroisWA\BackBundle\Entity\Groupe $groupe
+     */
+    public function removeGroupe(\TroisWA\BackBundle\Entity\Groupe $groupe)
+    {
+        $this->groupe->removeElement($groupe);
+    }
+
+    /**
+     * Get groupe
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getGroupe()
+    {
+        return $this->groupe;
+    }
+
+    /**
+     * Get groupes
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getGroupes()
+    {
+        return $this->groupes;
+    }
 }

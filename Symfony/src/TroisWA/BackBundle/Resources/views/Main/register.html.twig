@@ -1,0 +1,221 @@
+{% extends "TroisWABackBundle::layoutBo2.html.twig" %}
+
+{% block page %} Register Account {% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    {#<link rel="stylesheet" href="{{ asset("css/style.css") }}">#}
+
+{% endblock %}
+
+{% block content %}
+
+    {#{{ form(formUser) }}#}
+<div class="panel widget">
+    <div class="panel-body">
+        <!--                  <div id="register-success" class="alert alert-success" style="display:none;"><i class="fa fa-exclamation-circle fa-fw"></i> Registration confirmation has been sent to your email </div>
+                          <div id="register-passerror" class="alert alert-danger" style="display:none;"><i class="fa fa-exclamation-circle fa-fw"></i> Your password and Confirm password are not same </div>-->
+        {#{{ dump(formUser) }}#}
+        {{ form_start(formUser,{'attr':{novalidate:"novalidate",class:"form-horizontal"}}) }} {#Desactive le html5 pour tout le formulaire #}
+        {{ form_errors(formUser) }}
+
+        <div class="alert alert-danger vd_hidden">
+            <button type="button" class="close" data-dismiss="alert" aria-hidden="true"><i class="icon-cross"></i></button>
+            <span class="vd_alert-icon"><i class="fa fa-exclamation-circle vd_red"></i></span><strong>Oh snap!</strong> Change a few things up and try submitting again. </div>
+        <div class="alert alert-warning vd_hidden">
+            <button type="button" class="close" data-dismiss="alert" aria-hidden="true"><i class="icon-cross"></i></button>
+            <span class="vd_alert-icon"><i class="fa fa-exclamation-circle vd_red"></i></span>Your password and Confirm password are not same </div>
+        <div class="alert alert-success vd_hidden">
+            <button type="button" class="close" data-dismiss="alert" aria-hidden="true"><i class="icon-cross"></i></button>
+            <span class="vd_alert-icon"><i class="fa fa-check-circle vd_green"></i></span>Registration confirmation has been sent to your email. </div>
+        <div class="form-group">
+            <div class="col-md-6">
+                <div class="label-wrapper">
+                    {{ form_label(formUser.firstName,"FirstName",{ label_attr:{ class:"control-label "}}) }}
+                </div>
+                <div class="vd_input-wrapper" id="first-name-input-wrapper"> <span class="menu-icon"> <i class="fa fa-user"></i> </span>
+                    {{ form_widget(formUser.firstName,{ attr:{ class:"updateCurrentText", placeholder:" John" } }) }}
+                    {#<input type="text" placeholder="John" class="required" required="" name="firstname" id="firstname">#}
+                </div>
+                {{ form_errors(formUser.firstName) }}
+            </div>
+            <div class="col-md-6">
+                <div class="label-wrapper">
+                    {{ form_label(formUser.lastName,"lastName",{ label_attr:{ class:"control-label "}}) }}
+                </div>
+                <div class="vd_input-wrapper" id="last-name-input-wrapper"> <span class="menu-icon"> <i class="fa fa-user"></i> </span>
+                    {{ form_widget(formUser.lastName,{ attr:{ class:"updateCurrentText", placeholder:" Doe" } }) }}
+
+                    {#<input type="text" placeholder="Doe" class="required" required="" name="lastname" id="lastname">#}
+                </div>
+                {{ form_errors(formUser.lastName) }}
+
+            </div>
+        </div>
+
+        <div class="form-group ">
+            <div class="col-md-3">
+                <div class="label-wrapper">
+                    {{ form_label(formUser.gender,"Gender",{ label_attr:{ class:"control-label "}}) }}
+                </div>
+                <div class="vd_input-wrapper" id="country-code-input-wrapper"> <span class="menu-icon"> <i class="fa fa-plus"></i> </span>
+                    {{ form_widget(formUser.gender,{ attr:{ class:"updateCurrentText", placeholder:" Gender" } }) }}
+
+                    {#<input type="number" placeholder="Country" class="required" required="" name="country" id="country">#}
+                </div>
+                {{ form_errors(formUser.gender) }}
+
+            </div>
+            <div class="col-md-9">
+                <div class="label-wrapper">
+                    {{ form_label(formUser.phone,"Phone",{ label_attr:{ class:"control-label "}}) }}
+                </div>
+                <div class="vd_input-wrapper no-icon" id="phone-input-wrapper">
+                    {{ form_widget(formUser.phone,{ attr:{ class:"updateCurrentText", placeholder:" Phone Number" } }) }}
+                </div>
+                {{ form_errors(formUser.phone) }}
+
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-12">
+                <div class="label-wrapper">
+                    {{ form_label(formUser.address,"Address",{ label_attr:{ class:"control-label "}}) }}
+                </div>
+                <div class="vd_input-wrapper" id="website-input-wrapper"> <span class="menu-icon"> <i class="fa fa-globe"></i> </span>
+                    {{ form_widget(formUser.address,{ attr:{ class:"updateCurrentText", placeholder:"Adress" } }) }}
+                </div>
+                {{ form_errors(formUser.address) }}
+
+            </div>
+        </div>
+        <div class="form-group ">
+            <div class="col-md-4">
+                <div class="label-wrapper">
+                    {{ form_label(formUser.pc,"Postal Code",{ label_attr:{ class:"control-label "}}) }}
+                </div>
+                <div class="vd_input-wrapper" id="country-code-input-wrapper"> <span class="menu-icon"> <i class="fa fa-plus"></i> </span>
+                    {{ form_widget(formUser.pc,{ attr:{ class:"updateCurrentText", placeholder:"Postal Code" } }) }}
+
+                    {#<input type="text" placeholder="Postal Code" class="required" required="" name="country" id="country">#}
+                </div>
+                {{ form_errors(formUser.pc) }}
+
+            </div>
+            <div class="col-md-4">
+                <div class="label-wrapper">
+                    {{ form_label(formUser.city,"City",{ label_attr:{ class:"control-label "}}) }}
+                </div>
+                <div class="vd_input-wrapper no-icon" id="phone-input-wrapper">
+                    {{ form_widget(formUser.city,{ attr:{ class:"updateCurrentText", placeholder:"Country" } }) }}
+
+                    {#<input type="text" placeholder="City" class="required" required="" name="phone" id="phone">#}
+                </div>
+                {{ form_errors(formUser.city) }}
+
+
+            </div>
+            <div class="col-md-4">
+                <div class="label-wrapper">
+                    {{ form_label(formUser.country,"Country",{ label_attr:{ class:"control-label "}}) }}
+                </div>
+                <div class="vd_input-wrapper no-icon" id="phone-input-wrapper">
+                    {{ form_widget(formUser.country,{ attr:{ class:"updateCurrentText", placeholder:"City" } }) }}
+
+                    {#<input type="text" placeholder="City" class="required" required="" name="phone" id="phone">#}
+                </div>
+                {{ form_errors(formUser.country) }}
+
+            </div>
+        </div>
+            <div class="form-group">
+                <div class="col-md-12">
+                    <div class="label-wrapper">
+                        {{ form_label(formUser.email,"Email",{ label_attr:{ class:"control-label "}}) }}<span class='vd_red'>*</span>
+                    </div>
+                    <div class="vd_input-wrapper" id="email-input-wrapper"> <span class="menu-icon"> <i class="fa fa-envelope"></i> </span>
+                        {{ form_widget(formUser.email,{ attr:{ class:"updateCurrentText", placeholder:"Email" } }) }}
+                    </div>
+                    {{ form_errors(formUser.email) }}
+
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-md-12">
+                    <div class="label-wrapper">
+                        {{ form_label(formUser.login,"Login",{ label_attr:{ class:"control-label "}}) }}<span class='vd_red'>*</span>
+                    </div>
+                    <div class="vd_input-wrapper" id="email-input-wrapper"> <span class="menu-icon"> <i class="fa fa-envelope"></i> </span>
+                        {{ form_widget(formUser.login,{ attr:{ class:"updateCurrentText", placeholder:"Login" } }) }}
+                    </div>
+                    {{ form_errors(formUser.login) }}
+
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-md-6">
+                    <div class="label-wrapper">
+                        {{ form_label(formUser.password,"Password",{ label_attr:{ class:"control-label "}}) }}<span class='vd_red'>*</span>
+                    </div>
+                    <div class="vd_input-wrapper" id="password-input-wrapper"> <span class="menu-icon"> <i class="fa fa-lock"></i> </span>
+                        {{ form_widget(formUser.password.first,{ attr:{ class:"updateCurrentText", placeholder:"Password" } }) }}
+                        {{ form_errors(formUser.password.first) }}
+                    </div>
+
+                </div>
+                <div class="col-md-6">
+                    <div class="label-wrapper">
+                        <label class="control-label">Confirm Password <span class="vd_red">*</span></label>
+                    </div>
+                    <div class="vd_input-wrapper" id="confirm-password-input-wrapper"> <span class="menu-icon"> <i class="fa fa-lock"></i> </span>
+                        {{ form_widget(formUser.password.second,{ attr:{ class:"updateCurrentText", placeholder:"Password" } }) }}
+                        {{ form_errors(formUser.password.second) }}
+                    </div>
+                </div>
+            </div>
+            <div id="vd_login-error" class="alert alert-danger hidden"><i class="fa fa-exclamation-circle fa-fw"></i> Please fill the necessary field </div>
+
+
+             {#<div class="col-md-6">#}
+            {#{{ form_widget(formUser.groupes) }}#}
+                 {#</div>#}
+
+
+
+
+            <div class="form-group">
+                <div class="col-md-6">
+                    {% for group in formUser.groupes.vars.choices %}
+                        <div>
+                            <input name="{{ formUser.groupes.vars.full_name }}" type="checkbox" id="user" value="{{ group.value }}">
+                            <label for="checkbox-1"> {{ group.label }}</label>
+                        </div>
+                    {% endfor %}
+
+                </div>
+
+
+                <div class="col-md-12 text-center mgbt-xs-5">
+                    <button class="btn vd_bg-green vd_white width-100" type="submit" id="submit-register" name="submit-register">Register</button>
+                </div>
+            </div>
+
+            {{ form_widget(formUser._token) }}
+
+            </form>
+
+        </div>
+    </div>
+
+
+
+    {% endblock %}
+
+    {% block javascripts  %}
+    {{ parent() }}
+    {#<script src="{{ asset("js/main.js") }}"></script>#}
+    {#<script src="{{ asset("js/modernizr.js") }}"></script>#}
+
+
+
+{% endblock %}

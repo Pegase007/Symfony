@@ -23,3 +23,8 @@ trois_wa_back_client:
     path:     /client/{prenom}/{nom}
     defaults: { _controller: TroisWABackBundle:Main:client }
 
+
+trois_wa_back_register:
+    path:     /register
+    defaults: { _controller: TroisWABackBundle:Main:register }
+

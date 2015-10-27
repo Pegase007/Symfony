@@ -15,7 +15,7 @@ class ProductType extends AbstractType
 
     private $em;
 
-    public function __construct($em)
+    public function __construct($em = null)
     {
         $this->em = $em;
   }
@@ -41,6 +41,7 @@ class ProductType extends AbstractType
                 "expanded"=>true,
                 'class' => 'TroisWABackBundle:Category',
                 'choice_label' => 'title',
+                'data_class' => 'TroisWA\BackBundle\Entity\Category',
                 'query_builder'=>function(CategoryRepository $er){
 
 

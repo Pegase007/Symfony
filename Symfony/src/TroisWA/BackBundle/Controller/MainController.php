@@ -13,6 +13,8 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Validator\Mapping\ClassMetadata;
 use Symfony\Component\Validator\Constraints as Assert;
+use TroisWA\BackBundle\Entity\User;
+use TroisWA\BackBundle\Form\UserType;
 
 class MainController extends Controller
 {
@@ -478,6 +480,61 @@ class MainController extends Controller
 
     }
 
+
+    public function registerAction(Request $request)
+    {
+
+
+        $user = new User();
+
+
+
+        $formUser = $this->createForm(new UserType(), $user);
+
+
+
+        $formUser->handleRequest($request);
+
+//        dump($formUser);
+//        die(dump($formUser->get('password')->getData()));
+
+        if ($formUser->isValid()) {
+//            die('ok');
+
+            $factory= $this->get('security.encoder_factory');
+            $encoder=$factory->getEncoder($user);
+            $password= $formUser->get("password")->getData();
+            $user->setPassword($encoder->encodePassword($password,$user->getSalt()));
+
+
+            $em = $this->getDoctrine()->getManager();
+//            die(dump($request->request->all(),$user));
+            $em->persist($user);
+            $em->flush();
+
+
+            $this->get("session")->getFlashBag()
+                ->add("success", "Le user à bien été envoyé");
+
+//                Get to Post permet de transformer les formulaire qui arrive en post -> get()
+            return $this->redirectToRoute("trois_wa_back_register");
+
+
+        }
+        else
+        {
+            $validator = $this->get('validator');
+            $errors = $validator->validate($formUser);
+//            die(dump($errors));
+        }
+
+
+
+
+        return $this->render("TroisWABackBundle:Main:register.html.twig",['formUser'=> $formUser->createView()]);
+
+
+    }
 
 
 }
