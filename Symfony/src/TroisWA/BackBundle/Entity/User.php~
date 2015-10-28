@@ -5,12 +5,18 @@ namespace TroisWA\BackBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\Role\Role;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\Validator\Context\ExecutionContextInterface;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * User
  *
  * @ORM\Table(name="user")
  * @ORM\Entity(repositoryClass="TroisWA\BackBundle\Repository\UserRepository")
+ *
+ * @UniqueEntity("email")
+ * @UniqueEntity("login")
  */
 class User implements UserInterface
 {
@@ -26,14 +32,14 @@ class User implements UserInterface
     /**
      * @var string
      *
-     * @ORM\Column(name="firstName", type="string", length=100)
+     * @ORM\Column(name="firstName", type="string", length=100 , nullable=true)
      */
     private $firstName;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="lastName", type="string", length=100)
+     * @ORM\Column(name="lastName", type="string", length=100,nullable=true)
      */
     private $lastName;
 
@@ -54,6 +60,7 @@ class User implements UserInterface
     /**
      * @var string
      *
+     * @Assert\NotBlank() (message="Must not be empty")
      * @ORM\Column(name="password", type="string", length=250)
      */
     private $password;
@@ -61,42 +68,42 @@ class User implements UserInterface
     /**
      * @var integer
      *
-     * @ORM\Column(name="gender", type="smallint")
+     * @ORM\Column(name="gender", type="smallint",nullable=true)
      */
     private $gender;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="address", type="text")
+     * @ORM\Column(name="address", type="text",nullable=true)
      */
     private $address;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="phone", type="string", length=50)
+     * @ORM\Column(name="phone", type="string", length=50, nullable=true)
      */
     private $phone;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="city", type="string", length=100)
+     * @ORM\Column(name="city", type="string", length=100, nullable=true)
      */
     private $city;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="pc", type="string", length=100)
+     * @ORM\Column(name="pc", type="string", length=100, nullable=true)
      */
     private $pc;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="country", type="string", length=100)
+     * @ORM\Column(name="country", type="string", length=100, nullable=true)
      */
     private $country;
 
@@ -120,7 +127,7 @@ class User implements UserInterface
     public function __construct()
     {
         $this->salt = hash('sha512', (uniqid(null, true))); // création d'un salt pour chaque utilisateur
-        $this->groups = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->groupes = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
 
@@ -402,7 +409,15 @@ class User implements UserInterface
     {
 //        return ["ROLE_ADMIN"];
 
-        return $this->groupe->toArray();
+        $roles = array();
+        foreach ($this->groupes as $role) {
+            $roles[] = $role->getRole();
+        }
+
+        return $roles;
+
+
+        //return $this->groupes->toArray();
     }
 
     public function getSalt()
@@ -436,37 +451,20 @@ class User implements UserInterface
         return $this;
     }
 
-    /**
-     * Add groupe
-     *
-     * @param \TroisWA\BackBundle\Entity\Groupe $groupe
-     *
-     * @return User
-     */
-    public function addGroupe(\TroisWA\BackBundle\Entity\Groupe $groupe)
-    {
-        $this->groupe[] = $groupe;
-
-        return $this;
-    }
 
     /**
-     * Remove groupe
-     *
-     * @param \TroisWA\BackBundle\Entity\Groupe $groupe
+     * @Assert\Callback
      */
-    public function removeGroupe(\TroisWA\BackBundle\Entity\Groupe $groupe)
+    public function isValide(ExecutionContextInterface $context)
     {
-        $this->groupe->removeElement($groupe);
-    }
 
-    /**
-     * Get groupe
-     *
-     * @return \Doctrine\Common\Collections\Collection
-     */
-    public function getGroupe()
-    {
-        return $this->groupe;
+        if (preg_match('/^Admin$/i', $this->getLogin())) {
+
+            $context->buildViolation('The login must not be Admin')
+                ->atPath('login')
+                ->addViolation();
+
+
+        }
     }
 }

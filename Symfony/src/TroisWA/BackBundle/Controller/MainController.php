@@ -489,7 +489,13 @@ class MainController extends Controller
 
 
 
-        $formUser = $this->createForm(new UserType(), $user);
+        $formUser = $this->createForm(new UserType(), $user)
+            ->add('agree','checkbox', [
+                "label" => "I agree",
+                "constraints" => new Assert\NotBlank(),
+                "mapped" => false //Permet d'ajouter un champ non mapé
+
+    ]);
 
 
 
@@ -497,9 +503,21 @@ class MainController extends Controller
 
 //        dump($formUser);
 //        die(dump($formUser->get('password')->getData()));
-
+            //die('salut');
         if ($formUser->isValid()) {
-//            die('ok');
+
+            $em = $this->getDoctrine()->getManager();
+
+            $groupes = $user->getGroupes();
+            // Test permettant d'ajouter le group commercial si l'utilisateur
+            // n'a rien coché au niveau du choix des groupes
+//            if ($groupes->isEmpty())
+//            {
+//                $groupeCommercial = $em->getRepository('TroisWABackBundle:Groupe')
+//                                        ->findOneByName('commercial');
+//
+//                $user->addGroupe($groupeCommercial);
+//            }
 
             $factory= $this->get('security.encoder_factory');
             $encoder=$factory->getEncoder($user);
@@ -507,7 +525,6 @@ class MainController extends Controller
             $user->setPassword($encoder->encodePassword($password,$user->getSalt()));
 
 
-            $em = $this->getDoctrine()->getManager();
 //            die(dump($request->request->all(),$user));
             $em->persist($user);
             $em->flush();

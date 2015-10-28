@@ -71,7 +71,7 @@
                     {{ form_label(formUser.phone,"Phone",{ label_attr:{ class:"control-label "}}) }}
                 </div>
                 <div class="vd_input-wrapper no-icon" id="phone-input-wrapper">
-                    {{ form_widget(formUser.phone,{ attr:{ class:"updateCurrentText", placeholder:" Phone Number" } }) }}
+                    {{ form_widget(formUser.phone ) }}
                 </div>
                 {{ form_errors(formUser.phone) }}
 
@@ -193,7 +193,12 @@
                     {% endfor %}
 
                 </div>
-
+                {#{{ dump(formUser.agree) }}#}
+                <div class="col-md-12">
+                    {{ form_widget(formUser.agree)}}
+                    {#<input type="checkbox" id="{{ formUser.agree.vars.id }}" name="{{ formUser.agree.vars.full_name }}" value="{{ formUser.agree.vars.value }}">#}
+                    {#<label for="{{ formUser.agree.vars.id }}"> I {{ formUser.agree.vars.name }}...blablabla</label>#}
+                </div>
 
                 <div class="col-md-12 text-center mgbt-xs-5">
                     <button class="btn vd_bg-green vd_white width-100" type="submit" id="submit-register" name="submit-register">Register</button>

@@ -11,3 +11,12 @@
         {%- endfor -%}
     {%- endif -%}
 {%- endblock form_errors -%}
+
+
+{% block tel_widget %}
+    {% spaceless %}
+        {% set type = 'phone' %}
+        {{ block('form_widget_simple') }}
+
+    {% endspaceless %}
+{% endblock %}

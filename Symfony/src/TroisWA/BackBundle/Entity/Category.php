@@ -5,6 +5,8 @@ namespace TroisWA\BackBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Validator\Context\ExecutionContextInterface;
+use TroisWA\BackBundle\Validator\CategoryPosition;
+
 
 /**
  * Category
@@ -51,6 +53,9 @@ class Category
      *     value = 0
      * )
      * @Assert\NotBlank() (message="Must not be empty")
+     *
+     * @CategoryPosition()
+     *
      * @ORM\Column(name="position", type="smallint")
      */
     private $position;

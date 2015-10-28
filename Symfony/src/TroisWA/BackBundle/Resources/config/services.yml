@@ -1,3 +1,15 @@
+#On peut passer des paramètres directement dans le service en passant %genders% dast tags
+##Pui on peux recuperer private $genders; dans gendertype et le definir dans un consctruct   public function __construct($genders)
+#                                                                                            {
+#                                                                                              $this->genders = $genders;
+#                                                                                            }
+parameters:
+  genders:
+    0: Homme
+    1: Femme
+
+
+
 services:
 #    trois_wa_back.example:
 #        class: TroisWA\BackBundle\Example
@@ -12,3 +24,24 @@ services:
     trois_wa_back.cart:
             class: TroisWA\BackBundle\Util\Cart
             arguments: [@doctrine.orm.entity_manager, @session]
+
+    trois_wa_back.category.position:
+                class: TroisWA\BackBundle\Validator\CategoryPositionValidator
+                arguments: [@doctrine.orm.entity_manager]
+                tags:
+                  - { name: validator.constraint_validator, alias: troiswa_back_category_position }
+
+
+#permet d'utiliser l'alias dans le genderType
+    trois_wa_back.gendertype:
+                class: TroisWA\BackBundle\Form\Type\GenderType
+                tags:
+                  - { name: form.type, alias: gender }
+
+
+    troiswa.maintenance:
+                class: TroisWA\BackBundle\Listener\Maintenance
+                arguments: [@twig,%maintenance%, %kernel.environment%]
+                tags:
+                  - { name: kernel.event_listener, event: kernel.request, method: miseEnMaintenance }
+

@@ -34,6 +34,8 @@ class UserRepository extends EntityRepository implements UserProviderInterface
     public function loadUserByUsername($loginOrEmail)
     {
         $user = $this->createQueryBuilder('u')
+            ->select('u,g')
+            ->leftJoin('u.groupes','g')
             ->where('u.login = :login OR u.email = :email')
             ->setParameters([
                 'login' => $loginOrEmail,
@@ -81,7 +83,10 @@ class UserRepository extends EntityRepository implements UserProviderInterface
             );
         }
 
-        return $this->find($user->getId());
+//        return $this->find($user->getId());
+//        cette écriture permet de faire du lazyloading au niveau de user
+
+        return $this->loadUserByUsername($user->getLogin());
     }
 
     /**

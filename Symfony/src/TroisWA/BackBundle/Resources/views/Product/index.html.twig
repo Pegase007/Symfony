@@ -43,7 +43,7 @@
             <div class="panel widget">
                 <div class="panel-heading vd_bg-grey col-md-12">
 
-                    <h3 class="panel-title col-md-6"> <span class="menu-icon"> <i class="fa fa-dot-circle-o"></i> </span> Available products </h3>
+                    <h3 class="panel-title col-md-6"> <span class="menu-icon"> <i class="fa fa-dot-circle-o"></i> </span>{% set nb = 15 %} {{  "product.title"|transchoice(nb) }} </h3>
                     <a href="{{  path("trois_wa_back_product_add")}}" class="btn-xs pull-right menu-icon vd_bd-white vd_white">
                         <i class="fa fa-plus"></i>
                     </a>

@@ -5,12 +5,19 @@ namespace TroisWA\BackBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\Role\Role;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\Validator\Context\ExecutionContextInterface;
+use Symfony\Component\Validator\Constraints as Assert;
+use TroisWA\BackBundle\Validator\Password;
 
 /**
  * User
  *
  * @ORM\Table(name="user")
  * @ORM\Entity(repositoryClass="TroisWA\BackBundle\Repository\UserRepository")
+ *
+ * @UniqueEntity("email")
+ * @UniqueEntity("login")
  */
 class User implements UserInterface
 {
@@ -26,14 +33,14 @@ class User implements UserInterface
     /**
      * @var string
      *
-     * @ORM\Column(name="firstName", type="string", length=100)
+     * @ORM\Column(name="firstName", type="string", length=100 , nullable=true)
      */
     private $firstName;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="lastName", type="string", length=100)
+     * @ORM\Column(name="lastName", type="string", length=100,nullable=true)
      */
     private $lastName;
 
@@ -53,7 +60,9 @@ class User implements UserInterface
 
     /**
      * @var string
+     * @Password(message="Attention il faut {{ nb }} caractères", min=8)
      *
+     * @Assert\NotBlank() (message="Must not be empty")
      * @ORM\Column(name="password", type="string", length=250)
      */
     private $password;
@@ -61,42 +70,42 @@ class User implements UserInterface
     /**
      * @var integer
      *
-     * @ORM\Column(name="gender", type="smallint")
+     * @ORM\Column(name="gender", type="smallint",nullable=true)
      */
     private $gender;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="address", type="text")
+     * @ORM\Column(name="address", type="text",nullable=true)
      */
     private $address;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="phone", type="string", length=50)
+     * @ORM\Column(name="phone", type="string", length=50, nullable=true)
      */
     private $phone;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="city", type="string", length=100)
+     * @ORM\Column(name="city", type="string", length=100, nullable=true)
      */
     private $city;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="pc", type="string", length=100)
+     * @ORM\Column(name="pc", type="string", length=100, nullable=true)
      */
     private $pc;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="country", type="string", length=100)
+     * @ORM\Column(name="country", type="string", length=100, nullable=true)
      */
     private $country;
 
@@ -444,6 +453,23 @@ class User implements UserInterface
         return $this;
     }
 
+
+    /**
+     * @Assert\Callback
+     */
+    public function isValide(ExecutionContextInterface $context)
+    {
+
+        if (preg_match('/^Admin$/i', $this->getLogin())) {
+
+            $context->buildViolation('The login must not be Admin')
+                ->atPath('login')
+                ->addViolation();
+
+
+        }
+    }
+
     /**
      * Add groupe
      *
@@ -453,7 +479,7 @@ class User implements UserInterface
      */
     public function addGroupe(\TroisWA\BackBundle\Entity\Groupe $groupe)
     {
-        $this->groupe[] = $groupe;
+        $this->groupes[] = $groupe;
 
         return $this;
     }
@@ -465,17 +491,7 @@ class User implements UserInterface
      */
     public function removeGroupe(\TroisWA\BackBundle\Entity\Groupe $groupe)
     {
-        $this->groupe->removeElement($groupe);
-    }
-
-    /**
-     * Get groupe
-     *
-     * @return \Doctrine\Common\Collections\Collection
-     */
-    public function getGroupe()
-    {
-        return $this->groupe;
+        $this->groupes->removeElement($groupe);
     }
 
     /**
