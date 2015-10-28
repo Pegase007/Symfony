@@ -1,0 +1,19 @@
+# This file is auto-generated during the composer install
+parameters:
+    database_host: 127.0.0.1
+    database_port: null
+    database_name: symfony
+    database_user: root
+    database_password: troiswa
+    mailer_transport: smtp
+    mailer_host: 127.0.0.1
+    mailer_user: null
+    mailer_password: null
+    secret: ThisTokenIsNotSoSecretChangeIt
+    client_id_instagram: 13418a30fd0c4a44addd8c711ae9e949
+    client_secret_instagram: f7ad47b90c264cd98c789dad4a7e4d43
+    callback_instagram: https://bob.com
+    token_instagram: a3820c0fb437452ba5b33ac4e56c0411
+    id_instagram: 2244682721
+    maintenance: true
+
